@@ -231,10 +231,6 @@ from rich.panel import Panel
 
 from db_manager import history, feedback
 
-CONFIG_PATH = "config.json"
-FOOTER_TEXT = "This bot is created and hosted by Nerd Bear"
-FOOTER_ICON = "https://as2.ftcdn.net/v2/jpg/01/17/00/87/1000_F_117008730_0Dg5yniuxPQLz3shrJvLIeBsPfPRBSE1.jpg"
-
 
 def load_config(config_path: str) -> dict:
     try:
@@ -273,6 +269,7 @@ class ColorManager:
         color = self.get_color(color_name)
         return discord.Embed(title=title, description=description, color=color)
 
+CONFIG_PATH = "config.json"
 
 log_info("Loading Config")
 config = load_config(CONFIG_PATH)
@@ -280,6 +277,8 @@ log_info("Completed loading config")
 
 log_info("Loading default values into memory")
 color_manager = ColorManager(config)
+FOOTER_TEXT = config["defaults"].get("footer_text")
+FOOTER_ICON = config["defaults"].get("footer_icon")
 BOT_PREFIX = config["defaults"].get("prefix", "?")
 BOT_NAME = config.get("bot_name", "CRAC Bot")
 BOT_VERSION = config.get("bot_version", "1.0.0")
