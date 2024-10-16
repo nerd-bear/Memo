@@ -218,6 +218,7 @@ from collections import Counter
 
 import discord
 import yt_dlp
+from discord.ext import commands
 from deep_translator import GoogleTranslator
 from discord.ui import Button, Select, Modal, TextInput, View
 from gtts import gTTS
@@ -287,8 +288,7 @@ LOGGING_CHANNEL_ID = int(config.get("log_channel_id", 0))
 DetectorFactory.seed = config.get("tts_detector_factory_seed", 0)
 
 intents = discord.Intents.all()
-intents.message_content = True
-client = discord.Client(intents=intents)
+client = commands.Bot(command_prefix='/', intents=intents)
 console = Console()
 
 bot_active = True
@@ -416,7 +416,9 @@ async def on_message(message: discord.Message):
             return
         content = message.content.lower()
         if any(word in content for word in ["nigger", "nigga", "negro", "nigro"]):
-            await handle_inappropriate_word(message)
+            await handle_inappropriate_word(message)     
+        if client.user in message.mentions:
+            await message.channel.send(f"Hello {message.author.mention}! You mentioned me. How can I help you?")
         return
 
     if message.content.startswith("?") and len(message.content.strip()) <= 1:
