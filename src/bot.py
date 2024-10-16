@@ -352,6 +352,7 @@ def detect_language(text):
     most_common = Counter(detections).most_common(1)[0][0]
     return most_common
 
+
 def debug_command(func):
     @functools.wraps(func)
     async def wrapper(message: discord.Message, *args: any, **kwargs: any):
@@ -490,7 +491,7 @@ async def on_message(message: discord.Message):
 
     elif command == "ping":
         await ping_command(message)
-    
+
     elif command == "emoji":
         await emoji_command(message)
 
@@ -1582,7 +1583,9 @@ async def ping_command(message: discord.Message):
 
 @debug_command
 async def emoji_command(message: discord.Message):
-    await message.channel.send("<:verified_developer:1295883013665853451> <:active_developer:1295882986490957875> <:100_percent_battery:1295882959769042976> <a:75_percent_battery_blinking:1295882924800999465> <:75_percent_battery:1295882898494197861> <:50_percent_battery:1295882878156013598> <a:25_percent_battery_blinking:1295882854911180983> <:0_percent_battery:1295882796027351121>")
+    await message.channel.send(
+        "<:verified_developer:1295883013665853451> <:active_developer:1295882986490957875> <:100_percent_battery:1295882959769042976> <a:75_percent_battery_blinking:1295882924800999465> <:75_percent_battery:1295882898494197861> <:50_percent_battery:1295882878156013598> <a:25_percent_battery_blinking:1295882854911180983> <:0_percent_battery:1295882796027351121>"
+    )
 
 
 @client.event
@@ -1595,7 +1598,9 @@ async def on_message_delete(message):
         return
 
     embed = discord.Embed(
-        title="Message Deleted", color=color_manager.get_color("Red"), timestamp=datetime.datetime.utcnow()
+        title="Message Deleted",
+        color=color_manager.get_color("Red"),
+        timestamp=datetime.datetime.utcnow(),
     )
     embed.add_field(name="Author", value=message.author.mention)
     embed.add_field(name="Channel", value=message.channel.mention)
@@ -1626,7 +1631,9 @@ async def on_message_edit(before: discord.Message, after: discord.Message):
         return
 
     embed = discord.Embed(
-        title="Message Edited", color=color_manager.get_color("Orange"), timestamp=datetime.datetime.utcnow()
+        title="Message Edited",
+        color=color_manager.get_color("Orange"),
+        timestamp=datetime.datetime.utcnow(),
     )
     embed.add_field(name="Author", value=before.author.mention)
     embed.add_field(name="Channel", value=before.channel.mention)
