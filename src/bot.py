@@ -288,8 +288,8 @@ LOGGING_CHANNEL_ID = int(config.get("log_channel_id", 0))
 DetectorFactory.seed = config.get("tts_detector_factory_seed", 0)
 
 intents = discord.Intents.all()
-client = commands.Bot(command_prefix='/', intents=intents)
-console = Console()
+CRAC = commands.Bot(command_prefix='/', intents=intents)
+console = Console()     
 
 bot_active = True
 log_info("Completed loading default values into memory")
@@ -301,9 +301,9 @@ def fetch_latency(client: discord.Client, shouldRound: bool = True) -> int:
 async def get_info_text():
     return f"""
     {BOT_NAME} v{BOT_VERSION}
-    Logged in as {client.user.name} (ID: {client.user.id})
-    Connected to {len(client.guilds)} guilds
-    Bot is ready to use. Ping: {fetch_latency(client)}ms
+    Logged in as {CRAC.user.name} (ID: {CRAC.user.id})
+    Connected to {len(CRAC.guilds)} guilds
+    Bot is ready to use. Ping: {fetch_latency(CRAC)}ms
     Prefix: {BOT_PREFIX}
     Initialization complete.
     """
@@ -373,7 +373,7 @@ def debug_command(func):
     return wrapper
 
 
-@client.event
+@CRAC.event
 async def on_ready():
     markdown = Markdown(f"# Discord {BOT_NAME} version {BOT_VERSION}")
     console.print(markdown)
@@ -385,7 +385,7 @@ async def on_ready():
 
     console.print(panel)
 
-    channel = client.get_channel(LOGGING_CHANNEL_ID)
+    channel = CRAC.get_channel(LOGGING_CHANNEL_ID)
     if channel:
         embed = discord.Embed(
             title=f"{BOT_NAME} v{BOT_VERSION} Initialization Info",
@@ -399,16 +399,16 @@ async def on_ready():
         )
         await channel.send(embed=embed)
 
-    await client.change_presence(
+    await CRAC.change_presence(
         activity=discord.Game(name=f"Run {BOT_PREFIX}help for help")
     )
 
 
-@client.event
+@CRAC.event
 async def on_message(message: discord.Message):
     global bot_active
 
-    if message.author == client.user:
+    if message.author == CRAC.user:
         return
 
     if not message.content.startswith(BOT_PREFIX):
@@ -417,7 +417,7 @@ async def on_message(message: discord.Message):
         content = message.content.lower()
         if any(word in content for word in ["nigger", "nigga", "negro", "nigro"]):
             await handle_inappropriate_word(message)     
-        if client.user in message.mentions:
+        if CRAC.user in message.mentions:
             await message.channel.send(f"Hello {message.author.mention}! You mentioned me. How can I help you?")
         return
 
@@ -757,9 +757,9 @@ async def shutdown_command(message: discord.Message):
         return
 
     bot_active = False
-    await client.change_presence(status=discord.Status.invisible)
+    await CRAC.change_presence(status=discord.Status.invisible)
 
-    for vc in client.voice_clients:
+    for vc in CRAC.voice_clients:
         await vc.disconnect()
 
     embed = discord.Embed(
@@ -791,7 +791,7 @@ async def start_command(message: discord.Message):
         return
 
     bot_active = True
-    await client.change_presence(
+    await CRAC.change_presence(
         status=discord.Status.online,
         activity=discord.Game(name=f"Run {BOT_PREFIX}help for help"),
     )
@@ -1113,7 +1113,7 @@ async def timeout_command(message: discord.Message):
 
 async def join_vc_command(message: discord.Message):
     try:
-        channel = client.get_channel(message.author.voice.channel.id)
+        channel = CRAC.get_channel(message.author.voice.channel.id)
         await channel.connect()
     except Exception as e:
         richPrint(e)
@@ -1185,7 +1185,7 @@ async def tts_command(message: discord.Message):
 
     vc.play(
         discord.FFmpegPCMAudio(source=output_file),
-        after=lambda e: asyncio.run_coroutine_threadsafe(vc.disconnect(), client.loop),
+        after=lambda e: asyncio.run_coroutine_threadsafe(vc.disconnect(), CRAC.loop),
     )
 
     while vc.is_playing():
@@ -1311,7 +1311,7 @@ async def profile_command(message: discord.Message):
         return
 
     try:
-        fetched_user = await client.fetch_user(user.id)
+        fetched_user = await CRAC.fetch_user(user.id)
 
     except discord.errors.NotFound as e:
         embed = discord.Embed(
@@ -1542,7 +1542,7 @@ async def restart_command(message: discord.Message):
         icon_url=FOOTER_ICON,
     )
     await message.channel.send(embed=embed)
-    await client.close()
+    await CRAC.close()
     os.execv(sys.executable, ["python"] + sys.argv)
 
 
@@ -1570,7 +1570,7 @@ async def translate_command(message: discord.Message):
 
 
 async def ping_command(message: discord.Message):
-    bot_latency = fetch_latency(client)
+    bot_latency = fetch_latency(CRAC)
 
     embed = discord.Embed(
         title="Bot latency",
@@ -1592,12 +1592,12 @@ async def emoji_command(message: discord.Message):
     )
 
 
-@client.event
+@CRAC.event
 async def on_message_delete(message):
-    if message.author == client.user:
+    if message.author == CRAC.user:
         return
 
-    channel = client.get_channel(LOGGING_CHANNEL_ID)
+    channel = CRAC.get_channel(LOGGING_CHANNEL_ID)
     if not channel:
         return
 
@@ -1622,12 +1622,12 @@ async def on_message_delete(message):
     await channel.send(embed=embed)
 
 
-@client.event
+@CRAC.event
 async def on_message_edit(before: discord.Message, after: discord.Message):
-    if before.author == client.user:
+    if before.author == CRAC.user:
         return
 
-    channel = client.get_channel(LOGGING_CHANNEL_ID)
+    channel = CRAC.get_channel(LOGGING_CHANNEL_ID)
     if not channel:
         return
 
