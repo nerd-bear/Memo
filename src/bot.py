@@ -295,12 +295,15 @@ bot_active = True
 log_info("Completed loading default values into memory")
 
 
+def fetch_latency(client: discord.Client, shouldRound: bool = True) -> int:
+    return (round(client.latency*1000) if shouldRound else (client.latency*1000))
+
 async def get_info_text():
     return f"""
     {BOT_NAME} v{BOT_VERSION}
     Logged in as {client.user.name} (ID: {client.user.id})
     Connected to {len(client.guilds)} guilds
-    Bot is ready to use. Ping: {round(client.latency * 1000)}ms
+    Bot is ready to use. Ping: {fetch_latency(client)}ms
     Prefix: {BOT_PREFIX}
     Initialization complete.
     """
@@ -1565,7 +1568,7 @@ async def translate_command(message: discord.Message):
 
 
 async def ping_command(message: discord.Message):
-    bot_latency = round(client.latency * 1000)
+    bot_latency = fetch_latency(client)
 
     embed = discord.Embed(
         title="Bot latency",
