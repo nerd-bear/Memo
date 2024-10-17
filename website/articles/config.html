@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAC Bot - Config Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    
+    <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
+
+    <!-- Open Graph Meta Tags (for Discord and other platforms) -->
+    <meta property="og:title" content="CRAC Bot | Config Guide">
+    <meta property="og:description" content="Learn how to change and use the config file for CRAC Bot, a versatile Discord bot for server management and user interaction.">
+    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://crac.nerd-bear.org/support/article/config-guide">
+    <meta property="og:type" content="website">
+
+    <style>
+        .pfp-hover {
+            transition: transform 0.3s ease-in-out;
+        }
+        .pfp-hover:hover {
+            transform: scale(1.1);
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="container mx-auto p-6">
+        <div class="flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-blue-600">
+                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+            </h1>
+            <ul class="flex space-x-6">
+                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-12 p-6">
+        <article class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="relative">
+                <div class="absolute inset-0 bg-black opacity-50"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <h2 class="text-4xl font-bold text-black mt-20">CRAC Bot Config Guide</h2>
+                </div>
+            </div>
+            
+            <div class="p-8">
+                <div class="flex items-center mb-6">
+                    <img src="https://nerd-bear.org/favicon.ico" alt="Author Avatar" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <p class="font-bold">Nerd Bear</p>
+                        <p class="text-gray-600 text-sm">CRAC Bot Developer</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center text-gray-600 text-sm mb-6">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                    </svg>
+                    <time datetime="2024-05-15">October 17, 2024</time>
+                    <span class="mx-2">•</span>
+                    <span>5 min read</span>
+                </div>
+
+                <div class="prose max-w-none">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-600">Understanding the Config File</h3>
+                    <p class="mb-4">The config file for CRAC Bot is a JSON file named <code class="bg-gray-100 p-1 rounded">config.json</code>. It contains various settings that control the bot's behavior. Let's dive into its structure and how you can customize it to suit your needs.</p>
+
+                    <pre class="bg-gray-100 p-4 rounded-md mb-4 overflow-x-auto">
+{
+    "defaults": {
+        "prefix": "?",
+        "footer_text": "This bot is created and hosted by Nerd bear",
+        "footer_icon": "https://as2.ftcdn.net/v2/jpg/01/17/00/87/1000_F_117008730_0Dg5yniuxPQLz3shrJvLIeBsPfPRBSE1.jpg"
+    },
+    "bot_version": "0.4.6",
+    "bot_name": "CRAC",
+    "tts_mode": "fast",
+    "log_channel_id": "1290060885485948950",
+    "tts_detector_factory_seed": "0",
+    "colors": {
+        "Red": "#FFB3BA",
+        "Blue": "#B5DEFF"
+        // ... other colors ...
+    },
+    "guilds": {
+        "1288144110880030795": {
+            "prefix": "*"
+        }
+    }
+}
+                    </pre>
+
+                    <h4 class="text-xl font-bold mb-2 text-blue-600">Key Sections:</h4>
+                    <ul class="list-disc list-inside mb-4 space-y-2">
+                        <li><strong>defaults:</strong> Contains default settings for the bot.</li>
+                        <li><strong>bot_version:</strong> The current version of the bot.</li>
+                        <li><strong>bot_name:</strong> The name of the bot.</li>
+                        <li><strong>tts_mode:</strong> The mode for text-to-speech functionality.</li>
+                        <li><strong>log_channel_id:</strong> The ID of the channel where logs will be sent.</li>
+                        <li><strong>colors:</strong> A list of color codes used for various bot functions.</li>
+                        <li><strong>guilds:</strong> Server-specific settings, such as custom prefixes.</li>
+                    </ul>
+
+                    <h3 class="text-2xl font-bold mb-4 text-blue-600">How to Modify the Config File</h3>
+                    <p class="mb-4">Customizing your CRAC Bot installation is straightforward. Follow these steps to modify the config file:</p>
+                    <ol class="list-decimal list-inside mb-4 space-y-2">
+                        <li>Locate the <code class="bg-gray-100 p-1 rounded">config.json</code> file in your bot's root directory.</li>
+                        <li>Open the file with a text editor (e.g., Notepad++, Visual Studio Code).</li>
+                        <li>Make your desired changes, ensuring to maintain the correct JSON format.</li>
+                        <li>Save the file after making changes.</li>
+                        <li>Restart the bot for the changes to take effect.</li>
+                    </ol>
+
+                    <h3 class="text-2xl font-bold mb-4 text-blue-600">Common Modifications</h3>
+                    <p class="mb-4">Let's explore some common modifications you might want to make to your CRAC Bot configuration:</p>
+
+                    <h4 class="text-xl font-bold mb-2 text-blue-600">Changing the Default Prefix</h4>
+                    <p class="mb-4">To change the default prefix, modify the "prefix" value under "defaults":</p>
+                    <pre class="bg-gray-100 p-4 rounded-md mb-4">
+"defaults": {
+    "prefix": "!",  // Change '?' to your desired prefix
+    ...
+}
+                    </pre>
+
+                    <h4 class="text-xl font-bold mb-2 text-blue-600">Setting a Custom Prefix for a Specific Server</h4>
+                    <p class="mb-4">To set a custom prefix for a specific server, add or modify an entry under "guilds":</p>
+                    <pre class="bg-gray-100 p-4 rounded-md mb-4">
+"guilds": {
+    "YOUR_SERVER_ID": {
+        "prefix": "$"  // Replace with your desired prefix
+    }
+}
+                    </pre>
+
+                    <h4 class="text-xl font-bold mb-2 text-blue-600">Changing the Bot Name</h4>
+                    <p class="mb-4">To change the bot's name, modify the "bot_name" value:</p>
+                    <pre class="bg-gray-100 p-4 rounded-md mb-4">
+"bot_name": "Your New Bot Name",
+                    </pre>
+
+                    <h4 class="text-xl font-bold mb-2 text-blue-600">Modifying Colors</h4>
+                    <p class="mb-4">To change or add colors, modify the "colors" section:</p>
+                    <pre class="bg-gray-100 p-4 rounded-md mb-4">
+"colors": {
+    "Red": "#FF0000",
+    "Blue": "#0000FF",
+    "CustomColor": "#HEXCODE"
+}
+                    </pre>
+
+                    <h3 class="text-2xl font-bold mb-4 text-blue-600">Important Notes</h3>
+                    <p class="mb-4">Before you start tweaking your config file, keep these important points in mind:</p>
+                    <ul class="list-disc list-inside mb-4 space-y-2">
+                        <li>Always backup your config file before making changes.</li>
+                        <li>Ensure your JSON syntax is correct to avoid errors.</li>
+                        <li>Some changes may require a bot restart to take effect.</li>
+                        <li>Be cautious when changing critical settings like log_channel_id.</li>
+                    </ul>
+
+                    <p class="text-lg font-semibold mt-8">Remember, customizing your CRAC Bot is all about making it work best for your server and community. Don't be afraid to experiment with different settings to find what works best for you!</p>
+
+                    <div class="mt-8 p-4 bg-blue-100 rounded-md">
+                        <p class="font-bold text-blue-800">Pro Tip:</p>
+                        <p>Consider using a JSON validator tool to check your config file for syntax errors before restarting your bot. This can save you time and prevent potential issues.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div class="mt-8">
+            <h3 class="text-2xl font-bold mb-4">Comments</h3>
+            <p>No comments could be found for this article</p>
+        </div>
+    </main>
+
+    <footer class="bg-gray-100 mt-24 py-8">
+        <div class="container mx-auto text-center text-gray-600">
+            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <div class="mt-4">
+                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.from('article', {
+                duration: 0.8,
+                opacity: 0,
+                y: 50,
+                ease: 'power3.out'
+            });
+        });
+    </script>
+</body>
+</html>

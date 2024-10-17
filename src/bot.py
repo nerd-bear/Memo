@@ -233,7 +233,7 @@ from rich.panel import Panel
 from db_manager import history, feedback
 
 
-def load_config(config_path: str) -> dict:
+def load_config(config_path: str = "config.json") -> dict:
     try:
         with open(config_path, "r") as f:
             return json.load(f)
@@ -241,12 +241,12 @@ def load_config(config_path: str) -> dict:
         return {"default_prefix": "?", "guilds": {}}
 
 
-def save_config(config: dict) -> None:
+def save_config(config: dict = "config.json") -> None:
     with open(CONFIG_PATH, "w") as f:
         json.dump(config, f, indent=4)
 
 
-def log_info(value: str) -> None:
+def log_info(value: str = "None") -> None:
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(timestamp, end=" ")
     richPrint(f"[bold][blue]INFO[/blue][/bold] {value}")
@@ -295,10 +295,10 @@ bot_active = True
 log_info("Completed loading default values into memory")
 
 
-def fetch_latency(client: discord.Client, shouldRound: bool = True) -> int:
+def fetch_latency(client: commands.Bot, shouldRound: bool = True) -> int:
     return (round(client.latency*1000) if shouldRound else (client.latency*1000))
 
-async def get_info_text():
+async def get_info_text() -> str:
     return f"""
     {BOT_NAME} v{BOT_VERSION}
     Logged in as {CRAC.user.name} (ID: {CRAC.user.id})
@@ -311,7 +311,7 @@ async def get_info_text():
 
 def get_char_image(
     char: str, bg: str = "white", fg: str = "black", format: str = "png"
-):
+) -> str:
     try:
         img = Image.new("RGB", (200, 200), color=bg)
         d = ImageDraw.Draw(img)
@@ -334,7 +334,7 @@ def get_char_image(
         return None
 
 
-def text_to_speech(text, output_file):
+def text_to_speech(text, output_file) -> None:
     try:
         if TTS_MODE == "slow":
             slow = True
@@ -374,7 +374,7 @@ def debug_command(func):
 
 
 @CRAC.event
-async def on_ready():
+async def on_ready() -> None:
     markdown = Markdown(f"# Discord {BOT_NAME} version {BOT_VERSION}")
     console.print(markdown)
 
@@ -405,7 +405,7 @@ async def on_ready():
 
 
 @CRAC.event
-async def on_message(message: discord.Message):
+async def on_message(message: discord.Message) -> None:
     global bot_active
 
     if message.author == CRAC.user:
@@ -513,7 +513,7 @@ async def on_message(message: discord.Message):
         return
 
 
-async def handle_inappropriate_word(message: discord.Message):
+async def handle_inappropriate_word(message: discord.Message) -> None:
     user = message.author
     channel = message.channel
 
@@ -551,7 +551,7 @@ async def handle_inappropriate_word(message: discord.Message):
     await channel.send(embed=channel_embed)
 
 
-async def help_command(message: discord.Message):
+async def help_command(message: discord.Message) -> None:
     embed = discord.Embed(
         title=f"{BOT_NAME} v{BOT_VERSION} Help Information",
         description=f"Here are the available commands (prefix: {BOT_PREFIX}):",
@@ -633,7 +633,7 @@ async def help_command(message: discord.Message):
     await message.channel.send(embed=embed)
 
 
-async def kick_command(message: discord.Message):
+async def kick_command(message: discord.Message) -> None:
     if not message.author.guild_permissions.kick_members:
         embed = discord.Embed(
             title="Permission Denied",
@@ -687,7 +687,7 @@ async def kick_command(message: discord.Message):
     await message.channel.send(embed=embed)
 
 
-async def ban_command(message: discord.Message):
+async def ban_command(message: discord.Message) -> None:
     if not message.author.guild_permissions.ban_members:
         embed = discord.Embed(
             title="Permission Denied",
@@ -741,7 +741,7 @@ async def ban_command(message: discord.Message):
     await message.channel.send(embed=embed)
 
 
-async def shutdown_command(message: discord.Message):
+async def shutdown_command(message: discord.Message) -> None:
     global bot_active
     if not message.author.guild_permissions.administrator:
         embed = discord.Embed(
@@ -775,7 +775,7 @@ async def shutdown_command(message: discord.Message):
     await message.channel.send(embed=embed)
 
 
-async def start_command(message: discord.Message):
+async def start_command(message: discord.Message) -> None:
     global bot_active
     if not message.author.guild_permissions.administrator:
         embed = discord.Embed(
@@ -808,7 +808,7 @@ async def start_command(message: discord.Message):
     await message.channel.send(embed=embed)
 
 
-async def charinfo_command(message: discord.Message):
+async def charinfo_command(message: discord.Message) -> None:
 
     try:
         argument_text = " ".join(message.content.split()[1:])
@@ -870,7 +870,7 @@ async def charinfo_command(message: discord.Message):
         os.remove(image_path)
 
 
-async def unban_command(message: discord.Message):
+async def unban_command(message: discord.Message) -> None:
 
     if not message.author.guild_permissions.administrator:
         embed = discord.Embed(
@@ -966,7 +966,7 @@ async def unban_command(message: discord.Message):
     await message.channel.send(embed=embed)
 
 
-async def timeout_command(message: discord.Message):
+async def timeout_command(message: discord.Message) -> None:
     if not message.author.guild_permissions.moderate_members:
         embed = discord.Embed(
             title="Permission Denied",
@@ -1111,7 +1111,7 @@ async def timeout_command(message: discord.Message):
         pass
 
 
-async def join_vc_command(message: discord.Message):
+async def join_vc_command(message: discord.Message) -> None:
     try:
         channel = CRAC.get_channel(message.author.voice.channel.id)
         await channel.connect()
@@ -1119,14 +1119,14 @@ async def join_vc_command(message: discord.Message):
         richPrint(e)
 
 
-async def leave_vc_command(message: discord.Message):
+async def leave_vc_command(message: discord.Message) -> None:
     try:
         await message.guild.voice_client.disconnect()
     except Exception as e:
         pass
 
 
-async def tts_command(message: discord.Message):
+async def tts_command(message: discord.Message) -> None:
     text = " ".join(message.content.split()[1:])
 
     if not text:
@@ -1207,7 +1207,7 @@ async def tts_command(message: discord.Message):
     return
 
 
-async def play_command(message: discord.Message):
+async def play_command(message: discord.Message) -> None:
     args = message.content.split(" ", 1)
     if len(args) < 2:
         await message.channel.send("Please provide a YouTube URL or search term.")
@@ -1280,7 +1280,7 @@ async def play_command(message: discord.Message):
     await message.channel.send(embed=embed)
 
 
-async def profile_command(message: discord.Message):
+async def profile_command(message: discord.Message) -> None:
     if len(message.mentions) < 1:
         embed = discord.Embed(
             title="Invalid Usage",
@@ -1423,7 +1423,7 @@ async def profile_command(message: discord.Message):
     await message.channel.send(embed=embed)
 
 
-async def nick_command(message: discord.Message):
+async def nick_command(message: discord.Message) -> None:
     if (
         not message.author.guild_permissions.administrator
         | message.author.guild_permissions.administrator
@@ -1498,7 +1498,7 @@ async def nick_command(message: discord.Message):
         return
 
 
-async def feedback_command(message: discord.Message):
+async def feedback_command(message: discord.Message) -> None:
     args = message.content.split()[1:]
     feedback_text = " ".join(args)
 
@@ -1531,7 +1531,7 @@ async def feedback_command(message: discord.Message):
 
 
 @debug_command
-async def restart_command(message: discord.Message):
+async def restart_command(message: discord.Message) -> None:
     embed = discord.Embed(
         title="Restarting",
         description=f"The restart will take approximately 10 to 30 seconds on average.",
@@ -1546,7 +1546,7 @@ async def restart_command(message: discord.Message):
     os.execv(sys.executable, ["python"] + sys.argv)
 
 
-async def translate_command(message: discord.Message):
+async def translate_command(message: discord.Message) -> None:
     translate_text = message.content.split(" ", 1)[1]
 
     try:
@@ -1569,7 +1569,7 @@ async def translate_command(message: discord.Message):
         await message.channel.send(f"An error occurred: {str(e)}")
 
 
-async def ping_command(message: discord.Message):
+async def ping_command(message: discord.Message) -> None:
     bot_latency = fetch_latency(CRAC)
 
     embed = discord.Embed(
@@ -1586,7 +1586,7 @@ async def ping_command(message: discord.Message):
 
 
 @debug_command
-async def emoji_command(message: discord.Message):
+async def emoji_command(message: discord.Message) -> None:
     await message.channel.send(
         "<:verified_developer:1295883013665853451> <:active_developer:1295882986490957875> <:100_percent_battery:1295882959769042976> <a:75_percent_battery_blinking:1295882924800999465> <:75_percent_battery:1295882898494197861> <:50_percent_battery:1295882878156013598> <a:25_percent_battery_blinking:1295882854911180983> <:0_percent_battery:1295882796027351121>"
     )

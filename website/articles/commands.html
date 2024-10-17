@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAC Bot - Commands Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+
+    <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
+    
+    <!-- Open Graph Meta Tags (for Discord and other platforms) -->
+    <meta property="og:title" content="CRAC Bot | Commands Guide">
+    <meta property="og:description" content="Learn how to use CRAC Bot's commands effectively for server management and user interaction.">
+    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://crac.nerd-bear.org/support/article/commands-guide">
+    <meta property="og:type" content="website">
+
+    <style>
+        .pfp-hover {
+            transition: transform 0.3s ease-in-out;
+        }
+        .pfp-hover:hover {
+            transform: scale(1.1);
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="container mx-auto p-6">
+        <div class="flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-blue-600">
+                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+            </h1>
+            <ul class="flex space-x-6">
+                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-12 p-6">
+        <article class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="relative">
+                <div class="absolute inset-0 bg-black opacity-50"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <h2 class="text-4xl font-bold text-black mt-20">CRAC Bot Commands Guide</h2>
+                </div>
+            </div>
+            
+            <div class="p-8">
+                <div class="flex items-center mb-6">
+                    <img src="https://nerd-bear.org/favicon.ico" alt="Author Avatar" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <p class="font-bold">Nerd Bear</p>
+                        <p class="text-gray-600 text-sm">CRAC Bot Developer</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center text-gray-600 text-sm mb-6">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                    </svg>
+                    <time datetime="2024-10-17">October 17, 2024</time>
+                    <span class="mx-2">•</span>
+                    <span>4 min read</span>
+                </div>
+
+                <div class="prose max-w-none">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-600">Getting Started with CRAC Bot Commands</h3>
+                    <p class="mb-4">CRAC Bot comes packed with a variety of commands to help you manage your server and engage with your community. In this guide, we'll walk you through the most important commands and how to use them effectively.</p>
+
+                    <h4 class="text-xl font-bold mb-2 text-blue-600">Basic Command Structure</h4>
+                    <p class="mb-4">All CRAC Bot commands start with a prefix. By default, this prefix is set to "?", but it can be customized in the config file. Here's the basic structure of a command:</p>
+                    <pre class="bg-gray-100 p-4 rounded-md mb-4">?commandName [argument1] [argument2] ...</pre>
+
+                    <h3 class="text-2xl font-bold mb-4 text-blue-600">Essential Commands</h3>
+
+                    <h4 class="text-xl font-bold mb-2 text-blue-600">1. Help Command</h4>
+                    <p class="mb-4">The help command is your go-to for information about all available commands:</p>
+                    <pre class="bg-gray-100 p-4 rounded-md mb-4">?help</pre>
+                    <p>This will display a list of all available commands along with a brief description of each.</p>
+
+                    <h4 class="text-xl font-bold mb-2 text-blue-600">2. Moderation Commands</h4>
+                    <p class="mb-4">CRAC Bot offers several moderation commands to help you manage your server:</p>
+                    <ul class="list-disc list-inside mb-4 space-y-2">
+                        <li><strong>Kick:</strong> ?kick @user [reason]</li>
+                        <li><strong>Ban:</strong> ?ban @user [reason]</li>
+                        <li><strong>Unban:</strong> ?unban @user</li>
+                        <li><strong>Timeout:</strong> ?timeout @user &lt;duration&gt; &lt;unit&gt; [reason]</li>
+                    </ul>
+                    <p>Remember, you need the appropriate permissions to use these commands.</p>
+
+                    <h4 class="text-xl font-bold mb-2 text-blue-600">3. Fun and Utility Commands</h4>
+                    <p class="mb-4">CRAC Bot also includes commands for entertainment and utility:</p>
+                    <ul class="list-disc list-inside mb-4 space-y-2">
+                        <li><strong>Character Info:</strong> ?charinfo [character]</li>
+                        <li><strong>Text-to-Speech:</strong> ?tts [message]</li>
+                        <li><strong>Play Music:</strong> ?play [youtube_url]</li>
+                        <li><strong>User Profile:</strong> ?profile @user</li>
+                    </ul>
+
+                    <h4 class="text-xl font-bold mb-2 text-blue-600">4. Bot Management Commands</h4>
+                    <p class="mb-4">For server administrators, there are commands to manage the bot itself:</p>
+                    <ul class="list-disc list-inside mb-4 space-y-2">
+                        <li><strong>Shutdown:</strong> ?shutdown</li>
+                        <li><strong>Start:</strong> ?start</li>
+                        <li><strong>Change Nickname:</strong> ?nick @user [new_nickname]</li>
+                    </ul>
+
+                    <h3 class="text-2xl font-bold mb-4 text-blue-600">Advanced Usage Tips</h3>
+                    <p class="mb-4">Here are some tips to help you get the most out of CRAC Bot:</p>
+                    <ul class="list-disc list-inside mb-4 space-y-2">
+                        <li>Use the ?help command followed by a specific command name for detailed usage information.</li>
+                        <li>When using moderation commands, always provide a reason to maintain transparency.</li>
+                        <li>The ?tts command is great for making announcements in voice channels.</li>
+                        <li>Use ?profile to quickly get information about a user, including their roles and join date.</li>
+                    </ul>
+
+                    <h3 class="text-2xl font-bold mb-4 text-blue-600">Troubleshooting Common Issues</h3>
+                    <p class="mb-4">If you're experiencing issues with commands, try these steps:</p>
+                    <ol class="list-decimal list-inside mb-4 space-y-2">
+                        <li>Ensure you're using the correct prefix (default is "?").</li>
+                        <li>Check that you have the necessary permissions for the command.</li>
+                        <li>Verify that the bot is online and has the required permissions in your server.</li>
+                        <li>If a command isn't working, try restarting the bot using the ?shutdown and ?start commands (admin only).</li>
+                    </ol>
+
+                    <p class="text-lg font-semibold mt-8">Remember, the key to effectively using CRAC Bot is experimentation. Don't be afraid to try out different commands and see how they can benefit your server!</p>
+
+                    <div class="mt-8 p-4 bg-blue-100 rounded-md">
+                        <p class="font-bold text-blue-800">Pro Tip:</p>
+                        <p>Create a dedicated channel for bot commands to keep your main chat channels clutter-free. This also helps new users learn how to interact with the bot by seeing others use it.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div class="mt-8">
+            <h3 class="text-2xl font-bold mb-4">Comments</h3>
+            <p>No comments could be found for this article</p>
+        </div>
+    </main>
+
+    <footer class="bg-gray-100 mt-24 py-8">
+        <div class="container mx-auto text-center text-gray-600">
+            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <div class="mt-4">
+                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.from('article', {
+                duration: 0.8,
+                opacity: 0,
+                y: 50,
+                ease: 'power3.out'
+            });
+        });
+    </script>
+</body>
+</html>
