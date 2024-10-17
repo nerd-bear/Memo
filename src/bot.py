@@ -372,6 +372,15 @@ def debug_command(func):
 
     return wrapper
 
+async def send_error_embed(message: discord.Message, title: str, description: str) -> None:
+    embed = discord.Embed(
+        title=title,
+        description=description,
+        color=color_manager.get_color("Red"),
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed)
+
 
 @CRAC.event
 async def on_ready() -> None:
@@ -496,8 +505,8 @@ async def on_message(message: discord.Message) -> None:
     elif command == "ping":
         await ping_command(message)
 
-    elif command == "emoji":
-        await emoji_command(message)
+    elif command == "server":
+        await server_command(message)
 
     else:
         embed = discord.Embed(
@@ -585,8 +594,12 @@ async def help_command(message: discord.Message) -> None:
             "usage": f"{BOT_PREFIX}play [youtube_url]",
         },
         "profile": {
-            "desc": "Gets information about the user.",
+            "desc": "Gets information about the user",
             "usage": f"{BOT_PREFIX}profile @user",
+        },
+        "server": {
+            "desc": "Gets information about the server",
+            "usage": f"{BOT_PREFIX}server",
         },
         "ping": {
             "desc": "Gets the ping (latency) of the Discord Bot",
@@ -1585,11 +1598,65 @@ async def ping_command(message: discord.Message) -> None:
     await message.channel.send(embed=embed)
 
 
-@debug_command
-async def emoji_command(message: discord.Message) -> None:
-    await message.channel.send(
-        "<:verified_developer:1295883013665853451> <:active_developer:1295882986490957875> <:100_percent_battery:1295882959769042976> <a:75_percent_battery_blinking:1295882924800999465> <:75_percent_battery:1295882898494197861> <:50_percent_battery:1295882878156013598> <a:25_percent_battery_blinking:1295882854911180983> <:0_percent_battery:1295882796027351121>"
-    )
+async def server_command(message: discord.Message) -> None:
+    try:
+        guild = message.guild
+        
+        if not guild.me.guild_permissions.administrator:
+            embed = discord.Embed(
+                title="Permission Denied",
+                description="You need administrator permissions to gather all server stats.",
+                color=color_manager.get_color("Red"),
+            )
+            embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+            await message.channel.send(embed=embed)
+            return
+
+        if CRAC.intents.members:
+            try:
+                await guild.chunk()
+            except discord.HTTPException:
+                log_info("Failed to fetch all members. Some stats may be incomplete.")
+
+        embed = discord.Embed(
+            title=f"{guild.name} Server Stats",
+            color=color_manager.get_color("Blue"),
+            timestamp=datetime.datetime.utcnow()
+        )
+        
+        if guild.icon:
+            embed.set_thumbnail(url=guild.icon.url)
+
+        embed.add_field(name="Server ID", value=guild.id, inline=True)
+        embed.add_field(name="Owner", value=guild.owner.mention if guild.owner else "Unknown", inline=True)
+        embed.add_field(name="Created At", value=f"<t:{int(guild.created_at.timestamp())}:F>", inline=True)
+        embed.add_field(name="Boost Level", value=f"Level {guild.premium_tier}", inline=True)
+        embed.add_field(name="Boost Count", value=guild.premium_subscription_count, inline=True)
+
+        total_members = guild.member_count
+        bots = sum(1 for m in guild.members if m.bot)
+        embed.add_field(name="Members", value=total_members, inline=True)
+        embed.add_field(name="Bots", value=bots, inline=True)
+
+        embed.add_field(name="Total Channels", value=len(guild.channels), inline=True)
+        embed.add_field(name="Roles", value=len(guild.roles), inline=True)
+
+        if guild.description:
+            embed.add_field(name="Description", value=guild.description, inline=False)
+        if guild.banner:
+            embed.set_image(url=guild.banner.url)
+
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+
+        await message.channel.send(embed=embed)
+
+    except discord.Forbidden:
+        await send_error_embed(message, "Permission Error", "I don't have permission to access some server information.")
+    except discord.HTTPException as e:
+        await send_error_embed(message, "HTTP Error", f"An HTTP error occurred: {e}")
+    except Exception as e:
+        await send_error_embed(message, "Unexpected Error", f"An unexpected error occurred: {e}")
+        log_info(f"Unexpected error in server command: {e}")
 
 
 @CRAC.event
