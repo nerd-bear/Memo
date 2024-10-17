@@ -231,44 +231,8 @@ from rich.markdown import Markdown
 from rich.panel import Panel
 
 from db_manager import history, feedback
+from src.utils.helper import *
 
-
-def load_config(config_path: str = "config.json") -> dict:
-    try:
-        with open(config_path, "r") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return {"default_prefix": "?", "guilds": {}}
-
-
-def save_config(config: dict = "config.json") -> None:
-    with open(CONFIG_PATH, "w") as f:
-        json.dump(config, f, indent=4)
-
-
-def log_info(value: str = "None") -> None:
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(timestamp, end=" ")
-    richPrint(f"[bold][blue]INFO[/blue][/bold] {value}")
-
-
-class ColorManager:
-    def __init__(self, config: dict):
-        self.colors = config.get("colors", {})
-
-    def get_color(self, color_name: str) -> int:
-        if color_name not in self.colors:
-            raise ValueError(f"Color '{color_name}' not found in configuration")
-        return int(self.colors[color_name].lstrip("#"), 16)
-
-    def list_colors(self) -> list:
-        return list(self.colors.keys())
-
-    def create_color_embed(
-        self, title: str, description: str, color_name: str
-    ) -> discord.Embed:
-        color = self.get_color(color_name)
-        return discord.Embed(title=title, description=description, color=color)
 
 CONFIG_PATH = "config.json"
 
@@ -285,18 +249,16 @@ BOT_NAME = config.get("bot_name", "CRAC Bot")
 BOT_VERSION = config.get("bot_version", "1.0.0")
 TTS_MODE = config.get("tts_mode", "normal")
 LOGGING_CHANNEL_ID = int(config.get("log_channel_id", 0))
-DetectorFactory.seed = config.get("tts_detector_factory_seed", 0)
 
 intents = discord.Intents.all()
-CRAC = commands.Bot(command_prefix='/', intents=intents)
-console = Console()     
+CRAC = commands.Bot(command_prefix="/", intents=intents)
+console = Console()
+
+set_langdetect_seed(config.get("tts_detector_factory_seed", 0))
 
 bot_active = True
 log_info("Completed loading default values into memory")
 
-
-def fetch_latency(client: commands.Bot, shouldRound: bool = True) -> int:
-    return (round(client.latency*1000) if shouldRound else (client.latency*1000))
 
 async def get_info_text() -> str:
     return f"""
@@ -307,52 +269,6 @@ async def get_info_text() -> str:
     Prefix: {BOT_PREFIX}
     Initialization complete.
     """
-
-
-def get_char_image(
-    char: str, bg: str = "white", fg: str = "black", format: str = "png"
-) -> str:
-    try:
-        img = Image.new("RGB", (200, 200), color=bg)
-        d = ImageDraw.Draw(img)
-
-        try:
-            font = ImageFont.truetype("arial.ttf", 120)
-        except IOError:
-            font = ImageFont.load_default()
-
-        d.text((100, 100), char, font=font, fill=fg, anchor="mm")
-
-        with tempfile.NamedTemporaryFile(
-            delete=False, suffix=f".{format}"
-        ) as temp_file:
-            img.save(temp_file, format=format.upper())
-            temp_file_path = temp_file.name
-
-        return temp_file_path
-    except Exception as e:
-        return None
-
-
-def text_to_speech(text, output_file) -> None:
-    try:
-        if TTS_MODE == "slow":
-            slow = True
-        else:
-            slow = False
-
-        language = detect(text)
-        tts = gTTS(text=text, lang=language, slow=slow)
-        tts.save(output_file)
-
-    except Exception as e:
-        richPrint("ERROR_LOG ~ e:", e)
-
-
-def detect_language(text):
-    detections = [detect(text) for _ in range(5)]
-    most_common = Counter(detections).most_common(1)[0][0]
-    return most_common
 
 
 def debug_command(func):
@@ -372,7 +288,10 @@ def debug_command(func):
 
     return wrapper
 
-async def send_error_embed(message: discord.Message, title: str, description: str) -> None:
+
+async def send_error_embed(
+    message: discord.Message, title: str, description: str
+) -> None:
     embed = discord.Embed(
         title=title,
         description=description,
@@ -425,9 +344,11 @@ async def on_message(message: discord.Message) -> None:
             return
         content = message.content.lower()
         if any(word in content for word in ["nigger", "nigga", "negro", "nigro"]):
-            await handle_inappropriate_word(message)     
+            await handle_inappropriate_word(message)
         if CRAC.user in message.mentions:
-            await message.channel.send(f"Hello {message.author.mention}! You mentioned me. How can I help you?")
+            await message.channel.send(
+                f"Hello {message.author.mention}! You mentioned me. How can I help you?"
+            )
         return
 
     if message.content.startswith("?") and len(message.content.strip()) <= 1:
@@ -624,12 +545,7 @@ async def help_command(message: discord.Message) -> None:
         "unban": {
             "desc": "Unbans a user from the server (Admin only)",
             "usage": f"{BOT_PREFIX}unban @user",
-        },
-        "shutdown": {
-            "desc": "Shut down the bot (Admin only)",
-            "usage": f"{BOT_PREFIX}shutdown",
-        },
-        "start": {"desc": "Start the bot (Admin only)", "usage": f"{BOT_PREFIX}start"},
+        }
     }
 
     for cmd, info in commands.items():
@@ -754,6 +670,7 @@ async def ban_command(message: discord.Message) -> None:
     await message.channel.send(embed=embed)
 
 
+@debug_command
 async def shutdown_command(message: discord.Message) -> None:
     global bot_active
     if not message.author.guild_permissions.administrator:
@@ -788,6 +705,7 @@ async def shutdown_command(message: discord.Message) -> None:
     await message.channel.send(embed=embed)
 
 
+@debug_command
 async def start_command(message: discord.Message) -> None:
     global bot_active
     if not message.author.guild_permissions.administrator:
@@ -1159,7 +1077,7 @@ async def tts_command(message: discord.Message) -> None:
     output_file = f"./temp/audio/{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}.mp3"
 
     try:
-        text_to_speech(text, output_file)
+        text_to_speech(text, output_file, TTS_MODE)
     except Exception as e:
         embed = discord.Embed(
             title="Error occurred",
@@ -1601,7 +1519,7 @@ async def ping_command(message: discord.Message) -> None:
 async def server_command(message: discord.Message) -> None:
     try:
         guild = message.guild
-        
+
         if not guild.me.guild_permissions.administrator:
             embed = discord.Embed(
                 title="Permission Denied",
@@ -1621,17 +1539,29 @@ async def server_command(message: discord.Message) -> None:
         embed = discord.Embed(
             title=f"{guild.name} Server Stats",
             color=color_manager.get_color("Blue"),
-            timestamp=datetime.datetime.utcnow()
+            timestamp=datetime.datetime.utcnow(),
         )
-        
+
         if guild.icon:
             embed.set_thumbnail(url=guild.icon.url)
 
         embed.add_field(name="Server ID", value=guild.id, inline=True)
-        embed.add_field(name="Owner", value=guild.owner.mention if guild.owner else "Unknown", inline=True)
-        embed.add_field(name="Created At", value=f"<t:{int(guild.created_at.timestamp())}:F>", inline=True)
-        embed.add_field(name="Boost Level", value=f"Level {guild.premium_tier}", inline=True)
-        embed.add_field(name="Boost Count", value=guild.premium_subscription_count, inline=True)
+        embed.add_field(
+            name="Owner",
+            value=guild.owner.mention if guild.owner else "Unknown",
+            inline=True,
+        )
+        embed.add_field(
+            name="Created At",
+            value=f"<t:{int(guild.created_at.timestamp())}:F>",
+            inline=True,
+        )
+        embed.add_field(
+            name="Boost Level", value=f"Level {guild.premium_tier}", inline=True
+        )
+        embed.add_field(
+            name="Boost Count", value=guild.premium_subscription_count, inline=True
+        )
 
         total_members = guild.member_count
         bots = sum(1 for m in guild.members if m.bot)
@@ -1651,11 +1581,17 @@ async def server_command(message: discord.Message) -> None:
         await message.channel.send(embed=embed)
 
     except discord.Forbidden:
-        await send_error_embed(message, "Permission Error", "I don't have permission to access some server information.")
+        await send_error_embed(
+            message,
+            "Permission Error",
+            "I don't have permission to access some server information.",
+        )
     except discord.HTTPException as e:
         await send_error_embed(message, "HTTP Error", f"An HTTP error occurred: {e}")
     except Exception as e:
-        await send_error_embed(message, "Unexpected Error", f"An unexpected error occurred: {e}")
+        await send_error_embed(
+            message, "Unexpected Error", f"An unexpected error occurred: {e}"
+        )
         log_info(f"Unexpected error in server command: {e}")
 
 
