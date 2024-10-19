@@ -2,6 +2,10 @@ from rich import print as richPrint
 import json
 import datetime
 import discord
+import aiohttp
+import requests
+import ssl
+import urllib3
 from discord.ext import commands
 import tempfile
 from langdetect import detect, DetectorFactory
@@ -87,7 +91,7 @@ def log_info(value: str = "None") -> None:
     """
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(timestamp, end=" ")
-    richPrint(f"[bold][blue]INFO[/blue][/bold] {value}")
+    richPrint(f"[bold][blue]INFO[/blue][/bold]     {value}")
 
 def fetch_latency(client: commands.Bot, shouldRound: bool = True) -> float:
     """
@@ -157,6 +161,127 @@ def detect_language(text: str) -> str:
     except LangDetectException as e:
         richPrint(f"ERROR: Language detection failed: {e}")
         return "unknown"
+    
+def fetch_help_embed(color_manager, bot_name: str, bot_version: str, bot_prefix: str, footer_text: str, footer_icon: str) -> discord.Embed:
+    help_embed = discord.Embed(color=color_manager.get_color("Blue"), 
+                               title=f"{bot_name} v{bot_version} Help Information",
+                               description=f"Here are the available commands (prefix: {bot_prefix}):")
+    help_embed.set_footer(
+        text=footer_text,
+        icon_url=footer_icon
+    )
+
+    commands = {
+        "help": {"desc": "Show this help message", "usage": f"{bot_prefix}help"},
+        "charinfo": {
+            "desc": "Shows information and a image of the character provided",
+            "usage": f"{bot_prefix}charinfo [character]",
+        },
+        "tts": {
+            "desc": "Join the vc you are in and uses Text-to-Speech to say your text",
+            "usage": f"{bot_prefix}tts [input_text]",
+        },
+        "nick": {
+            "desc": "Changes guild specific username of a member (Mod only)",
+            "usage": f"{bot_prefix}nick @user [new_nick]",
+        },
+        "feedback": {
+            "desc": "Adds your feedback to our database",
+            "usage": f"{bot_prefix}feedback [message]",
+        },
+        "play": {
+            "desc": "Plays a song in the voice channel you are in",
+            "usage": f"{bot_prefix}play [youtube_url]",
+        },
+        "profile": {
+            "desc": "Gets information about the user",
+            "usage": f"{bot_prefix}profile @user",
+        },
+        "server": {
+            "desc": "Gets information about the server",
+            "usage": f"{bot_prefix}server",
+        },
+        "joke": {
+            "desc": "Fetches a random dad joke",
+            "usage": f"{bot_prefix}joke",
+        },
+        "coin": {
+            "desc": "Flips a coin, and lands on heads or tails",
+            "usage": f"{bot_prefix}coin",
+        },
+        "quote": {
+            "desc": "Fetches a random quote of the day",
+            "usage": f"{bot_prefix}quote",
+        },
+        "ping": {
+            "desc": "Gets the ping (latency) of the Discord Bot",
+            "usage": f"{bot_prefix}ping",
+        },
+        "translate": {
+            "desc": "Translates the provided text to english",
+            "usage": f"{bot_prefix}translate [text]",
+        },
+        "timeout": {
+            "desc": "Timeout a user for a specified duration (Mod only)",
+            "usage": f"{bot_prefix}timeout @user <duration> <unit> [reason]",
+        },
+        "kick": {
+            "desc": "Kick a user from the server (Mod only)",
+            "usage": f"{bot_prefix}kick @user [reason]",
+        },
+        "ban": {
+            "desc": "Ban a user from the server (Admin only)",
+            "usage": f"{bot_prefix}ban @user [reason]",
+        },
+        "unban": {
+            "desc": "Unbans a user from the server (Admin only)",
+            "usage": f"{bot_prefix}unban @user",
+        }
+    }   
+
+    for cmd, info in commands.items():
+        help_embed.add_field(
+            name=f"{bot_prefix}{cmd}",
+            value=f"{info['desc']}\nUsage: `{info['usage']}`",
+            inline=False,
+        )
+
+    return help_embed
+
+async def fetch_random_joke() -> str:
+    url = 'https://icanhazdadjoke.com/'
+    headers = {'Accept': 'application/json'}
+    
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url, headers=headers) as response:
+            if response.status == 200:
+                data = await response.json()
+                return data['joke']
+            else:
+                return None
+            
+
+def fetch_quote_of_the_day() -> tuple:
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    url = "https://api.quotable.io/random"
+    
+    try:
+        context = ssl.create_default_context()
+        context.check_hostname = False
+        context.verify_mode = ssl.CERT_NONE
+
+        response = requests.get(url, verify=False)
+        response.raise_for_status()
+        data = response.json()
+        
+        quote = data['content']
+        author = data['author']
+
+        return quote, author
+        
+    except requests.RequestException as e:
+        return f"An error occurred: {e}"
+
 
 class ColorManager:
     """

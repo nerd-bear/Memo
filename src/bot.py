@@ -28,12 +28,16 @@ log_info("Completed loading config")
 
 log_info("Loading default values into memory")
 color_manager = ColorManager(config)
+
 FOOTER_TEXT = config["defaults"].get("footer_text")
 FOOTER_ICON = config["defaults"].get("footer_icon")
+
 BOT_PREFIX = config["defaults"].get("prefix", "?")
 BOT_NAME = config.get("bot_name", "CRAC Bot")
 BOT_VERSION = config.get("bot_version", "1.0.0")
+
 TTS_MODE = config.get("tts_mode", "normal")
+
 LOGGING_CHANNEL_ID = int(config.get("log_channel_id", 0))
 
 intents = discord.Intents.all()
@@ -97,6 +101,12 @@ async def on_ready() -> None:
         info_text, title=f"{BOT_NAME} v{BOT_VERSION} Initialization Info", expand=False
     )
 
+    try:
+        synced = await CRAC.tree.sync()
+        print(f"Synced {len(synced)} command(s)")
+    except Exception as e:
+        print(f"Failed to sync commands: {e}")
+
     console.print(panel)
 
     channel = CRAC.get_channel(LOGGING_CHANNEL_ID)
@@ -123,6 +133,10 @@ async def on_message(message: discord.Message) -> None:
     global bot_active
 
     if message.author == CRAC.user:
+        return
+
+    if isinstance(message.channel, discord.DMChannel):
+        await message.add_reaction("❌")
         return
 
     if not message.content.startswith(BOT_PREFIX):
@@ -215,6 +229,15 @@ async def on_message(message: discord.Message) -> None:
     elif command == "server":
         await server_command(message)
 
+    elif command == "joke":
+        await joke_command(message)
+
+    elif command == "coin":
+        await coin_command(message)
+
+    elif command == "quote":
+        await quote_command(message)
+
     else:
         embed = discord.Embed(
             title="Invalid Command",
@@ -268,82 +291,8 @@ async def handle_inappropriate_word(message: discord.Message) -> None:
 
 
 async def help_command(message: discord.Message) -> None:
-    embed = discord.Embed(
-        title=f"{BOT_NAME} v{BOT_VERSION} Help Information",
-        description=f"Here are the available commands (prefix: {BOT_PREFIX}):",
-        color=color_manager.get_color("Blue"),
-    )
-    embed.set_footer(
-        text=FOOTER_TEXT,
-        icon_url=FOOTER_ICON,
-    )
-
-    commands = {
-        "help": {"desc": "Show this help message", "usage": f"{BOT_PREFIX}help"},
-        "charinfo": {
-            "desc": "Shows information and a image of the character provided",
-            "usage": f"{BOT_PREFIX}charinfo [character]",
-        },
-        "tts": {
-            "desc": "Join the vc you are in and uses Text-to-Speech to say your text",
-            "usage": f"{BOT_PREFIX}tts [input_text]",
-        },
-        "nick": {
-            "desc": "Changes guild specific username of a member (Mod only)",
-            "usage": f"{BOT_PREFIX}nick @user [new_nick]",
-        },
-        "feedback": {
-            "desc": "Adds your feedback to our database",
-            "usage": f"{BOT_PREFIX}feedback [message]",
-        },
-        "play": {
-            "desc": "Plays a song in the voice channel you are in",
-            "usage": f"{BOT_PREFIX}play [youtube_url]",
-        },
-        "profile": {
-            "desc": "Gets information about the user",
-            "usage": f"{BOT_PREFIX}profile @user",
-        },
-        "server": {
-            "desc": "Gets information about the server",
-            "usage": f"{BOT_PREFIX}server",
-        },
-        "ping": {
-            "desc": "Gets the ping (latency) of the Discord Bot",
-            "usage": f"{BOT_PREFIX}ping",
-        },
-        "translate": {
-            "desc": "Translates the provided text to english",
-            "usage": f"{BOT_PREFIX}translate [text]",
-        },
-        "timeout": {
-            "desc": "Timeout a user for a specified duration (Mod only)",
-            "usage": f"{BOT_PREFIX}timeout @user <duration> <unit> [reason]",
-        },
-        "kick": {
-            "desc": "Kick a user from the server (Mod only)",
-            "usage": f"{BOT_PREFIX}kick @user [reason]",
-        },
-        "ban": {
-            "desc": "Ban a user from the server (Admin only)",
-            "usage": f"{BOT_PREFIX}ban @user [reason]",
-        },
-        "unban": {
-            "desc": "Unbans a user from the server (Admin only)",
-            "usage": f"{BOT_PREFIX}unban @user",
-        }
-    }
-
-    for cmd, info in commands.items():
-        embed.add_field(
-            name=f"{BOT_PREFIX}{cmd}",
-            value=f"{info['desc']}\nUsage: `{info['usage']}`",
-            inline=False,
-        )
-
-    embed.set_footer(
-        text=FOOTER_TEXT,
-        icon_url=FOOTER_ICON,
+    embed = fetch_help_embed(
+        color_manager, BOT_NAME, BOT_VERSION, BOT_PREFIX, FOOTER_TEXT, FOOTER_ICON
     )
     await message.channel.send(embed=embed)
 
@@ -1381,8 +1330,69 @@ async def server_command(message: discord.Message) -> None:
         log_info(f"Unexpected error in server command: {e}")
 
 
+async def joke_command(message: discord.Message):
+    joke = await fetch_random_joke()
+
+    if joke:
+        embed = discord.Embed(
+            color=color_manager.get_color("Blue"), title="Dad joke", description=joke
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+    else:
+        send_error_embed(
+            message=message,
+            title="Error",
+            description="Sorry, I couldn't fetch a joke at the moment.",
+        )
+
+
+async def coin_command(message: discord.Message):
+    embed = discord.Embed(
+        title="Coin Flip",
+        description="The coin is spinning...",
+        color=color_manager.get_color("Blue"),
+    )
+    embed.set_thumbnail(
+        url="https://media.istockphoto.com/id/141325539/vector/heads-or-tails.jpg?s=612x612&w=0&k=20&c=V8GPGyuVWFMl4awXzlCp1lhYE5hKiKBybnZocR1i7Uw="
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+
+    message = await message.channel.send(embed=embed)
+
+    await asyncio.sleep(1.5)
+
+    result = "Heads" if random.choice([True, False]) else "Tails"
+    embed.description = f"The coin landed on: **{result}**!"
+
+    embed.set_thumbnail(
+        url=(
+            "https://e7.pngegg.com/pngimages/547/992/png-clipart-computer-icons-coin-gold-pile-of-gold-coins-gold-coin-gold-thumbnail.png"
+            if result == "Heads"
+            else "https://e7.pngegg.com/pngimages/443/910/png-clipart-gold-peso-coin-logo-coin-philippine-peso-peso-coin-gold-coin-text-thumbnail.png"
+        )
+    )
+
+    await message.edit(embed=embed)
+
+
+async def quote_command(message: discord.Message):
+    quote = fetch_quote_of_the_day()
+    text = quote[0]
+    author = quote[1]
+
+    embed = discord.Embed(
+        title="Quote of the day",
+        description=f'"{text}" - {author}',
+        color=color_manager.get_color("Blue"),
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+
+    await message.channel.send(embed=embed)
+
+
 @CRAC.event
-async def on_message_delete(message):
+async def on_message_delete(message: discord.Message):
     if message.author == CRAC.user:
         return
 
@@ -1438,3 +1448,11 @@ async def on_message_edit(before: discord.Message, after: discord.Message):
         icon_url=FOOTER_ICON,
     )
     await channel.send(embed=embed)
+
+
+@CRAC.tree.command(name="help", description="Shows the command help embed")
+async def slash_help(interaction: discord.Interaction):
+    embed = fetch_help_embed(
+        color_manager, BOT_NAME, BOT_VERSION, BOT_PREFIX, FOOTER_TEXT, FOOTER_ICON
+    )
+    await interaction.response.send_message(embed=embed, ephemeral=True)

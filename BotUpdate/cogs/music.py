@@ -3,7 +3,6 @@ from discord.ext import commands
 from utils.config_manager import ColorManager, load_config
 from utils.db_manager import add_history
 import yt_dlp
-import asyncio
 
 class Music(commands.Cog):
     def __init__(self, bot):
