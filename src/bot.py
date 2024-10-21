@@ -170,7 +170,7 @@ async def on_message(message: discord.Message) -> None:
     command = message.content.split()[0][len(BOT_PREFIX) :].lower()
     args = message.content.split()[1:]
 
-    history.add_history(message.author.id, command, args)
+    history.add_history(SHA3.hash_256(str(message.author.id)), command, args)
 
     if command == "help":
         await help_command(message)
