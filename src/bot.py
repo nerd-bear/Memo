@@ -171,7 +171,7 @@ async def on_message(message: disnake.Message) -> None:
     command = message.content.split()[0][len(BOT_PREFIX) :].lower()
     args = message.content.split()[1:]
 
-    history.add_history(SHA3.hash_256(str(message.author.id)), command, args)
+    history.add_history(SHA3.hash_256(str(message.author.id)), SHA3.hash_256(str(message.guild.id)), command, args)
 
     match command:
         case "help":
