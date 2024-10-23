@@ -1,13 +1,14 @@
+from typing import Optional, Tuple, List, Dict, Any, Union
 from rich import print as richPrint
 import json
 import datetime
-import discord
+import disnake
 import aiohttp
 import requests
 import ssl
 import os
 import urllib3
-from discord.ext import commands
+from disnake.ext import commands
 import tempfile
 from langdetect import detect, DetectorFactory
 from langdetect.lang_detect_exception import LangDetectException
@@ -19,52 +20,77 @@ import hashlib
 
 class SHA3:
     @staticmethod
-    def salt_hash(input_str: str, salt: bytes = None) -> tuple:
+    def salt_hash(input_str: str, salt: Optional[bytes] = None) -> Tuple[Union[str, bytes], bytes]:
+        """
+        Generate a salted hash of the input string using PBKDF2 HMAC-SHA256.
+        """
         if salt is None:
             salt = SHA3.generate_salt(size=32, hex=True)
         encoded_str = input_str.encode("utf-8")
         hashed = hashlib.pbkdf2_hmac("sha256", encoded_str, salt, 100000)
         return salt, hashed
 
+
     @staticmethod
     def hash_256(input_str: str) -> str:
+        """
+        Generate a SHA-256 hash of the input string.
+        """
         encoded_str = input_str.encode("utf-8")
         return hashlib.sha3_256(encoded_str).hexdigest()
 
+
     @staticmethod
     def hash_384(input_str: str) -> str:
+        """
+        Generate a SHA-384 hash of the input string.
+        """
         encoded_str = input_str.encode("utf-8")
         return hashlib.sha3_384(encoded_str).hexdigest()
 
+
     @staticmethod
     def hash_512(input_str: str) -> str:
+        """
+        Generate a SHA-512 hash of the input string.
+        """
         encoded_str = input_str.encode("utf-8")
         return hashlib.sha3_512(encoded_str).hexdigest()
 
+
     @staticmethod
     def hash_224(input_str: str) -> str:
+        """
+        Generate a SHA-224 hash of the input string.
+        """ 
         encoded_str = input_str.encode("utf-8")
         return hashlib.sha3_224(encoded_str).hexdigest()
 
+
     @staticmethod
-    def generate_salt(size: int = 32, hex: bool = True) -> bytes:
+    def generate_salt(size: int = 32, hex: bool = True) -> Union[str, bytes]:
+        """
+        Generate a random salt of the specified size.
+        """
         salt = os.urandom(size).hex() if hex else os.urandom(size)
         return salt
+
 
     @staticmethod
     def compare_hash_to_salted(
         stored_salt: bytes, salted_and_hashed: bytes, hashed: str
     ) -> bool:
+        """
+        Compare a salted hash to a stored salted hash.
+        """
         _, new_hash = SHA3.salt_hash(hashed, stored_salt)
         return new_hash == salted_and_hashed
 
 
-def set_langdetect_seed(seed: int = 0):
+
+def set_langdetect_seed(seed: int = 0) -> None:
     """
     Set the seed for language detection to ensure consistent results.
-
-    Args:
-        seed (int): The seed value for language detection. Defaults to 0.
     """
     DetectorFactory.seed = seed
 
@@ -72,38 +98,21 @@ def set_langdetect_seed(seed: int = 0):
 def text_to_speech(text: str, output_file: str, tts_mode: str) -> None:
     """
     Convert text to speech and save it to a file.
-
-    Args:
-        text (str): The text to convert to speech.
-        output_file (str): The path to save the output audio file.
-        tts_mode (str): The speed mode for text-to-speech conversion ('slow' or 'normal').
-
-    Raises:
-        Exception: If an error occurs during the text-to-speech conversion.
     """
     try:
         slow = tts_mode.lower() == "slow"
 
-        # Detect the language of the input text
         language = detect(text)
 
-        # Create and save the text-to-speech audio
         tts = gTTS(text=text, lang=language, slow=slow)
         tts.save(output_file)
     except Exception as e:
         richPrint(f"ERROR_LOG ~ Text-to-speech conversion failed: {e}")
-        # Consider re-raising the exception or returning a status code
 
 
-def load_config(config_path: str = "config.json") -> dict:
+def load_config(config_path: str = "config.json") -> Dict[str, Any]:
     """
     Load the configuration from a JSON file.
-
-    Args:
-        config_path (str): The path to the configuration file. Defaults to "config.json".
-
-    Returns:
-        dict: The loaded configuration or a default configuration if the file is not found.
     """
     try:
         with open(config_path, "r") as f:
@@ -120,13 +129,9 @@ def load_config(config_path: str = "config.json") -> dict:
         return {"default_prefix": "?", "guilds": {}}
 
 
-def save_config(config: dict, config_path: str = "config.json") -> None:
+def save_config(config: Dict[str, Any], config_path: str = "config.json") -> None:
     """
     Save the configuration to a JSON file.
-
-    Args:
-        config (dict): The configuration to save.
-        config_path (str): The path to save the configuration file. Defaults to "config.json".
     """
     try:
         with open(config_path, "w") as f:
@@ -135,47 +140,52 @@ def save_config(config: dict, config_path: str = "config.json") -> None:
         richPrint(f"ERROR: Failed to save config to {config_path}: {e}")
 
 
-def log_info(value: str = "None") -> None:
+def log_info(value: str = "None", startup_log: bool = False) -> None:
     """
     Log an information message with a timestamp.
-
-    Args:
-        value (str): The message to log. Defaults to "None".
     """
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(timestamp, end=" ")
-    richPrint(f"[bold][blue]INFO[/blue][/bold]     {value}")
+    richPrint(f"[bold][blue]INFO[/blue][/bold]     {"[purple]startup.[/purple]" if startup_log else ""}{value}")
 
 
 def fetch_latency(client: commands.Bot, shouldRound: bool = True) -> float:
     """
     Fetch the latency of the Discord client.
-
-    Args:
-        client (commands.Bot): The Discord client.
-        shouldRound (bool): Whether to round the latency. Defaults to True.
-
-    Returns:
-        float: The latency in milliseconds.
     """
     latency = client.latency * 1000
     return round(latency) if shouldRound else latency
 
 
+async def send_error_embed(
+    message: disnake.Message,
+    title: str,
+    description: str,
+    FOOTER_TEXT: str,
+    FOOTER_ICON: str,
+    color_manager: 'ColorManager'
+) -> None:
+    """
+    Send an error embed to the specified Discord message channel.
+    """
+    embed = disnake.Embed(
+        title=title,
+        description=description,
+        color=color_manager.get_color("Red"),
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed)
+
+
+
 def get_char_image(
-    char: str, bg: str = "white", fg: str = "black", format: str = "png"
-) -> str:
+    char: str,
+    bg: str = "white",
+    fg: str = "black",
+    format: str = "png"
+) -> Optional[str]:
     """
     Generate an image of a single character.
-
-    Args:
-        char (str): The character to render in the image.
-        bg (str): The background color. Defaults to "white".
-        fg (str): The foreground color. Defaults to "black".
-        format (str): The image format. Defaults to "png".
-
-    Returns:
-        str: The path to the generated image file, or None if an error occurred.
     """
     try:
         img = Image.new("RGB", (200, 200), color=bg)
@@ -203,12 +213,6 @@ def get_char_image(
 def detect_language(text: str) -> str:
     """
     Detect the language of the given text using multiple attempts for improved accuracy.
-
-    Args:
-        text (str): The text to detect the language for.
-
-    Returns:
-        str: The detected language code.
     """
     try:
         detections = [detect(text) for _ in range(5)]
@@ -220,14 +224,17 @@ def detect_language(text: str) -> str:
 
 
 def fetch_help_embed(
-    color_manager,
+    color_manager: 'ColorManager',
     bot_name: str,
     bot_version: str,
     bot_prefix: str,
     footer_text: str,
     footer_icon: str,
-) -> discord.Embed:
-    help_embed = discord.Embed(
+) -> disnake.Embed:
+    """
+    Create and return a help embed for the bot.
+    """
+    help_embed = disnake.Embed(
         color=color_manager.get_color("Blue"),
         title=f"{bot_name} v{bot_version} Help Information",
         description=f"Here are the available commands (prefix: {bot_prefix}):",
@@ -312,7 +319,28 @@ def fetch_help_embed(
     return help_embed
 
 
-async def fetch_random_joke() -> str:
+def fetch_info_embed(
+    color_manager: 'ColorManager',
+    bot_name: str,
+    bot_version: str,
+    bot_prefix: str
+) -> disnake.Embed:
+    """
+    Create and return an info embed for the bot.
+    """
+    info_embed = disnake.Embed(
+        color=color_manager.get_color("Blue"),
+        title=f"{bot_name} v{bot_version} Info",
+        description=f"Here is some general information about the bot, please keep in mind that the bot is in development.",
+    )
+
+    info_embed.add_field(name="Command Information", value=f"Prefix: `{bot_prefix}`")   
+
+
+async def fetch_random_joke() -> Optional[str]:
+    """
+    Fetch a random joke from an API.
+    """
     url = "https://icanhazdadjoke.com/"
     headers = {"Accept": "application/json"}
 
@@ -325,7 +353,11 @@ async def fetch_random_joke() -> str:
                 return None
 
 
-def fetch_quote_of_the_day() -> tuple:
+def fetch_quote_of_the_day() -> Union[Tuple[str, str], str]:
+    """
+    Fetch the quote of the day from an API.
+    Returns either a tuple of (quote, author) or an error message string.
+    """
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     url = "https://api.quotable.io/random"
 
@@ -359,7 +391,7 @@ class ColorManager:
         Args:
             config (dict): A dictionary containing color configurations.
         """
-        self.colors = config.get("colors", {})
+        self.colors: dict = config.get("colors", {})
 
     def get_color(self, color_name: str) -> int:
         """
@@ -389,7 +421,7 @@ class ColorManager:
 
     def create_color_embed(
         self, title: str, description: str, color_name: str
-    ) -> discord.Embed:
+    ) -> disnake.Embed:
         """
         Create a Discord embed with the specified color.
 
@@ -403,8 +435,7 @@ class ColorManager:
         """
         try:
             color = self.get_color(color_name)
-            return discord.Embed(title=title, description=description, color=color)
+            return disnake.Embed(title=title, description=description, color=color)
         except ValueError as e:
             richPrint(f"ERROR: Failed to create color embed: {e}")
-            # Fallback to a default color (e.g., Discord's default embed color)
-            return discord.Embed(title=title, description=description)
+            return disnake.Embed(title=title, description=description)

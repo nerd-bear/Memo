@@ -6,48 +6,67 @@ import sys
 import functools
 import unicodedata
 
-import discord
-import yt_dlp
-from discord.ext import commands
-from deep_translator import GoogleTranslator
-from discord.ui import Button, Select, Modal, TextInput, View
+import disnake
+from disnake.ext import commands
+from disnake.ext import tasks
+from disnake.ui import Button, Select, Modal, TextInput, View
+
 from rich import print as richPrint
 from rich.console import Console
 from rich.markdown import Markdown
 from rich.panel import Panel
+from deep_translator import GoogleTranslator
+
+import yt_dlp
 
 from db_manager import history, feedback
 from src.utils.helper import *
 
+log_info("Loaded all needed imports", True)
+
 
 CONFIG_PATH = "config.json"
+log_info("Loaded config path", True)
 
-log_info("Loading Config")
+log_info("Loading Config", True)
 config = load_config(CONFIG_PATH)
-log_info("Completed loading config")
+log_info("Completed loading config", True)
 
-log_info("Loading default values into memory")
+log_info("Loading default values into memory", True)
 color_manager = ColorManager(config)
+log_info("Initialized color manager", True)
 
 FOOTER_TEXT = config["defaults"].get("footer_text")
+log_info("Loaded footer text", True)
 FOOTER_ICON = config["defaults"].get("footer_icon")
+log_info("Loaded footer icon", True)
 
 BOT_PREFIX = config["defaults"].get("prefix", "?")
+log_info("Loaded bot prefix", True)
 BOT_NAME = config.get("bot_name", "CRAC Bot")
+log_info("Loaded bot name", True)
 BOT_VERSION = config.get("bot_version", "1.0.0")
+log_info("Loaded bot version", True)
 
 TTS_MODE = config.get("tts_mode", "normal")
+log_info("Loaded tts mode", True)
 
 LOGGING_CHANNEL_ID = int(config.get("log_channel_id", 0))
+log_info("Loaded logging channel id", True)
 
-intents = discord.Intents.all()
+intents = disnake.Intents.all()
+log_info("Initialized intents", True)
 CRAC = commands.Bot(command_prefix="/", intents=intents)
+log_info("Initialized bot", True)
 console = Console()
+log_info("Initialized console", True)
 
 set_langdetect_seed(config.get("tts_detector_factory_seed", 0))
+log_info("Loaded tts detector factory seed", True)
 
 bot_active = True
-log_info("Completed loading default values into memory")
+log_info("Initialized bot to be active", True)
+log_info("Completed loading default values into memory", True)
 
 
 async def get_info_text() -> str:
@@ -63,8 +82,8 @@ async def get_info_text() -> str:
 
 def debug_command(func):
     @functools.wraps(func)
-    async def wrapper(message: discord.Message, *args: any, **kwargs: any):
-        embed = discord.Embed(
+    async def wrapper(message: disnake.Message, *args: any, **kwargs: any):
+        embed = disnake.Embed(
             title="Warning",
             description=f"WARNING! This is a dev/debug command and will not be included in full release v1.0.0",
             color=color_manager.get_color("Orange"),
@@ -79,18 +98,6 @@ def debug_command(func):
     return wrapper
 
 
-async def send_error_embed(
-    message: discord.Message, title: str, description: str
-) -> None:
-    embed = discord.Embed(
-        title=title,
-        description=description,
-        color=color_manager.get_color("Red"),
-    )
-    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-    await message.channel.send(embed=embed)
-
-
 @CRAC.event
 async def on_ready() -> None:
     markdown = Markdown(f"# Discord {BOT_NAME} version {BOT_VERSION}")
@@ -101,17 +108,12 @@ async def on_ready() -> None:
         info_text, title=f"{BOT_NAME} v{BOT_VERSION} Initialization Info", expand=False
     )
 
-    try:
-        synced = await CRAC.tree.sync()
-        print(f"Synced {len(synced)} command(s)")
-    except Exception as e:
-        print(f"Failed to sync commands: {e}")
-
     console.print(panel)
 
     channel = CRAC.get_channel(LOGGING_CHANNEL_ID)
+    
     if channel:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title=f"{BOT_NAME} v{BOT_VERSION} Initialization Info",
             description=info_text,
             color=color_manager.get_color("Blue"),
@@ -124,19 +126,19 @@ async def on_ready() -> None:
         await channel.send(embed=embed)
 
     await CRAC.change_presence(
-        activity=discord.Game(name=f"Run {BOT_PREFIX}help for help")
+        activity=disnake.Game(name=f"Run {BOT_PREFIX}help for help")
     )
 
 
 @CRAC.event
-async def on_message(message: discord.Message) -> None:
+async def on_message(message: disnake.Message) -> None:
     global bot_active
 
     if message.author == CRAC.user:
         return
 
-    if isinstance(message.channel, discord.DMChannel):
-        await message.add_reaction("❌")
+    if isinstance(message.channel, disnake.DMChannel):
+        await send_error_embed(message, "Please run in server", "When running commands or interacting with the bot, please do so in the server as we do not currently support DM interactions.", FOOTER_TEXT, FOOTER_ICON, color_manager)
         return
 
     if not message.content.startswith(BOT_PREFIX):
@@ -155,7 +157,7 @@ async def on_message(message: discord.Message) -> None:
         return
 
     if not bot_active and message.content != f"{BOT_PREFIX}start":
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Bot Offline",
             description=f"{BOT_NAME} is currently offline. Use {BOT_PREFIX}start to activate.",
             color=color_manager.get_color("Red"),
@@ -239,7 +241,7 @@ async def on_message(message: discord.Message) -> None:
         await quote_command(message)
 
     else:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Invalid Command",
             description=f"The command you are running is not valid. Please run `?help` for a list of commands and their usages!",
             color=color_manager.get_color("Red"),
@@ -252,11 +254,11 @@ async def on_message(message: discord.Message) -> None:
         return
 
 
-async def handle_inappropriate_word(message: discord.Message) -> None:
+async def handle_inappropriate_word(message: disnake.Message) -> None:
     user = message.author
     channel = message.channel
 
-    dm_embed = discord.Embed(
+    dm_embed = disnake.Embed(
         title="Inappropriate Word Detected",
         description=f"{BOT_NAME} has detected an inappropriate word! Please do not send racist words in our server! Moderators have been informed!",
         color=0xFF697A,
@@ -266,19 +268,26 @@ async def handle_inappropriate_word(message: discord.Message) -> None:
         value="Please read our rules before sending such messages!",
         inline=False,
     )
+    dm_embed.add_field(
+        name="Server",
+        value=f"{message.guild.name}",
+        inline=False
+    )
     dm_embed.set_footer(
         text=FOOTER_TEXT,
         icon_url=FOOTER_ICON,
     )
+    dm_embed.set_thumbnail(url=message.guild.icon.url)
+
 
     try:
         await user.send(embed=dm_embed)
-    except discord.errors.Forbidden:
+    except disnake.errors.Forbidden:
         pass
 
     await message.delete()
 
-    channel_embed = discord.Embed(
+    channel_embed = disnake.Embed(
         title="Inappropriate Word Detected",
         description=f"User {user.mention} tried to send a word that is marked not allowed!",
         color=0xFF697A,
@@ -290,16 +299,16 @@ async def handle_inappropriate_word(message: discord.Message) -> None:
     await channel.send(embed=channel_embed)
 
 
-async def help_command(message: discord.Message) -> None:
+async def help_command(message: disnake.Message) -> None:
     embed = fetch_help_embed(
         color_manager, BOT_NAME, BOT_VERSION, BOT_PREFIX, FOOTER_TEXT, FOOTER_ICON
     )
     await message.channel.send(embed=embed)
 
 
-async def kick_command(message: discord.Message) -> None:
+async def kick_command(message: disnake.Message) -> None:
     if not message.author.guild_permissions.kick_members:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Permission Denied",
             description="You don't have permission to use this command.",
             color=color_manager.get_color("Red"),
@@ -312,7 +321,7 @@ async def kick_command(message: discord.Message) -> None:
         return
 
     if len(message.mentions) < 1:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Invalid Usage",
             description=f"Please mention a user to kick. Usage: {BOT_PREFIX}kick @user [reason]",
             color=color_manager.get_color("Red"),
@@ -329,7 +338,7 @@ async def kick_command(message: discord.Message) -> None:
 
     try:
         await member.send(
-            embed=discord.Embed(
+            embed=disnake.Embed(
                 title="You've wBeen Kicked",
                 description=f"You were kicked from {message.guild.name}.\nReason: {reason}",
                 color=color_manager.get_color("Red"),
@@ -339,7 +348,7 @@ async def kick_command(message: discord.Message) -> None:
         pass
 
     await member.kick(reason=reason)
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title="User Kicked",
         description=f"{member.mention} has been kicked.\nReason: {reason}",
         color=color_manager.get_color("Blue"),
@@ -351,9 +360,9 @@ async def kick_command(message: discord.Message) -> None:
     await message.channel.send(embed=embed)
 
 
-async def ban_command(message: discord.Message) -> None:
+async def ban_command(message: disnake.Message) -> None:
     if not message.author.guild_permissions.ban_members:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Permission Denied",
             description="You don't have permission to use this command.",
             color=color_manager.get_color("Red"),
@@ -366,7 +375,7 @@ async def ban_command(message: discord.Message) -> None:
         return
 
     if len(message.mentions) < 1:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Invalid Usage",
             description=f"Please mention a user to ban. Usage: {BOT_PREFIX}ban @user [reason]",
             color=color_manager.get_color("Red"),
@@ -383,7 +392,7 @@ async def ban_command(message: discord.Message) -> None:
 
     try:
         await member.send(
-            embed=discord.Embed(
+            embed=disnake.Embed(
                 title="You've Been Banned",
                 description=f"You were banned from {message.guild.name}.\nReason: {reason}",
                 color=color_manager.get_color("Red"),
@@ -393,7 +402,7 @@ async def ban_command(message: discord.Message) -> None:
         pass
 
     await member.ban(reason=reason)
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title="User Banned",
         description=f"{member.mention} has been banned.\nReason: {reason}",
         color=color_manager.get_color("Blue"),
@@ -406,10 +415,10 @@ async def ban_command(message: discord.Message) -> None:
 
 
 @debug_command
-async def shutdown_command(message: discord.Message) -> None:
+async def shutdown_command(message: disnake.Message) -> None:
     global bot_active
     if not message.author.guild_permissions.administrator:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Permission Denied",
             description="You don't have permission to use this command.",
             color=color_manager.get_color("Red"),
@@ -422,12 +431,12 @@ async def shutdown_command(message: discord.Message) -> None:
         return
 
     bot_active = False
-    await CRAC.change_presence(status=discord.Status.invisible)
+    await CRAC.change_presence(status=disnake.Status.invisible)
 
     for vc in CRAC.voice_clients:
         await vc.disconnect()
 
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title=f"{BOT_NAME} Shutting Down",
         description=f"{BOT_NAME} is now offline.",
         color=color_manager.get_color("Red"),
@@ -441,10 +450,10 @@ async def shutdown_command(message: discord.Message) -> None:
 
 
 @debug_command
-async def start_command(message: discord.Message) -> None:
+async def start_command(message: disnake.Message) -> None:
     global bot_active
     if not message.author.guild_permissions.administrator:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Permission Denied",
             description="You don't have permission to use this command.",
             color=color_manager.get_color("Red"),
@@ -458,10 +467,10 @@ async def start_command(message: discord.Message) -> None:
 
     bot_active = True
     await CRAC.change_presence(
-        status=discord.Status.online,
-        activity=discord.Game(name=f"Run {BOT_PREFIX}help for help"),
+        status=disnake.Status.online,
+        activity=disnake.Game(name=f"Run {BOT_PREFIX}help for help"),
     )
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title=f"{BOT_NAME} Starting Up",
         description=f"{BOT_NAME} is now online.",
         color=color_manager.get_color("Blue"),
@@ -474,14 +483,14 @@ async def start_command(message: discord.Message) -> None:
     await message.channel.send(embed=embed)
 
 
-async def charinfo_command(message: discord.Message) -> None:
+async def charinfo_command(message: disnake.Message) -> None:
 
     try:
         argument_text = " ".join(message.content.split()[1:])
         char_text = argument_text[0]
     except IndexError:
         await message.channel.send(
-            embed=discord.Embed(
+            embed=disnake.Embed(
                 title="ERROR",
                 color=color_manager.get_color("Blue"),
                 description="Please provide a character to get information about.",
@@ -497,7 +506,7 @@ async def charinfo_command(message: discord.Message) -> None:
     unicode_escape_full = f"\\U{unicode_value:08x}"
     python_escape = repr(char_text)
 
-    embed = discord.Embed(
+    embed = disnake.Embed(
         color=color_manager.get_color("Blue"),
         title="Character info",
         type="rich",
@@ -520,7 +529,7 @@ async def charinfo_command(message: discord.Message) -> None:
     image_path = get_char_image(char_text)
 
     if image_path:
-        file = discord.File(image_path, filename="character.png")
+        file = disnake.File(image_path, filename="character.png")
         embed.set_thumbnail(url="attachment://character.png")
     else:
         file = None
@@ -536,10 +545,10 @@ async def charinfo_command(message: discord.Message) -> None:
         os.remove(image_path)
 
 
-async def unban_command(message: discord.Message) -> None:
+async def unban_command(message: disnake.Message) -> None:
 
     if not message.author.guild_permissions.administrator:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Permission Denied",
             description="You don't have permission to use this command.",
             color=color_manager.get_color("Red"),
@@ -552,7 +561,7 @@ async def unban_command(message: discord.Message) -> None:
         return
 
     if len(message.mentions) < 1:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Invalid Usage",
             description=f"Please mention a user to unban. Usage: {BOT_PREFIX}unban @user",
             color=color_manager.get_color("Red"),
@@ -569,7 +578,7 @@ async def unban_command(message: discord.Message) -> None:
 
     try:
         await member.send(
-            embed=discord.Embed(
+            embed=disnake.Embed(
                 title="You've Been unbanned",
                 description=f"You were unbanned from {message.guild.name}",
                 color=color_manager.get_color("Blue"),
@@ -581,8 +590,8 @@ async def unban_command(message: discord.Message) -> None:
     try:
         await message.guild.unban(user=member)
 
-    except discord.errors.Forbidden as e:
-        embed = discord.Embed(
+    except disnake.errors.Forbidden as e:
+        embed = disnake.Embed(
             title="Forbidden",
             description=f"Could not unban, {e}",
             color=color_manager.get_color("Red"),
@@ -594,8 +603,8 @@ async def unban_command(message: discord.Message) -> None:
         await message.channel.send(embed=embed)
         return
 
-    except discord.errors.NotFound as e:
-        embed = discord.Embed(
+    except disnake.errors.NotFound as e:
+        embed = disnake.Embed(
             title="Not found",
             description=f"Could not unban, {e}",
             color=color_manager.get_color("Red"),
@@ -607,8 +616,8 @@ async def unban_command(message: discord.Message) -> None:
         await message.channel.send(embed=embed)
         return
 
-    except discord.errors.HTTPException as e:
-        embed = discord.Embed(
+    except disnake.errors.HTTPException as e:
+        embed = disnake.Embed(
             title="Unknown",
             description=f"Could not unban, {e}",
             color=color_manager.get_color("Red"),
@@ -620,7 +629,7 @@ async def unban_command(message: discord.Message) -> None:
         await message.channel.send(embed=embed)
         return
 
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title="User Unbanned",
         description=f"{member.mention} has been unbanned.",
         color=color_manager.get_color("Red"),
@@ -632,9 +641,9 @@ async def unban_command(message: discord.Message) -> None:
     await message.channel.send(embed=embed)
 
 
-async def timeout_command(message: discord.Message) -> None:
+async def timeout_command(message: disnake.Message) -> None:
     if not message.author.guild_permissions.moderate_members:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Permission Denied",
             description="You don't have permission to use this command.",
             color=color_manager.get_color("Red"),
@@ -648,7 +657,7 @@ async def timeout_command(message: discord.Message) -> None:
 
     args = message.content.split()[1:]
     if len(args) < 3:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Invalid Usage",
             description=f"Usage: {BOT_PREFIX}timeout @user <duration> <unit> [reason]",
             color=color_manager.get_color("Red"),
@@ -662,7 +671,7 @@ async def timeout_command(message: discord.Message) -> None:
 
     member = message.mentions[0] if message.mentions else None
     if not member:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Invalid Usage",
             description="Please mention a user to timeout.",
             color=color_manager.get_color("Red"),
@@ -679,7 +688,7 @@ async def timeout_command(message: discord.Message) -> None:
         unit = args[2].lower()
 
     except ValueError:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Invalid Usage",
             description="Duration must be a number.",
             color=color_manager.get_color("Red"),
@@ -694,7 +703,7 @@ async def timeout_command(message: discord.Message) -> None:
     reason = " ".join(args[3:]) if len(args) > 3 else "No reason provided"
 
     if message.author.top_role <= member.top_role:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Permission Denied",
             description="You cannot timeout this user as they have an equal or higher role.",
             color=color_manager.get_color("Red"),
@@ -708,7 +717,7 @@ async def timeout_command(message: discord.Message) -> None:
 
     time_units = {"s": "seconds", "m": "minutes", "h": "hours", "d": "days"}
     if unit not in time_units:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Invalid Usage",
             description="Invalid time unit. Use 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days.",
             color=color_manager.get_color("Red"),
@@ -724,7 +733,7 @@ async def timeout_command(message: discord.Message) -> None:
 
     try:
         await member.timeout(time_delta, reason=reason)
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="User Timed Out",
             description=f"{member.mention} has been timed out for {duration}{unit}.\nReason: {reason}",
             color=color_manager.get_color("Blue"),
@@ -735,8 +744,8 @@ async def timeout_command(message: discord.Message) -> None:
         )
         await message.channel.send(embed=embed)
 
-    except discord.errors.Forbidden:
-        embed = discord.Embed(
+    except disnake.errors.Forbidden:
+        embed = disnake.Embed(
             title="Permission Error",
             description="I don't have permission to timeout this user.",
             color=color_manager.get_color("Red"),
@@ -747,8 +756,8 @@ async def timeout_command(message: discord.Message) -> None:
         )
         await message.channel.send(embed=embed)
 
-    except discord.errors.HTTPException:
-        embed = discord.Embed(
+    except disnake.errors.HTTPException:
+        embed = disnake.Embed(
             title="Error",
             description="Failed to timeout the user. The duration might be too long.",
             color=color_manager.get_color("Red"),
@@ -761,7 +770,7 @@ async def timeout_command(message: discord.Message) -> None:
 
     try:
         await member.timeout(time_delta, reason=reason)
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="You were timed out",
             description=f"You (aka {member.mention}) have been timed out for {duration}{unit}.",
             color=color_manager.get_color("Blue"),
@@ -777,7 +786,7 @@ async def timeout_command(message: discord.Message) -> None:
         pass
 
 
-async def join_vc_command(message: discord.Message) -> None:
+async def join_vc_command(message: disnake.Message) -> None:
     try:
         channel = CRAC.get_channel(message.author.voice.channel.id)
         await channel.connect()
@@ -785,18 +794,18 @@ async def join_vc_command(message: discord.Message) -> None:
         richPrint(e)
 
 
-async def leave_vc_command(message: discord.Message) -> None:
+async def leave_vc_command(message: disnake.Message) -> None:
     try:
         await message.guild.voice_client.disconnect()
     except Exception as e:
         pass
 
 
-async def tts_command(message: discord.Message) -> None:
+async def tts_command(message: disnake.Message) -> None:
     text = " ".join(message.content.split()[1:])
 
     if not text:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Missing arguments",
             description=f"Please make sure you pass some text for the TTS command. Usage: {BOT_PREFIX}tts [message]",
             color=color_manager.get_color("Red"),
@@ -814,7 +823,7 @@ async def tts_command(message: discord.Message) -> None:
     try:
         text_to_speech(text, output_file, TTS_MODE)
     except Exception as e:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Error occurred",
             description=f"A issue occurred during the generation of the Text-to-Speech mp3 file! Usage: {BOT_PREFIX}tts [message]",
             color=color_manager.get_color("Red"),
@@ -829,7 +838,7 @@ async def tts_command(message: discord.Message) -> None:
     try:
         voice_channel = message.author.voice.channel
     except:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Join voice channel",
             description=f"Please join a voice channel to use this command! Usage: {BOT_PREFIX}tts [message]",
             color=color_manager.get_color("Red"),
@@ -843,14 +852,14 @@ async def tts_command(message: discord.Message) -> None:
 
     try:
         vc = await voice_channel.connect()
-    except discord.ClientException:
+    except disnake.ClientException:
         vc = message.guild.voice_client
 
     if vc.is_playing():
         vc.stop()
 
     vc.play(
-        discord.FFmpegPCMAudio(source=output_file),
+        disnake.FFmpegPCMAudio(source=output_file),
         after=lambda e: asyncio.run_coroutine_threadsafe(vc.disconnect(), CRAC.loop),
     )
 
@@ -860,7 +869,7 @@ async def tts_command(message: discord.Message) -> None:
     if os.path.exists(output_file):
         os.remove(output_file)
 
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title="Ended TTS",
         description=f"Successfully generated and played TTS file. Disconnecting from <#{voice_channel.id}>",
         color=color_manager.get_color("Blue"),
@@ -873,7 +882,7 @@ async def tts_command(message: discord.Message) -> None:
     return
 
 
-async def play_command(message: discord.Message) -> None:
+async def play_command(message: disnake.Message) -> None:
     args = message.content.split(" ", 1)
     if len(args) < 2:
         await message.channel.send("Please provide a YouTube URL or search term.")
@@ -886,7 +895,7 @@ async def play_command(message: discord.Message) -> None:
         if not voice_channel:
             raise AttributeError
     except AttributeError:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Join voice channel",
             description="Please join a voice channel to use this command!",
             color=color_manager.get_color("Red"),
@@ -900,7 +909,7 @@ async def play_command(message: discord.Message) -> None:
 
     try:
         vc = await voice_channel.connect()
-    except discord.ClientException:
+    except disnake.ClientException:
         vc = message.guild.voice_client
 
     if vc.is_playing():
@@ -912,7 +921,7 @@ async def play_command(message: discord.Message) -> None:
             URL = info["url"]
             title = info["title"]
     except Exception as e:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Error occurred",
             description=f"An issue occurred while trying to fetch the audio: {str(e)}",
             color=color_manager.get_color("Red"),
@@ -925,7 +934,7 @@ async def play_command(message: discord.Message) -> None:
         return
 
     vc.play(
-        discord.FFmpegPCMAudio(
+        disnake.FFmpegPCMAudio(
             URL,
             **{
                 "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
@@ -934,7 +943,7 @@ async def play_command(message: discord.Message) -> None:
         )
     )
 
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title="Now Playing",
         description=f"Now playing: {title}",
         color=color_manager.get_color("Blue"),
@@ -946,9 +955,9 @@ async def play_command(message: discord.Message) -> None:
     await message.channel.send(embed=embed)
 
 
-async def profile_command(message: discord.Message) -> None:
+async def profile_command(message: disnake.Message) -> None:
     if len(message.mentions) < 1:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Invalid Usage",
             description=f"Usage: {BOT_PREFIX}profile @user",
             color=color_manager.get_color("Red"),
@@ -964,7 +973,7 @@ async def profile_command(message: discord.Message) -> None:
         user = message.mentions[0]
 
     except Exception as e:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Invalid Usage",
             description=f"Usage: {BOT_PREFIX}profile @user",
             color=color_manager.get_color("Red"),
@@ -979,8 +988,8 @@ async def profile_command(message: discord.Message) -> None:
     try:
         fetched_user = await CRAC.fetch_user(user.id)
 
-    except discord.errors.NotFound as e:
-        embed = discord.Embed(
+    except disnake.errors.NotFound as e:
+        embed = disnake.Embed(
             title="Not found",
             description=f"Error occurred while fetching user. Usage: {BOT_PREFIX}profile @user",
             color=color_manager.get_color("Red"),
@@ -992,8 +1001,8 @@ async def profile_command(message: discord.Message) -> None:
         await message.channel.send(embed=embed)
         return
 
-    except discord.errors.HTTPException as e:
-        embed = discord.Embed(
+    except disnake.errors.HTTPException as e:
+        embed = disnake.Embed(
             title="Unknown Error",
             description=f"Error occurred while fetching user, but this exception does not have defined behavior. Usage: {BOT_PREFIX}profile @user",
             color=color_manager.get_color("Red"),
@@ -1006,7 +1015,7 @@ async def profile_command(message: discord.Message) -> None:
         return
 
     if user not in message.guild.members:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Member not in guild!",
             description=f"Please make sure that the user you are searching for exists and is in this guild. Usage: {BOT_PREFIX}profile @user",
             color=color_manager.get_color("Red"),
@@ -1044,19 +1053,19 @@ async def profile_command(message: discord.Message) -> None:
     except:
         pass
 
-    if status == discord.enums.Status(value="dnd"):
+    if status == disnake.enums.Status(value="dnd"):
         status = "⛔ Do not disturb"
 
-    elif status == discord.enums.Status(value="online"):
+    elif status == disnake.enums.Status(value="online"):
         status = "🟢 Online"
 
-    elif status == discord.enums.Status(value="idle"):
+    elif status == disnake.enums.Status(value="idle"):
         status = "🟡 Idle"
 
     else:
         status = "⚫ Offline"
 
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title=f"{name}'s Profile",
         description="Users public discord information, please don't use for bad or illegal purposes!",
     )
@@ -1089,12 +1098,12 @@ async def profile_command(message: discord.Message) -> None:
     await message.channel.send(embed=embed)
 
 
-async def nick_command(message: discord.Message) -> None:
+async def nick_command(message: disnake.Message) -> None:
     if (
         not message.author.guild_permissions.administrator
         | message.author.guild_permissions.administrator
     ):
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Missing permission",
             description=f"Missing required permission `manage_nicknames`. Please run `{BOT_PREFIX}help` for more information!",
             color=color_manager.get_color("Red"),
@@ -1107,7 +1116,7 @@ async def nick_command(message: discord.Message) -> None:
         return
 
     if len(message.mentions) < 1:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Invalid Usage",
             description=f"Usage: {BOT_PREFIX}nick @user [new_nickname]",
             color=color_manager.get_color("Red"),
@@ -1122,7 +1131,7 @@ async def nick_command(message: discord.Message) -> None:
     user = message.mentions[0]
 
     if user not in message.guild.members:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Member not in guild!",
             description=f"Please make sure that the user you are searching for exists and is in this guild. Usage: {BOT_PREFIX}nick @user [new_nick]",
             color=color_manager.get_color("Red"),
@@ -1138,7 +1147,7 @@ async def nick_command(message: discord.Message) -> None:
 
     try:
         await user.edit(nick=" ".join(args[2:]))
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Successfully updated nickname!",
             description=f"Successfully updated nickname of <@{user.id}> to {" ".join(args[2:])}",
             color=color_manager.get_color("Blue"),
@@ -1151,7 +1160,7 @@ async def nick_command(message: discord.Message) -> None:
         return
 
     except Exception as e:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Issue occurred",
             description=f"An issue occurred during this operation. This exception was caught by a general handler. {e}",
             color=color_manager.get_color("Red"),
@@ -1164,12 +1173,12 @@ async def nick_command(message: discord.Message) -> None:
         return
 
 
-async def feedback_command(message: discord.Message) -> None:
+async def feedback_command(message: disnake.Message) -> None:
     args = message.content.split()[1:]
     feedback_text = " ".join(args)
 
     if len(args) < 1:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Invalid Usage",
             description=f"Usage: {BOT_PREFIX}feedback [message]",
             color=color_manager.get_color("Red"),
@@ -1183,7 +1192,7 @@ async def feedback_command(message: discord.Message) -> None:
 
     feedback.add_feedback(message.author.id, feedback_text)
 
-    embed = discord.Embed(
+    embed = disnake.Embed(
         color=color_manager.get_color("Blue"),
         title="Recorded Feedback",
         description=f"Recorded feedback from <@{message.author.id}>",
@@ -1197,8 +1206,8 @@ async def feedback_command(message: discord.Message) -> None:
 
 
 @debug_command
-async def restart_command(message: discord.Message) -> None:
-    embed = discord.Embed(
+async def restart_command(message: disnake.Message) -> None:
+    embed = disnake.Embed(
         title="Restarting",
         description=f"The restart will take approximately 10 to 30 seconds on average.",
         color=color_manager.get_color("Blue"),
@@ -1208,18 +1217,30 @@ async def restart_command(message: discord.Message) -> None:
         icon_url=FOOTER_ICON,
     )
     await message.channel.send(embed=embed)
-    await CRAC.close()
+    
+    for vc in CRAC.voice_clients:
+        await vc.disconnect(force=True)
+    
+    if hasattr(CRAC.http, '_client_session') and CRAC.http._client_session:
+        await CRAC.http._client_session.close()
+        await asyncio.sleep(0.5)  
+        
+    try:
+        await CRAC.close()
+    except:
+        pass
+        
     os.execv(sys.executable, ["python"] + sys.argv)
 
 
-async def translate_command(message: discord.Message) -> None:
+async def translate_command(message: disnake.Message) -> None:
     translate_text = message.content.split(" ", 1)[1]
 
     try:
         translator = GoogleTranslator(source="auto", target="en")
         translated_text = translator.translate(translate_text)
 
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title="Translation",
             description=translated_text,
             color=color_manager.get_color("Blue"),
@@ -1235,10 +1256,10 @@ async def translate_command(message: discord.Message) -> None:
         await message.channel.send(f"An error occurred: {str(e)}")
 
 
-async def ping_command(message: discord.Message) -> None:
+async def ping_command(message: disnake.Message) -> None:
     bot_latency = fetch_latency(CRAC)
 
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title="Bot latency",
         description=f"The current bot latency is approximately `{bot_latency}ms`",
         color=color_manager.get_color("Blue"),
@@ -1251,12 +1272,12 @@ async def ping_command(message: discord.Message) -> None:
     await message.channel.send(embed=embed)
 
 
-async def server_command(message: discord.Message) -> None:
+async def server_command(message: disnake.Message) -> None:
     try:
         guild = message.guild
 
         if not guild.me.guild_permissions.administrator:
-            embed = discord.Embed(
+            embed = disnake.Embed(
                 title="Permission Denied",
                 description="You need administrator permissions to gather all server stats.",
                 color=color_manager.get_color("Red"),
@@ -1268,10 +1289,10 @@ async def server_command(message: discord.Message) -> None:
         if CRAC.intents.members:
             try:
                 await guild.chunk()
-            except discord.HTTPException:
+            except disnake.HTTPException:
                 log_info("Failed to fetch all members. Some stats may be incomplete.")
 
-        embed = discord.Embed(
+        embed = disnake.Embed(
             title=f"{guild.name} Server Stats",
             color=color_manager.get_color("Blue"),
             timestamp=datetime.datetime.utcnow(),
@@ -1315,26 +1336,35 @@ async def server_command(message: discord.Message) -> None:
 
         await message.channel.send(embed=embed)
 
-    except discord.Forbidden:
+    except disnake.Forbidden:
         await send_error_embed(
             message,
             "Permission Error",
             "I don't have permission to access some server information.",
+            FOOTER_TEXT=FOOTER_TEXT,
+            FOOTER_ICON=FOOTER_ICON,
+            color_manager=color_manager
         )
-    except discord.HTTPException as e:
-        await send_error_embed(message, "HTTP Error", f"An HTTP error occurred: {e}")
+    except disnake.HTTPException as e:
+        await send_error_embed(message, "HTTP Error", f"An HTTP error occurred: {e}",
+            FOOTER_TEXT=FOOTER_TEXT,
+            FOOTER_ICON=FOOTER_ICON,
+            color_manager=color_manager)
     except Exception as e:
         await send_error_embed(
-            message, "Unexpected Error", f"An unexpected error occurred: {e}"
+            message, "Unexpected Error", f"An unexpected error occurred: {e}",
+            FOOTER_TEXT=FOOTER_TEXT,
+            FOOTER_ICON=FOOTER_ICON,
+            color_manager=color_manager
         )
         log_info(f"Unexpected error in server command: {e}")
 
 
-async def joke_command(message: discord.Message):
+async def joke_command(message: disnake.Message) -> None:
     joke = await fetch_random_joke()
 
     if joke:
-        embed = discord.Embed(
+        embed = disnake.Embed(
             color=color_manager.get_color("Blue"), title="Dad joke", description=joke
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -1344,11 +1374,14 @@ async def joke_command(message: discord.Message):
             message=message,
             title="Error",
             description="Sorry, I couldn't fetch a joke at the moment.",
+            FOOTER_TEXT=FOOTER_TEXT,
+            FOOTER_ICON=FOOTER_ICON,
+            color_manager=color_manager
         )
 
 
-async def coin_command(message: discord.Message):
-    embed = discord.Embed(
+async def coin_command(message: disnake.Message) -> None:
+    embed = disnake.Embed(
         title="Coin Flip",
         description="The coin is spinning...",
         color=color_manager.get_color("Blue"),
@@ -1376,12 +1409,12 @@ async def coin_command(message: discord.Message):
     await message.edit(embed=embed)
 
 
-async def quote_command(message: discord.Message):
+async def quote_command(message: disnake.Message) -> None:
     quote = fetch_quote_of_the_day()
     text = quote[0]
     author = quote[1]
 
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title="Quote of the day",
         description=f'"{text}" - {author}',
         color=color_manager.get_color("Blue"),
@@ -1392,7 +1425,7 @@ async def quote_command(message: discord.Message):
 
 
 @CRAC.event
-async def on_message_delete(message: discord.Message):
+async def on_message_delete(message: disnake.Message):
     if message.author == CRAC.user:
         return
 
@@ -1400,7 +1433,7 @@ async def on_message_delete(message: discord.Message):
     if not channel:
         return
 
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title="Message Deleted",
         color=color_manager.get_color("Red"),
         timestamp=datetime.datetime.utcnow(),
@@ -1422,7 +1455,7 @@ async def on_message_delete(message: discord.Message):
 
 
 @CRAC.event
-async def on_message_edit(before: discord.Message, after: discord.Message):
+async def on_message_edit(before: disnake.Message, after: disnake.Message):
     if before.author == CRAC.user:
         return
 
@@ -1433,7 +1466,7 @@ async def on_message_edit(before: discord.Message, after: discord.Message):
     if before.content == after.content:
         return
 
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title="Message Edited",
         color=color_manager.get_color("Orange"),
         timestamp=datetime.datetime.utcnow(),
@@ -1450,9 +1483,17 @@ async def on_message_edit(before: discord.Message, after: discord.Message):
     await channel.send(embed=embed)
 
 
-@CRAC.tree.command(name="help", description="Shows the command help embed")
-async def slash_help(interaction: discord.Interaction):
+@commands.slash_command(name="help", description="Shows the command help embed")
+async def slash_help(interaction: disnake.ApplicationCommandInteraction):
     embed = fetch_help_embed(
+        color_manager, BOT_NAME, BOT_VERSION, BOT_PREFIX, FOOTER_TEXT, FOOTER_ICON
+    )
+    await interaction.response.send_message(embed=embed, ephemeral=True)
+
+
+@commands.slash_command(name="info", description="Shows important information about the bot.")
+async def slash_info(interaction: disnake.ApplicationCommandInteraction):
+    embed = fetch_info_embed(
         color_manager, BOT_NAME, BOT_VERSION, BOT_PREFIX, FOOTER_TEXT, FOOTER_ICON
     )
     await interaction.response.send_message(embed=embed, ephemeral=True)
