@@ -305,7 +305,7 @@ def fetch_help_embed(
         },
         "unban": {
             "desc": "Unbans a user from the server (Admin only)",
-            "usage": f"{bot_prefix}unban @user",
+            "usage": f"{bot_prefix}unban [user_id]",
         },
     }
 

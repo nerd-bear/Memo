@@ -586,10 +586,10 @@ async def unban_command(message: disnake.Message) -> None:
         await message.channel.send(embed=embed)
         return
 
-    if len(message.mentions) < 1:
+    if len(message.content.strip().split) < 2:
         embed = disnake.Embed(
             title="Invalid Usage",
-            description=f"Please mention a user to unban. Usage: {BOT_PREFIX}unban @user",
+            description=f"Please mention a user to unban. Usage: {BOT_PREFIX}unban [user_id]",
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(
@@ -599,7 +599,21 @@ async def unban_command(message: disnake.Message) -> None:
         await message.channel.send(embed=embed)
         return
 
-    member = message.mentions[0]
+    member = message.guild.get_member(int(message.content.strip().split()[1]))
+
+    if member is None:
+        embed = disnake.Embed(
+            title="Member Not Found",
+            description=f"Please mention a user to unban. Usage: {BOT_PREFIX}unban [user_id]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(
+            text=FOOTER_TEXT,
+            icon_url=FOOTER_ICON,
+        )
+        await message.channel.send(embed=embed)
+        return
+
     invite = message.channel.create_invite(reason="Invite unbanned user")
 
     try:
