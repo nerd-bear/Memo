@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAC Bot - Commands</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+
+    <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
+
+    <meta property="og:title" content="CRAC Bot | Commands">
+    <meta property="og:description" content="Explore all available commands for CRAC Bot, including moderation, music, utility, and fun features.">
+    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://crac.nerd-bear.org/commands">
+    <meta property="og:type" content="website">
+
+    <style>
+        .command-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .command-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .pfp-hover {
+            transition: transform 0.3s ease-in-out;
+        }
+        .pfp-hover:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+    <nav class="container mx-auto p-6">
+        <div class="flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-blue-600">
+                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+            </h1>
+            <ul class="flex space-x-6">
+                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-12 p-6">
+        <div class="flex flex-col items-center mb-12">
+            <a href="https://crac.nerd-bear.org/" class="mb-8">
+                <img src="https://crac.nerd-bear.org/pfp-5.png" alt="CRAC Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
+            </a>
+            <h2 class="text-4xl font-bold mb-4 text-center text-gray-900">Command List</h2>
+            <p class="text-xl text-gray-600 mb-8 text-center">Explore all available commands for CRAC Bot</p>
+        </div>
+
+        <div class="mb-8">
+            <div class="flex flex-col md:flex-row gap-4">
+                <input type="text" id="search-input" placeholder="Search commands..." class="flex-grow p-2 border border-gray-300 rounded-md">
+                <select id="category-filter" class="p-2 border border-gray-300 rounded-md">
+                    <option value="all">All Categories</option>
+                    <option value="moderation">Moderation</option>
+                    <option value="music">Music</option>
+                    <option value="utility">Utility</option>
+                    <option value="fun">Fun</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="commands-grid">
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="moderation">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?kick</h3>
+                        <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Moderation</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Kick a user from the server with an optional reason.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/kick" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="moderation">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?ban</h3>
+                        <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Moderation</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Ban a user from the server with an optional reason.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/ban" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="moderation">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?unban</h3>
+                        <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Moderation</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Unban a previously banned user.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/unban" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="moderation">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?timeout</h3>
+                        <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Moderation</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Timeout a user for a specified duration.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/timeout" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="moderation">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?nick</h3>
+                        <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Moderation</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Change a user's nickname.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/nick" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="music">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?play</h3>
+                        <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Music</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Play a song from YouTube in your voice channel.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/play" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="music">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?join</h3>
+                        <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Music</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Make the bot join your voice channel.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/join" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="music">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?leave</h3>
+                        <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Music</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Make the bot leave the voice channel.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/leave" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="utility">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?help</h3>
+                        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Utility</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Display a list of all available commands.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/help" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="utility">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?profile</h3>
+                        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Utility</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">View detailed information about a user's profile.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/profile" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="utility">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?feedback</h3>
+                        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Utility</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Submit feedback about the bot.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/feedback" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="utility">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?translate</h3>
+                        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Utility</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Translate text to English from any language.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/translate" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="utility">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?ping</h3>
+                        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Utility</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Check the bot's current latency.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/ping" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="utility">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?server</h3>
+                        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Utility</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">View detailed information about the server.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/server" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="fun">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?charinfo</h3>
+                        <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Fun</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Get detailed information about a character or emoji.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/charinfo" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="fun">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?tts</h3>
+                        <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Fun</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Convert text to speech in a voice channel.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/tts" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="fun">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?joke</h3>
+                        <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Fun</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Get a random dad joke.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/joke" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="fun">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?coin</h3>
+                        <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Fun</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Flip a coin and get heads or tails.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/coin" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="command-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-[200px]" data-category="fun">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-blue-600">?quote</h3>
+                        <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Fun</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Get the quote of the day.</p>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100">
+                    <a href="/commands/quote" class="text-blue-600 hover:text-blue-800 text-sm">Learn more →</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-100 mt-24 py-8">
+        <div class="container mx-auto text-center text-gray-600">
+            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <div class="mt-2">
+                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const categoryFilter = document.getElementById('category-filter');
+            const commandCards = document.querySelectorAll('.command-card');
+
+            function filterCommands() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedCategory = categoryFilter.value;
+
+                commandCards.forEach(card => {
+                    const commandText = card.textContent.toLowerCase();
+                    const cardCategory = card.dataset.category;
+                    const matchesSearch = commandText.includes(searchTerm);
+                    const matchesCategory = selectedCategory === 'all' || cardCategory === selectedCategory;
+
+                    if (matchesSearch && matchesCategory) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            searchInput.addEventListener('input', filterCommands);
+            categoryFilter.addEventListener('change', filterCommands);
+
+            gsap.from('.command-card', {
+                duration: 0.5,
+                opacity: 0,
+                y: 20,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+        });
+    </script>
+</body>
+
+</html>

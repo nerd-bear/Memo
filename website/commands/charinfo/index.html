@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAC Bot - Character Info Command</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+
+    <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
+    
+    <meta property="og:title" content="CRAC Bot | Character Info Command">
+    <meta property="og:description" content="Get detailed information about any character using CRAC Bot's charinfo command.">
+    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://crac.nerd-bear.org/commands/charinfo">
+    <meta property="og:type" content="website">
+
+    <style>
+        .pfp-hover {
+            transition: transform 0.3s ease-in-out;
+        }
+        .pfp-hover:hover {
+            transform: scale(1.1);
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="container mx-auto p-6">
+        <div class="flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-blue-600">
+                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+            </h1>
+            <ul class="flex space-x-6">
+                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-12 p-6">
+        <!-- Command Header -->
+        <div class="mb-8">
+            <div class="flex items-center gap-4 mb-4">
+                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Fun</span>
+            </div>
+            <h1 class="text-4xl font-bold mb-2">Character Info Command</h1>
+            <p class="text-xl text-gray-600">Get detailed Unicode information about any character</p>
+        </div>
+
+        <!-- Command Card Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <div class="md:col-span-2 space-y-8">
+                <!-- Usage Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-bold mb-4">Usage</h2>
+                    <div class="bg-gray-50 rounded p-4 mb-4 font-mono">
+                        ?charinfo [character]
+                    </div>
+                    <p class="mb-4">The charinfo command provides detailed Unicode information about any character, including emojis, special characters, and letters.</p>
+                    <div class="space-y-2">
+                        <p><strong>Arguments:</strong></p>
+                        <ul class="list-disc list-inside pl-4">
+                            <li><code class="bg-gray-100 px-1 rounded">character</code> - The character you want to analyze</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Information Provided Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-bold mb-4">Information Provided</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-gray-50 rounded">
+                            <p class="font-bold mb-2">Basic Info:</p>
+                            <ul class="list-disc list-inside text-gray-600">
+                                <li>Original character</li>
+                                <li>Character name</li>
+                                <li>Character category</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded">
+                            <p class="font-bold mb-2">Unicode Data:</p>
+                            <ul class="list-disc list-inside text-gray-600">
+                                <li>Unicode value (U+XXXX)</li>
+                                <li>Unicode escape sequence</li>
+                                <li>Full Unicode escape</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded">
+                            <p class="font-bold mb-2">Additional Info:</p>
+                            <ul class="list-disc list-inside text-gray-600">
+                                <li>Python escape sequence</li>
+                                <li>Character preview</li>
+                                <li>Visual representation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Examples Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-bold mb-4">Examples</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">Get info about an emoji:</p>
+                            <pre class="bg-gray-50 rounded p-4">?charinfo 😀</pre>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">Get info about a special character:</p>
+                            <pre class="bg-gray-50 rounded p-4">?charinfo ♠</pre>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">Get info about a letter:</p>
+                            <pre class="bg-gray-50 rounded p-4">?charinfo A</pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Response Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-bold mb-4">Bot Response</h2>
+                    <div class="space-y-4">
+                        <div class="border rounded p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
+                                <span class="font-medium">CRAC Bot</span>
+                            </div>
+                            <div class="pl-10">
+                                <div class="bg-gray-50 rounded p-4">
+                                    <p class="font-medium">Character info</p>
+                                    <p class="text-gray-600">Information on character: A</p>
+                                    <p class="text-gray-600">Original character: A</p>
+                                    <p class="text-gray-600">Character name: LATIN CAPITAL LETTER A</p>
+                                    <p class="text-gray-600">Character category: Lu</p>
+                                    <p class="text-gray-600">Unicode value: U+0041</p>
+                                    <p class="text-gray-600">Unicode escape: \u0041</p>
+                                    <p class="text-gray-600">Full Unicode escape: \U00000041</p>
+                                    <p class="text-gray-600">Python escape: 'A'</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border rounded p-4 border-red-200">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
+                                <span class="font-medium">CRAC Bot</span>
+                            </div>
+                            <div class="pl-10">
+                                <div class="bg-red-50 rounded p-4">
+                                    <p class="font-medium text-red-800">ERROR</p>
+                                    <p class="text-red-600">Please provide a character to get information about.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Required Permissions -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold mb-4">Required Permissions</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            None required
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold mb-4">Cooldown</h3>
+                    <p class="text-gray-600">No cooldown</p>
+                </section>
+
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold mb-4">Supported Characters</h3>
+                    <ul class="space-y-2 text-gray-600 list-disc list-inside">
+                        <li>Standard letters</li>
+                        <li>Numbers</li>
+                        <li>Emojis</li>
+                        <li>Special symbols</li>
+                        <li>Unicode characters</li>
+                    </ul>
+                </section>
+
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold mb-4">Common Uses</h3>
+                    <ul class="space-y-2 text-gray-600 list-disc list-inside">
+                        <li>Finding Unicode values</li>
+                        <li>Getting character names</li>
+                        <li>Learning character categories</li>
+                        <li>Getting escape sequences</li>
+                        <li>Character analysis</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-100 mt-24 py-8">
+        <div class="container mx-auto text-center text-gray-600">
+            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <div class="mt-4">
+                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.from('main > *', {
+                duration: 0.5,
+                opacity: 0,
+                y: 20,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAC Bot - Nickname Command</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+
+    <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
+    
+    <meta property="og:title" content="CRAC Bot | Nickname Command">
+    <meta property="og:description" content="Learn how to use the nickname command in CRAC Bot to change user nicknames.">
+    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://crac.nerd-bear.org/commands/nick">
+    <meta property="og:type" content="website">
+
+    <style>
+        .pfp-hover {
+            transition: transform 0.3s ease-in-out;
+        }
+        .pfp-hover:hover {
+            transform: scale(1.1);
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="container mx-auto p-6">
+        <div class="flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-blue-600">
+                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+            </h1>
+            <ul class="flex space-x-6">
+                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-12 p-6">
+        <!-- Command Header -->
+        <div class="mb-8">
+            <div class="flex items-center gap-4 mb-4">
+                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Moderation</span>
+            </div>
+            <h1 class="text-4xl font-bold mb-2">Nickname Command</h1>
+            <p class="text-xl text-gray-600">Change a user's nickname in the server</p>
+        </div>
+
+        <!-- Command Card Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <div class="md:col-span-2 space-y-8">
+                <!-- Usage Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-bold mb-4">Usage</h2>
+                    <div class="bg-gray-50 rounded p-4 mb-4 font-mono">
+                        ?nick @user [new_nickname]
+                    </div>
+                    <p class="mb-4">The nickname command allows moderators to change a user's display name in the server. If no new nickname is provided, it will reset to their original username.</p>
+                    <div class="space-y-2">
+                        <p><strong>Arguments:</strong></p>
+                        <ul class="list-disc list-inside pl-4">
+                            <li><code class="bg-gray-100 px-1 rounded">@user</code> - The user to rename (mention required)</li>
+                            <li><code class="bg-gray-100 px-1 rounded">new_nickname</code> - Optional: New nickname for the user (omit to reset)</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Nickname Rules Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-bold mb-4">Nickname Rules</h2>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-gray-50 rounded">
+                            <p class="font-bold mb-2">Length Requirements:</p>
+                            <ul class="list-disc list-inside text-gray-600">
+                                <li>Minimum: 1 character</li>
+                                <li>Maximum: 32 characters</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-yellow-50 rounded">
+                            <p class="font-bold text-yellow-800 mb-2">Restrictions:</p>
+                            <ul class="list-disc list-inside text-yellow-700">
+                                <li>Cannot contain Discord's blocked words</li>
+                                <li>Cannot contain server-specific blocked words</li>
+                                <li>Cannot impersonate other users</li>
+                                <li>Cannot use certain special characters</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Examples Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-bold mb-4">Examples</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">Set new nickname:</p>
+                            <pre class="bg-gray-50 rounded p-4">?nick @UserName Cool Person</pre>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">Reset nickname:</p>
+                            <pre class="bg-gray-50 rounded p-4">?nick @UserName</pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Response Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-bold mb-4">Bot Response</h2>
+                    <div class="space-y-4">
+                        <div class="border rounded p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
+                                <span class="font-medium">CRAC Bot</span>
+                            </div>
+                            <div class="pl-10">
+                                <div class="bg-gray-50 rounded p-4">
+                                    <p class="font-medium">Nickname Changed</p>
+                                    <p class="text-gray-600">Changed nickname for @UserName to "Cool Person"</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border rounded p-4 border-red-200">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
+                                <span class="font-medium">CRAC Bot</span>
+                            </div>
+                            <div class="pl-10">
+                                <div class="bg-red-50 rounded p-4">
+                                    <p class="font-medium text-red-800">Error</p>
+                                    <p class="text-red-600">Cannot change nickname: Missing permissions or nickname invalid.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Required Permissions -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold mb-4">Required Permissions</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Manage Nicknames
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold mb-4">Cooldown</h3>
+                    <p class="text-gray-600">No cooldown</p>
+                </section>
+
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold mb-4">Related Commands</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://crac.nerd-bear.org/commands/kick" class="text-blue-600 hover:text-blue-800">?kick</a></li>
+                        <li><a href="https://crac.nerd-bear.org/commands/ban" class="text-blue-600 hover:text-blue-800">?ban</a></li>
+                        <li><a href="https://crac.nerd-bear.org/commands/timeout" class="text-blue-600 hover:text-blue-800">?timeout</a></li>
+                    </ul>
+                </section>
+
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold mb-4">Additional Notes</h3>
+                    <ul class="space-y-2 text-gray-600 list-disc list-inside">
+                        <li>Bot must have a role higher than the user</li>
+                        <li>Cannot change server owner's nickname</li>
+                        <li>Changes are logged in the audit log</li>
+                        <li>Users with "Change Nickname" permission can change their own nickname</li>
+                        <li>Nickname changes are immediate</li>
+                    </ul>
+                </section>
+
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold mb-4">Common Issues</h3>
+                    <ul class="space-y-2 text-gray-600 list-disc list-inside">
+                        <li>Nickname too long (>32 characters)</li>
+                        <li>Contains blocked words or characters</li>
+                        <li>Bot role hierarchy insufficient</li>
+                        <li>User has higher roles than bot</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-100 mt-24 py-8">
+        <div class="container mx-auto text-center text-gray-600">
+            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <div class="mt-4">
+                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.from('main > *', {
+                duration: 0.5,
+                opacity: 0,
+                y: 20,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+        });
+    </script>
+</body>
+</html>

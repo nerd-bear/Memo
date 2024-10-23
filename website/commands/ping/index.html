@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAC Bot - Ping Command</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+
+    <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
+    
+    <meta property="og:title" content="CRAC Bot | Ping Command">
+    <meta property="og:description" content="Check CRAC Bot's response time using the ping command.">
+    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://crac.nerd-bear.org/commands/ping">
+    <meta property="og:type" content="website">
+
+    <style>
+        .pfp-hover {
+            transition: transform 0.3s ease-in-out;
+        }
+        .pfp-hover:hover {
+            transform: scale(1.1);
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="container mx-auto p-6">
+        <div class="flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-blue-600">
+                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+            </h1>
+            <ul class="flex space-x-6">
+                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-12 p-6">
+        <!-- Command Header -->
+        <div class="mb-8">
+            <div class="flex items-center gap-4 mb-4">
+                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Utility</span>
+            </div>
+            <h1 class="text-4xl font-bold mb-2">Ping Command</h1>
+            <p class="text-xl text-gray-600">Check the bot's current response time</p>
+        </div>
+
+        <!-- Command Card Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <div class="md:col-span-2 space-y-8">
+                <!-- Usage Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-bold mb-4">Usage</h2>
+                    <div class="bg-gray-50 rounded p-4 mb-4 font-mono">
+                        ?ping
+                    </div>
+                    <p class="mb-4">The ping command shows the bot's current latency (response time) in milliseconds. This can help you check if the bot is experiencing any delays or connection issues.</p>
+                    <div class="space-y-2">
+                        <p><strong>Arguments:</strong></p>
+                        <ul class="list-disc list-inside pl-4">
+                            <li>None required - Simply type ?ping</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Understanding Latency Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-bold mb-4">Understanding Latency</h2>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-green-50 rounded">
+                            <p class="font-bold text-green-800 mb-2">Good Latency:</p>
+                            <p class="text-green-700">50-150ms</p>
+                        </div>
+                        <div class="p-4 bg-yellow-50 rounded">
+                            <p class="font-bold text-yellow-800 mb-2">Moderate Latency:</p>
+                            <p class="text-yellow-700">150-300ms</p>
+                        </div>
+                        <div class="p-4 bg-red-50 rounded">
+                            <p class="font-bold text-red-800 mb-2">High Latency:</p>
+                            <p class="text-red-700">300ms+</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Examples Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-bold mb-4">Example</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">Check bot latency:</p>
+                            <pre class="bg-gray-50 rounded p-4">?ping</pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Response Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-bold mb-4">Bot Response</h2>
+                    <div class="space-y-4">
+                        <div class="border rounded p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
+                                <span class="font-medium">CRAC Bot</span>
+                            </div>
+                            <div class="pl-10">
+                                <div class="bg-gray-50 rounded p-4">
+                                    <p class="font-medium">🏓 Pong!</p>
+                                    <p class="text-gray-600">Bot Latency: 87ms</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Required Permissions -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold mb-4">Required Permissions</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            None required
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold mb-4">Cooldown</h3>
+                    <p class="text-gray-600">No cooldown</p>
+                </section>
+
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold mb-4">When to Use</h3>
+                    <ul class="space-y-2 text-gray-600 list-disc list-inside">
+                        <li>Bot seems unresponsive</li>
+                        <li>Commands are delayed</li>
+                        <li>Checking connection quality</li>
+                        <li>Troubleshooting issues</li>
+                    </ul>
+                </section>
+
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold mb-4">Notes</h3>
+                    <ul class="space-y-2 text-gray-600 list-disc list-inside">
+                        <li>Latency varies by region</li>
+                        <li>Results may fluctuate</li>
+                        <li>Lower is better</li>
+                        <li>Simple health check tool</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-100 mt-24 py-8">
+        <div class="container mx-auto text-center text-gray-600">
+            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <div class="mt-4">
+                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.from('main > *', {
+                duration: 0.5,
+                opacity: 0,
+                y: 20,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+        });
+    </script>
+</body>
+</html>
