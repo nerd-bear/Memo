@@ -2,7 +2,7 @@ import sqlite3
 import datetime
 import json
 
-DB_PATH = "./data/crac.db"
+DB_PATH = "./data/Memo.db"
 
 def get_db_connection():
     return sqlite3.connect(DB_PATH)

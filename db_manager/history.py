@@ -17,7 +17,7 @@ def add_history(user_id: int, guild_id: int, command: str, arguments: list[str] 
     args_json = json.dumps(arguments)
     datetime_value = datetime.datetime.now().strftime("%S:%M:%H %d/%m/%y")
     
-    db_connection = sqlite3.connect("./crac.db")
+    db_connection = sqlite3.connect("./Memo.db")
     db_cursor = db_connection.cursor()
     
     try:

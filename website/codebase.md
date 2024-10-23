@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found | CRAC Bot</title>
+    <title>404 - Page Not Found | Memo Bot</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     
@@ -16,13 +16,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -31,9 +31,9 @@
         <div class="text-center">
             <h1 class="text-6xl font-bold text-blue-600 mb-4">404</h1>
             <p class="text-2xl mb-8">Oops! Page not found</p>
-            <p class="text-xl mb-8">It seems like CRAC Bot couldn't find the page you're looking for.</p>
+            <p class="text-xl mb-8">It seems like Memo Bot couldn't find the page you're looking for.</p>
             <div class="flex justify-center space-x-4">
-                <a href="https://crac.nerd-bear.org/" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in-out transform hover:scale-105">
+                <a href="https://Memo.nerd-bear.org/" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in-out transform hover:scale-105">
                     Return to Homepage
                 </a>
                 <button onclick="location.reload()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in-out transform hover:scale-105">
@@ -45,11 +45,11 @@
     
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -72,17 +72,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Feedback Guide</title>
+    <title>Memo Bot - Feedback Guide</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
     <!-- Open Graph Meta Tags (for Discord and other platforms) -->
-    <meta property="og:title" content="CRAC Bot | Feedback Guide">
-    <meta property="og:description" content="Learn how to submit feedback for CRAC Bot using the feedback command. Your input helps improve the bot!">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/support/article/add-feedback">
+    <meta property="og:title" content="Memo Bot | Feedback Guide">
+    <meta property="og:description" content="Learn how to submit feedback for Memo Bot using the feedback command. Your input helps improve the bot!">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/support/article/add-feedback">
     <meta property="og:type" content="website">
 
     <style>
@@ -102,13 +102,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -118,7 +118,7 @@
             <div class="relative">
                 <div class="absolute inset-0 bg-black opacity-50"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <h2 class="text-4xl font-bold text-black mt-20">Submitting Feedback for CRAC Bot</h2>
+                    <h2 class="text-4xl font-bold text-black mt-20">Submitting Feedback for Memo Bot</h2>
                 </div>
             </div>
             
@@ -127,7 +127,7 @@
                     <img src="https://nerd-bear.org/favicon.ico" alt="Author Avatar" class="w-12 h-12 rounded-full mr-4">
                     <div>
                         <p class="font-bold">Nerd Bear</p>
-                        <p class="text-gray-600 text-sm">CRAC Bot Developer</p>
+                        <p class="text-gray-600 text-sm">Memo Bot Developer</p>
                     </div>
                 </div>
                 
@@ -142,7 +142,7 @@
 
                 <div class="prose max-w-none">
                     <h3 class="text-2xl font-bold mb-4 text-blue-600">The Importance of Your Feedback</h3>
-                    <p class="mb-4">Your feedback is crucial for the continuous improvement of CRAC Bot. Whether you've encountered a bug, have a feature request, or simply want to share your thoughts, we want to hear from you! The feedback command makes it easy to submit your input directly through Discord.</p>
+                    <p class="mb-4">Your feedback is crucial for the continuous improvement of Memo Bot. Whether you've encountered a bug, have a feature request, or simply want to share your thoughts, we want to hear from you! The feedback command makes it easy to submit your input directly through Discord.</p>
 
                     <h4 class="text-xl font-bold mb-2 text-blue-600">Using the Feedback Command</h4>
                     <p class="mb-4">Submitting feedback is straightforward with the <code class="bg-gray-100 p-1 rounded">?feedback</code> command. Here's how to use it:</p>
@@ -162,7 +162,7 @@
                     <ol class="list-decimal list-inside mb-4 space-y-2">
                         <li>Your feedback is securely stored in our database.</li>
                         <li>The development team regularly reviews all feedback submissions.</li>
-                        <li>Your input may influence future updates and improvements to CRAC Bot.</li>
+                        <li>Your input may influence future updates and improvements to Memo Bot.</li>
                         <li>For urgent issues, consider also reaching out through our support channels.</li>
                     </ol>
 
@@ -174,7 +174,7 @@
                         <li>Include context: Mention your server size, the command you were using, or any relevant settings.</li>
                     </ul>
 
-                    <p class="text-lg font-semibold mt-8">Your feedback plays a vital role in shaping the future of CRAC Bot. We appreciate every submission and take your input seriously in our development process.</p>
+                    <p class="text-lg font-semibold mt-8">Your feedback plays a vital role in shaping the future of Memo Bot. We appreciate every submission and take your input seriously in our development process.</p>
 
                     <div class="mt-8 p-4 bg-blue-100 rounded-md">
                         <p class="font-bold text-blue-800">Pro Tip:</p>
@@ -192,11 +192,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -223,17 +223,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Articles</title>
+    <title>Memo Bot - Articles</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
     <!-- Open Graph Meta Tags (for Discord and other platforms) -->
-    <meta property="og:title" content="CRAC Bot | Articles">
-    <meta property="og:description" content="Explore all articles about CRAC Bot, including guides on commands, configuration, and feedback submission.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/articles">
+    <meta property="og:title" content="Memo Bot | Articles">
+    <meta property="og:description" content="Explore all articles about Memo Bot, including guides on commands, configuration, and feedback submission.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/articles">
     <meta property="og:type" content="website">
 
     <style>
@@ -249,26 +249,26 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/articles" class="hover:text-blue-600 transition">Articles</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/articles" class="hover:text-blue-600 transition">Articles</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
 
     <main class="container mx-auto mt-12 p-6">
-        <h2 class="text-4xl font-bold mb-8 text-center">CRAC Bot Articles</h2>
+        <h2 class="text-4xl font-bold mb-8 text-center">Memo Bot Articles</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Config Guide Article -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <div class="p-6">
                     <h3 class="text-xl font-bold mb-2">Configuration Guide</h3>
-                    <p class="text-gray-600 mb-4">Learn how to configure CRAC Bot for your server's needs.</p>
+                    <p class="text-gray-600 mb-4">Learn how to configure Memo Bot for your server's needs.</p>
                     <div class="flex items-center justify-between mt-4">
                         <div class="flex items-center">
                             <img src="https://nerd-bear.org/favicon.ico" alt="Author Avatar" class="w-8 h-8 rounded-full mr-2">
@@ -300,7 +300,7 @@
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <div class="p-6">
                     <h3 class="text-xl font-bold mb-2">Submitting Feedback</h3>
-                    <p class="text-gray-600 mb-4">Learn how to submit feedback to help improve CRAC Bot.</p>
+                    <p class="text-gray-600 mb-4">Learn how to submit feedback to help improve Memo Bot.</p>
                     <div class="flex items-center justify-between mt-4">
                         <div class="flex items-center">
                             <img src="https://nerd-bear.org/favicon.ico" alt="Author Avatar" class="w-8 h-8 rounded-full mr-2">
@@ -316,11 +316,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -348,17 +348,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Commands Guide</title>
+    <title>Memo Bot - Commands Guide</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
     <!-- Open Graph Meta Tags (for Discord and other platforms) -->
-    <meta property="og:title" content="CRAC Bot | Commands Guide">
-    <meta property="og:description" content="Learn how to use CRAC Bot's commands effectively for server management and user interaction.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/support/article/commands-guide">
+    <meta property="og:title" content="Memo Bot | Commands Guide">
+    <meta property="og:description" content="Learn how to use Memo Bot's commands effectively for server management and user interaction.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/support/article/commands-guide">
     <meta property="og:type" content="website">
 
     <style>
@@ -378,13 +378,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -394,7 +394,7 @@
             <div class="relative">
                 <div class="absolute inset-0 bg-black opacity-50"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <h2 class="text-4xl font-bold text-black mt-20">CRAC Bot Commands Guide</h2>
+                    <h2 class="text-4xl font-bold text-black mt-20">Memo Bot Commands Guide</h2>
                 </div>
             </div>
             
@@ -403,7 +403,7 @@
                     <img src="https://nerd-bear.org/favicon.ico" alt="Author Avatar" class="w-12 h-12 rounded-full mr-4">
                     <div>
                         <p class="font-bold">Nerd Bear</p>
-                        <p class="text-gray-600 text-sm">CRAC Bot Developer</p>
+                        <p class="text-gray-600 text-sm">Memo Bot Developer</p>
                     </div>
                 </div>
                 
@@ -417,11 +417,11 @@
                 </div>
 
                 <div class="prose max-w-none">
-                    <h3 class="text-2xl font-bold mb-4 text-blue-600">Getting Started with CRAC Bot Commands</h3>
-                    <p class="mb-4">CRAC Bot comes packed with a variety of commands to help you manage your server and engage with your community. In this guide, we'll walk you through the most important commands and how to use them effectively.</p>
+                    <h3 class="text-2xl font-bold mb-4 text-blue-600">Getting Started with Memo Bot Commands</h3>
+                    <p class="mb-4">Memo Bot comes packed with a variety of commands to help you manage your server and engage with your community. In this guide, we'll walk you through the most important commands and how to use them effectively.</p>
 
                     <h4 class="text-xl font-bold mb-2 text-blue-600">Basic Command Structure</h4>
-                    <p class="mb-4">All CRAC Bot commands start with a prefix. By default, this prefix is set to "?", but it can be customized in the config file. Here's the basic structure of a command:</p>
+                    <p class="mb-4">All Memo Bot commands start with a prefix. By default, this prefix is set to "?", but it can be customized in the config file. Here's the basic structure of a command:</p>
                     <pre class="bg-gray-100 p-4 rounded-md mb-4">?commandName [argument1] [argument2] ...</pre>
 
                     <h3 class="text-2xl font-bold mb-4 text-blue-600">Essential Commands</h3>
@@ -432,7 +432,7 @@
                     <p>This will display a list of all available commands along with a brief description of each.</p>
 
                     <h4 class="text-xl font-bold mb-2 text-blue-600">2. Moderation Commands</h4>
-                    <p class="mb-4">CRAC Bot offers several moderation commands to help you manage your server:</p>
+                    <p class="mb-4">Memo Bot offers several moderation commands to help you manage your server:</p>
                     <ul class="list-disc list-inside mb-4 space-y-2">
                         <li><strong>Kick:</strong> ?kick @user [reason]</li>
                         <li><strong>Ban:</strong> ?ban @user [reason]</li>
@@ -442,7 +442,7 @@
                     <p>Remember, you need the appropriate permissions to use these commands.</p>
 
                     <h4 class="text-xl font-bold mb-2 text-blue-600">3. Fun and Utility Commands</h4>
-                    <p class="mb-4">CRAC Bot also includes commands for entertainment and utility:</p>
+                    <p class="mb-4">Memo Bot also includes commands for entertainment and utility:</p>
                     <ul class="list-disc list-inside mb-4 space-y-2">
                         <li><strong>Character Info:</strong> ?charinfo [character]</li>
                         <li><strong>Text-to-Speech:</strong> ?tts [message]</li>
@@ -459,7 +459,7 @@
                     </ul>
 
                     <h3 class="text-2xl font-bold mb-4 text-blue-600">Advanced Usage Tips</h3>
-                    <p class="mb-4">Here are some tips to help you get the most out of CRAC Bot:</p>
+                    <p class="mb-4">Here are some tips to help you get the most out of Memo Bot:</p>
                     <ul class="list-disc list-inside mb-4 space-y-2">
                         <li>Use the ?help command followed by a specific command name for detailed usage information.</li>
                         <li>When using moderation commands, always provide a reason to maintain transparency.</li>
@@ -476,7 +476,7 @@
                         <li>If a command isn't working, try restarting the bot using the ?shutdown and ?start commands (admin only).</li>
                     </ol>
 
-                    <p class="text-lg font-semibold mt-8">Remember, the key to effectively using CRAC Bot is experimentation. Don't be afraid to try out different commands and see how they can benefit your server!</p>
+                    <p class="text-lg font-semibold mt-8">Remember, the key to effectively using Memo Bot is experimentation. Don't be afraid to try out different commands and see how they can benefit your server!</p>
 
                     <div class="mt-8 p-4 bg-blue-100 rounded-md">
                         <p class="font-bold text-blue-800">Pro Tip:</p>
@@ -494,11 +494,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -525,17 +525,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Config Guide</title>
+    <title>Memo Bot - Config Guide</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
 
     <!-- Open Graph Meta Tags (for Discord and other platforms) -->
-    <meta property="og:title" content="CRAC Bot | Config Guide">
-    <meta property="og:description" content="Learn how to change and use the config file for CRAC Bot, a versatile Discord bot for server management and user interaction.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/support/article/config-guide">
+    <meta property="og:title" content="Memo Bot | Config Guide">
+    <meta property="og:description" content="Learn how to change and use the config file for Memo Bot, a versatile Discord bot for server management and user interaction.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/support/article/config-guide">
     <meta property="og:type" content="website">
 
     <style>
@@ -555,13 +555,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -571,7 +571,7 @@
             <div class="relative">
                 <div class="absolute inset-0 bg-black opacity-50"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <h2 class="text-4xl font-bold text-black mt-20">CRAC Bot Config Guide</h2>
+                    <h2 class="text-4xl font-bold text-black mt-20">Memo Bot Config Guide</h2>
                 </div>
             </div>
             
@@ -580,7 +580,7 @@
                     <img src="https://nerd-bear.org/favicon.ico" alt="Author Avatar" class="w-12 h-12 rounded-full mr-4">
                     <div>
                         <p class="font-bold">Nerd Bear</p>
-                        <p class="text-gray-600 text-sm">CRAC Bot Developer</p>
+                        <p class="text-gray-600 text-sm">Memo Bot Developer</p>
                     </div>
                 </div>
                 
@@ -595,7 +595,7 @@
 
                 <div class="prose max-w-none">
                     <h3 class="text-2xl font-bold mb-4 text-blue-600">Understanding the Config File</h3>
-                    <p class="mb-4">The config file for CRAC Bot is a JSON file named <code class="bg-gray-100 p-1 rounded">config.json</code>. It contains various settings that control the bot's behavior. Let's dive into its structure and how you can customize it to suit your needs.</p>
+                    <p class="mb-4">The config file for Memo Bot is a JSON file named <code class="bg-gray-100 p-1 rounded">config.json</code>. It contains various settings that control the bot's behavior. Let's dive into its structure and how you can customize it to suit your needs.</p>
 
                     <pre class="bg-gray-100 p-4 rounded-md mb-4 overflow-x-auto">
 {
@@ -605,7 +605,7 @@
         "footer_icon": "https://as2.ftcdn.net/v2/jpg/01/17/00/87/1000_F_117008730_0Dg5yniuxPQLz3shrJvLIeBsPfPRBSE1.jpg"
     },
     "bot_version": "0.4.6",
-    "bot_name": "CRAC",
+    "bot_name": "Memo",
     "tts_mode": "fast",
     "log_channel_id": "1290060885485948950",
     "tts_detector_factory_seed": "0",
@@ -634,7 +634,7 @@
                     </ul>
 
                     <h3 class="text-2xl font-bold mb-4 text-blue-600">How to Modify the Config File</h3>
-                    <p class="mb-4">Customizing your CRAC Bot installation is straightforward. Follow these steps to modify the config file:</p>
+                    <p class="mb-4">Customizing your Memo Bot installation is straightforward. Follow these steps to modify the config file:</p>
                     <ol class="list-decimal list-inside mb-4 space-y-2">
                         <li>Locate the <code class="bg-gray-100 p-1 rounded">config.json</code> file in your bot's root directory.</li>
                         <li>Open the file with a text editor (e.g., Notepad++, Visual Studio Code).</li>
@@ -644,7 +644,7 @@
                     </ol>
 
                     <h3 class="text-2xl font-bold mb-4 text-blue-600">Common Modifications</h3>
-                    <p class="mb-4">Let's explore some common modifications you might want to make to your CRAC Bot configuration:</p>
+                    <p class="mb-4">Let's explore some common modifications you might want to make to your Memo Bot configuration:</p>
 
                     <h4 class="text-xl font-bold mb-2 text-blue-600">Changing the Default Prefix</h4>
                     <p class="mb-4">To change the default prefix, modify the "prefix" value under "defaults":</p>
@@ -690,7 +690,7 @@
                         <li>Be cautious when changing critical settings like log_channel_id.</li>
                     </ul>
 
-                    <p class="text-lg font-semibold mt-8">Remember, customizing your CRAC Bot is all about making it work best for your server and community. Don't be afraid to experiment with different settings to find what works best for you!</p>
+                    <p class="text-lg font-semibold mt-8">Remember, customizing your Memo Bot is all about making it work best for your server and community. Don't be afraid to experiment with different settings to find what works best for you!</p>
 
                     <div class="mt-8 p-4 bg-blue-100 rounded-md">
                         <p class="font-bold text-blue-800">Pro Tip:</p>
@@ -708,11 +708,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -739,16 +739,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Ban Command</title>
+    <title>Memo Bot - Ban Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Ban Command">
-    <meta property="og:description" content="Learn how to use the ban command in CRAC Bot to moderate your server.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/ban">
+    <meta property="og:title" content="Memo Bot | Ban Command">
+    <meta property="og:description" content="Learn how to use the ban command in Memo Bot to moderate your server.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/ban">
     <meta property="og:type" content="website">
 
     <style>
@@ -768,13 +768,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -783,7 +783,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Moderation</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Ban Command</h1>
@@ -832,7 +832,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -869,9 +869,9 @@
                 <section class="bg-white rounded-lg shadow-sm p-6">
                     <h3 class="text-xl font-bold mb-4">Related Commands</h3>
                     <ul class="space-y-2">
-                        <li><a href="https://crac.nerd-bear.org/commands/kick" class="text-blue-600 hover:text-blue-800">?kick</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/unban" class="text-blue-600 hover:text-blue-800">?unban</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/timeout" class="text-blue-600 hover:text-blue-800">?timeout</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/kick" class="text-blue-600 hover:text-blue-800">?kick</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/unban" class="text-blue-600 hover:text-blue-800">?unban</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/timeout" class="text-blue-600 hover:text-blue-800">?timeout</a></li>
                     </ul>
                 </section>
 
@@ -891,11 +891,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -923,16 +923,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Character Info Command</title>
+    <title>Memo Bot - Character Info Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Character Info Command">
-    <meta property="og:description" content="Get detailed information about any character using CRAC Bot's charinfo command.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/charinfo">
+    <meta property="og:title" content="Memo Bot | Character Info Command">
+    <meta property="og:description" content="Get detailed information about any character using Memo Bot's charinfo command.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/charinfo">
     <meta property="og:type" content="website">
 
     <style>
@@ -952,13 +952,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -967,7 +967,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Fun</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Character Info Command</h1>
@@ -1050,7 +1050,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -1069,7 +1069,7 @@
                         <div class="border rounded p-4 border-red-200">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-red-50 rounded p-4">
@@ -1129,11 +1129,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -1161,16 +1161,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Coin Flip Command</title>
+    <title>Memo Bot - Coin Flip Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Coin Flip Command">
-    <meta property="og:description" content="Flip a virtual coin using CRAC Bot's coin command.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/coin">
+    <meta property="og:title" content="Memo Bot | Coin Flip Command">
+    <meta property="og:description" content="Flip a virtual coin using Memo Bot's coin command.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/coin">
     <meta property="og:type" content="website">
 
     <style>
@@ -1190,13 +1190,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -1205,7 +1205,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Fun</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Coin Flip Command</h1>
@@ -1263,7 +1263,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -1274,7 +1274,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -1341,11 +1341,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -1373,16 +1373,16 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CRAC Bot - Feedback Command</title>
+        <title>Memo Bot - Feedback Command</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
         <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
         
-        <meta property="og:title" content="CRAC Bot | Feedback Command">
-        <meta property="og:description" content="Learn how to submit feedback to help improve CRAC Bot.">
-        <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-        <meta property="og:url" content="https://crac.nerd-bear.org/commands/feedback">
+        <meta property="og:title" content="Memo Bot | Feedback Command">
+        <meta property="og:description" content="Learn how to submit feedback to help improve Memo Bot.">
+        <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+        <meta property="og:url" content="https://Memo.nerd-bear.org/commands/feedback">
         <meta property="og:type" content="website">
 
         <style>
@@ -1402,13 +1402,13 @@
         <nav class="container mx-auto p-6">
             <div class="flex justify-between items-center">
                 <h1 class="text-3xl font-bold text-blue-600">
-                    <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                    <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
                 </h1>
                 <ul class="flex space-x-6">
-                    <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                    <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                    <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                    <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                    <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                    <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                    <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                    <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
                 </ul>
             </div>
         </nav>
@@ -1417,11 +1417,11 @@
             <!-- Command Header -->
             <div class="mb-8">
                 <div class="flex items-center gap-4 mb-4">
-                    <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                    <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                     <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Utility</span>
                 </div>
                 <h1 class="text-4xl font-bold mb-2">Feedback Command</h1>
-                <p class="text-xl text-gray-600">Submit feedback to help improve CRAC Bot</p>
+                <p class="text-xl text-gray-600">Submit feedback to help improve Memo Bot</p>
             </div>
 
             <!-- Command Card Grid -->
@@ -1434,7 +1434,7 @@
                         <div class="bg-gray-50 rounded p-4 mb-4 font-mono">
                             ?feedback [message]
                         </div>
-                        <p class="mb-4">The feedback command allows you to submit suggestions, bug reports, or general feedback about CRAC Bot. All feedback is stored and reviewed regularly by the development team.</p>
+                        <p class="mb-4">The feedback command allows you to submit suggestions, bug reports, or general feedback about Memo Bot. All feedback is stored and reviewed regularly by the development team.</p>
                         <div class="space-y-2">
                             <p><strong>Arguments:</strong></p>
                             <ul class="list-disc list-inside pl-4">
@@ -1494,7 +1494,7 @@
                             <div class="border rounded p-4">
                                 <div class="flex items-center gap-2 mb-2">
                                     <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                    <span class="font-medium">CRAC Bot</span>
+                                    <span class="font-medium">Memo Bot</span>
                                 </div>
                                 <div class="pl-10">
                                     <div class="bg-gray-50 rounded p-4">
@@ -1506,7 +1506,7 @@
                             <div class="border rounded p-4 border-red-200">
                                 <div class="flex items-center gap-2 mb-2">
                                     <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                    <span class="font-medium">CRAC Bot</span>
+                                    <span class="font-medium">Memo Bot</span>
                                 </div>
                                 <div class="pl-10">
                                     <div class="bg-red-50 rounded p-4">
@@ -1565,11 +1565,11 @@
 
         <footer class="bg-gray-100 mt-24 py-8">
             <div class="container mx-auto text-center text-gray-600">
-                <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+                <p>&copy; 2024 Memo Bot. All rights reserved.</p>
                 <div class="mt-4">
-                    <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                    <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                    <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                    <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                    <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                    <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
                 </div>
             </div>
         </footer>
@@ -1597,16 +1597,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Help Command</title>
+    <title>Memo Bot - Help Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Help Command">
-    <meta property="og:description" content="Learn how to use the help command in CRAC Bot to learn more about the commands you can use.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/help">
+    <meta property="og:title" content="Memo Bot | Help Command">
+    <meta property="og:description" content="Learn how to use the help command in Memo Bot to learn more about the commands you can use.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/help">
     <meta property="og:type" content="website">
 
     <style>
@@ -1626,13 +1626,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -1641,7 +1641,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Moderation</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Help Command</h1>
@@ -1678,11 +1678,11 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
-                                    <p class="font-medium">CRAC Help Information</p>
+                                    <p class="font-medium">Memo Help Information</p>
                                     <p class="text-gray-600">?tts</p>
                                     <p class="text-gray-600 font-bold">Join the vc you are in and uses Text-to-Speech to say your text<br/><code>Usage: ?tts [input_text]</code></p>
                                 </div>
@@ -1715,9 +1715,9 @@
                 <section class="bg-white rounded-lg shadow-sm p-6">
                     <h3 class="text-xl font-bold mb-4">Related Commands</h3>
                     <ul class="space-y-2">
-                        <li><a href="https://crac.nerd-bear.org/commands/profile" class="text-blue-600 hover:text-blue-800">?profile</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/server" class="text-blue-600 hover:text-blue-800">?server</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/charinfo" class="text-blue-600 hover:text-blue-800">?charinfo</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/profile" class="text-blue-600 hover:text-blue-800">?profile</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/server" class="text-blue-600 hover:text-blue-800">?server</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/charinfo" class="text-blue-600 hover:text-blue-800">?charinfo</a></li>
                     </ul>
                 </section>
 
@@ -1733,11 +1733,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -1765,16 +1765,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Commands</title>
+    <title>Memo Bot - Commands</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
 
-    <meta property="og:title" content="CRAC Bot | Commands">
-    <meta property="og:description" content="Explore all available commands for CRAC Bot, including moderation, music, utility, and fun features.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands">
+    <meta property="og:title" content="Memo Bot | Commands">
+    <meta property="og:description" content="Explore all available commands for Memo Bot, including moderation, music, utility, and fun features.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands">
     <meta property="og:type" content="website">
 
     <style>
@@ -1798,24 +1798,24 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
 
     <main class="container mx-auto mt-12 p-6">
         <div class="flex flex-col items-center mb-12">
-            <a href="https://crac.nerd-bear.org/" class="mb-8">
-                <img src="https://crac.nerd-bear.org/pfp-5.png" alt="CRAC Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
+            <a href="https://Memo.nerd-bear.org/" class="mb-8">
+                <img src="https://Memo.nerd-bear.org/pfp-5.png" alt="Memo Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
             </a>
             <h2 class="text-4xl font-bold mb-4 text-center text-gray-900">Command List</h2>
-            <p class="text-xl text-gray-600 mb-8 text-center">Explore all available commands for CRAC Bot</p>
+            <p class="text-xl text-gray-600 mb-8 text-center">Explore all available commands for Memo Bot</p>
         </div>
 
         <div class="mb-8">
@@ -2083,11 +2083,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-2">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -2141,16 +2141,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Join Command</title>
+    <title>Memo Bot - Join Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Join Command">
-    <meta property="og:description" content="Learn how to make CRAC Bot join your voice channel using the join command.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/join">
+    <meta property="og:title" content="Memo Bot | Join Command">
+    <meta property="og:description" content="Learn how to make Memo Bot join your voice channel using the join command.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/join">
     <meta property="og:type" content="website">
 
     <style>
@@ -2170,13 +2170,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -2185,7 +2185,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Music</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Join Command</h1>
@@ -2202,7 +2202,7 @@
                     <div class="bg-gray-50 rounded p-4 mb-4 font-mono">
                         ?join
                     </div>
-                    <p class="mb-4">The join command makes CRAC Bot join your current voice channel. You must be in a voice channel for this command to work.</p>
+                    <p class="mb-4">The join command makes Memo Bot join your current voice channel. You must be in a voice channel for this command to work.</p>
                     <div class="space-y-2">
                         <p><strong>Arguments:</strong></p>
                         <ul class="list-disc list-inside pl-4">
@@ -2229,7 +2229,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -2241,7 +2241,7 @@
                         <div class="border rounded p-4 border-red-200">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-red-50 rounded p-4">
@@ -2299,8 +2299,8 @@
                 <section class="bg-white rounded-lg shadow-sm p-6">
                     <h3 class="text-xl font-bold mb-4">Related Commands</h3>
                     <ul class="space-y-2">
-                        <li><a href="https://crac.nerd-bear.org/commands/leave" class="text-blue-600 hover:text-blue-800">?leave</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/play" class="text-blue-600 hover:text-blue-800">?play</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/leave" class="text-blue-600 hover:text-blue-800">?leave</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/play" class="text-blue-600 hover:text-blue-800">?play</a></li>
                     </ul>
                 </section>
 
@@ -2329,11 +2329,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -2361,16 +2361,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Joke Command</title>
+    <title>Memo Bot - Joke Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Joke Command">
-    <meta property="og:description" content="Get a random dad joke using CRAC Bot's joke command.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/joke">
+    <meta property="og:title" content="Memo Bot | Joke Command">
+    <meta property="og:description" content="Get a random dad joke using Memo Bot's joke command.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/joke">
     <meta property="og:type" content="website">
 
     <style>
@@ -2390,13 +2390,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -2405,7 +2405,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Fun</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Joke Command</h1>
@@ -2438,7 +2438,7 @@
                         <div class="p-4 bg-gray-50 rounded">
                             <p class="font-medium mb-2">Sample Responses:</p>
                             <ul class="space-y-4 text-gray-600">
-                                <li class="p-2 bg-white rounded shadow-sm">"Why don't eggs tell jokes? They'd crack up!"</li>
+                                <li class="p-2 bg-white rounded shadow-sm">"Why don't eggs tell jokes? They'd Memok up!"</li>
                                 <li class="p-2 bg-white rounded shadow-sm">"What do you call a fake noodle? An impasta!"</li>
                                 <li class="p-2 bg-white rounded shadow-sm">"Why did the scarecrow win an award? He was outstanding in his field!"</li>
                             </ul>
@@ -2464,13 +2464,13 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
                                     <p class="font-medium">Dad Joke Time! 😄</p>
                                     <p class="text-gray-600">Why don't eggs tell jokes?</p>
-                                    <p class="text-gray-600">They'd crack up!</p>
+                                    <p class="text-gray-600">They'd Memok up!</p>
                                 </div>
                             </div>
                         </div>
@@ -2533,11 +2533,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -2565,16 +2565,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Kick Command</title>
+    <title>Memo Bot - Kick Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Kick Command">
-    <meta property="og:description" content="Learn how to use the kick command in CRAC Bot to moderate your server.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/kick">
+    <meta property="og:title" content="Memo Bot | Kick Command">
+    <meta property="og:description" content="Learn how to use the kick command in Memo Bot to moderate your server.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/kick">
     <meta property="og:type" content="website">
 
     <style>
@@ -2594,13 +2594,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -2609,7 +2609,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Moderation</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Kick Command</h1>
@@ -2658,7 +2658,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -2695,9 +2695,9 @@
                 <section class="bg-white rounded-lg shadow-sm p-6">
                     <h3 class="text-xl font-bold mb-4">Related Commands</h3>
                     <ul class="space-y-2">
-                        <li><a href="https://crac.nerd-bear.org/commands/ban" class="text-blue-600 hover:text-blue-800">?ban</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/timeout" class="text-blue-600 hover:text-blue-800">?timeout</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/unban" class="text-blue-600 hover:text-blue-800">?unban</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/ban" class="text-blue-600 hover:text-blue-800">?ban</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/timeout" class="text-blue-600 hover:text-blue-800">?timeout</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/unban" class="text-blue-600 hover:text-blue-800">?unban</a></li>
                     </ul>
                 </section>
 
@@ -2715,11 +2715,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -2747,16 +2747,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Leave Command</title>
+    <title>Memo Bot - Leave Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Leave Command">
-    <meta property="og:description" content="Learn how to make CRAC Bot leave your voice channel using the leave command.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/leave">
+    <meta property="og:title" content="Memo Bot | Leave Command">
+    <meta property="og:description" content="Learn how to make Memo Bot leave your voice channel using the leave command.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/leave">
     <meta property="og:type" content="website">
 
     <style>
@@ -2776,13 +2776,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -2791,7 +2791,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Music</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Leave Command</h1>
@@ -2808,7 +2808,7 @@
                     <div class="bg-gray-50 rounded p-4 mb-4 font-mono">
                         ?leave
                     </div>
-                    <p class="mb-4">The leave command makes CRAC Bot leave the voice channel it's currently in. The bot must be in a voice channel for this command to work.</p>
+                    <p class="mb-4">The leave command makes Memo Bot leave the voice channel it's currently in. The bot must be in a voice channel for this command to work.</p>
                     <div class="space-y-2">
                         <p><strong>Arguments:</strong></p>
                         <ul class="list-disc list-inside pl-4">
@@ -2835,7 +2835,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -2847,7 +2847,7 @@
                         <div class="border rounded p-4 border-red-200">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-red-50 rounded p-4">
@@ -2899,8 +2899,8 @@
                 <section class="bg-white rounded-lg shadow-sm p-6">
                     <h3 class="text-xl font-bold mb-4">Related Commands</h3>
                     <ul class="space-y-2">
-                        <li><a href="https://crac.nerd-bear.org/commands/join" class="text-blue-600 hover:text-blue-800">?join</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/play" class="text-blue-600 hover:text-blue-800">?play</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/join" class="text-blue-600 hover:text-blue-800">?join</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/play" class="text-blue-600 hover:text-blue-800">?play</a></li>
                     </ul>
                 </section>
 
@@ -2928,11 +2928,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -2960,16 +2960,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Nickname Command</title>
+    <title>Memo Bot - Nickname Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Nickname Command">
-    <meta property="og:description" content="Learn how to use the nickname command in CRAC Bot to change user nicknames.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/nick">
+    <meta property="og:title" content="Memo Bot | Nickname Command">
+    <meta property="og:description" content="Learn how to use the nickname command in Memo Bot to change user nicknames.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/nick">
     <meta property="og:type" content="website">
 
     <style>
@@ -2989,13 +2989,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -3004,7 +3004,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Moderation</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Nickname Command</h1>
@@ -3076,7 +3076,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -3088,7 +3088,7 @@
                         <div class="border rounded p-4 border-red-200">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-red-50 rounded p-4">
@@ -3124,9 +3124,9 @@
                 <section class="bg-white rounded-lg shadow-sm p-6">
                     <h3 class="text-xl font-bold mb-4">Related Commands</h3>
                     <ul class="space-y-2">
-                        <li><a href="https://crac.nerd-bear.org/commands/kick" class="text-blue-600 hover:text-blue-800">?kick</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/ban" class="text-blue-600 hover:text-blue-800">?ban</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/timeout" class="text-blue-600 hover:text-blue-800">?timeout</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/kick" class="text-blue-600 hover:text-blue-800">?kick</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/ban" class="text-blue-600 hover:text-blue-800">?ban</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/timeout" class="text-blue-600 hover:text-blue-800">?timeout</a></li>
                     </ul>
                 </section>
 
@@ -3156,11 +3156,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -3188,16 +3188,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Ping Command</title>
+    <title>Memo Bot - Ping Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Ping Command">
-    <meta property="og:description" content="Check CRAC Bot's response time using the ping command.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/ping">
+    <meta property="og:title" content="Memo Bot | Ping Command">
+    <meta property="og:description" content="Check Memo Bot's response time using the ping command.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/ping">
     <meta property="og:type" content="website">
 
     <style>
@@ -3217,13 +3217,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -3232,7 +3232,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Utility</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Ping Command</h1>
@@ -3295,7 +3295,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -3353,11 +3353,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -3385,16 +3385,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Play Command</title>
+    <title>Memo Bot - Play Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Play Command">
-    <meta property="og:description" content="Learn how to use the play command in CRAC Bot to play music from YouTube in your voice channel.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/play">
+    <meta property="og:title" content="Memo Bot | Play Command">
+    <meta property="og:description" content="Learn how to use the play command in Memo Bot to play music from YouTube in your voice channel.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/play">
     <meta property="og:type" content="website">
 
     <style>
@@ -3414,13 +3414,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -3429,7 +3429,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Music</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Play Command</h1>
@@ -3501,7 +3501,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -3515,7 +3515,7 @@
                         <div class="border rounded p-4 border-red-200">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-red-50 rounded p-4">
@@ -3557,8 +3557,8 @@
                 <section class="bg-white rounded-lg shadow-sm p-6">
                     <h3 class="text-xl font-bold mb-4">Related Commands</h3>
                     <ul class="space-y-2">
-                        <li><a href="https://crac.nerd-bear.org/commands/join" class="text-blue-600 hover:text-blue-800">?join</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/leave" class="text-blue-600 hover:text-blue-800">?leave</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/join" class="text-blue-600 hover:text-blue-800">?join</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/leave" class="text-blue-600 hover:text-blue-800">?leave</a></li>
                     </ul>
                 </section>
 
@@ -3589,11 +3589,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -3621,16 +3621,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Profile Command</title>
+    <title>Memo Bot - Profile Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Profile Command">
-    <meta property="og:description" content="View detailed Discord profile information using CRAC Bot's profile command.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/profile">
+    <meta property="og:title" content="Memo Bot | Profile Command">
+    <meta property="og:description" content="View detailed Discord profile information using Memo Bot's profile command.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/profile">
     <meta property="og:type" content="website">
 
     <style>
@@ -3650,13 +3650,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -3665,7 +3665,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Utility</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Profile Command</h1>
@@ -3741,7 +3741,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -3759,7 +3759,7 @@
                         <div class="border rounded p-4 border-red-200">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-red-50 rounded p-4">
@@ -3828,11 +3828,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -3860,16 +3860,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Quote Command</title>
+    <title>Memo Bot - Quote Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Quote Command">
-    <meta property="og:description" content="Get a random famous quote using CRAC Bot's quote command.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/quote">
+    <meta property="og:title" content="Memo Bot | Quote Command">
+    <meta property="og:description" content="Get a random famous quote using Memo Bot's quote command.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/quote">
     <meta property="og:type" content="website">
 
     <style>
@@ -3889,13 +3889,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -3904,7 +3904,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Fun</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Quote Command</h1>
@@ -3972,7 +3972,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -4045,11 +4045,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -4077,16 +4077,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Server Command</title>
+    <title>Memo Bot - Server Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Server Command">
-    <meta property="og:description" content="View detailed server statistics using CRAC Bot's server command.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/server">
+    <meta property="og:title" content="Memo Bot | Server Command">
+    <meta property="og:description" content="View detailed server statistics using Memo Bot's server command.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/server">
     <meta property="og:type" content="website">
 
     <style>
@@ -4106,13 +4106,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -4121,7 +4121,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Utility</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Server Command</h1>
@@ -4205,7 +4205,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -4270,11 +4270,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -4302,16 +4302,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Timeout Command</title>
+    <title>Memo Bot - Timeout Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Timeout Command">
-    <meta property="og:description" content="Learn how to use the timeout command in CRAC Bot to temporarily restrict users.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/timeout">
+    <meta property="og:title" content="Memo Bot | Timeout Command">
+    <meta property="og:description" content="Learn how to use the timeout command in Memo Bot to temporarily restrict users.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/timeout">
     <meta property="og:type" content="website">
 
     <style>
@@ -4331,13 +4331,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -4346,7 +4346,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Moderation</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Timeout Command</h1>
@@ -4424,7 +4424,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -4462,9 +4462,9 @@
                 <section class="bg-white rounded-lg shadow-sm p-6">
                     <h3 class="text-xl font-bold mb-4">Related Commands</h3>
                     <ul class="space-y-2">
-                        <li><a href="https://crac.nerd-bear.org/commands/kick" class="text-blue-600 hover:text-blue-800">?kick</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/ban" class="text-blue-600 hover:text-blue-800">?ban</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/unban" class="text-blue-600 hover:text-blue-800">?unban</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/kick" class="text-blue-600 hover:text-blue-800">?kick</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/ban" class="text-blue-600 hover:text-blue-800">?ban</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/unban" class="text-blue-600 hover:text-blue-800">?unban</a></li>
                     </ul>
                 </section>
 
@@ -4494,11 +4494,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -4526,16 +4526,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Translate Command</title>
+    <title>Memo Bot - Translate Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Translate Command">
-    <meta property="og:description" content="Learn how to translate text to English using CRAC Bot's translate command.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/translate">
+    <meta property="og:title" content="Memo Bot | Translate Command">
+    <meta property="og:description" content="Learn how to translate text to English using Memo Bot's translate command.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/translate">
     <meta property="og:type" content="website">
 
     <style>
@@ -4555,13 +4555,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -4570,7 +4570,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Utility</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Translate Command</h1>
@@ -4638,7 +4638,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -4651,7 +4651,7 @@
                         <div class="border rounded p-4 border-red-200">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-red-50 rounded p-4">
@@ -4719,11 +4719,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -4751,16 +4751,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Text-to-Speech Command</title>
+    <title>Memo Bot - Text-to-Speech Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Text-to-Speech Command">
-    <meta property="og:description" content="Convert text to speech using CRAC Bot's TTS command.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/tts">
+    <meta property="og:title" content="Memo Bot | Text-to-Speech Command">
+    <meta property="og:description" content="Convert text to speech using Memo Bot's TTS command.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/tts">
     <meta property="og:type" content="website">
 
     <style>
@@ -4780,13 +4780,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -4795,7 +4795,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Fun</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Text-to-Speech Command</h1>
@@ -4873,7 +4873,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -4885,7 +4885,7 @@
                         <div class="border rounded p-4 border-red-200">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-red-50 rounded p-4">
@@ -4927,8 +4927,8 @@
                 <section class="bg-white rounded-lg shadow-sm p-6">
                     <h3 class="text-xl font-bold mb-4">Related Commands</h3>
                     <ul class="space-y-2">
-                        <li><a href="https://crac.nerd-bear.org/commands/join" class="text-blue-600 hover:text-blue-800">?join</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/leave" class="text-blue-600 hover:text-blue-800">?leave</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/join" class="text-blue-600 hover:text-blue-800">?join</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/leave" class="text-blue-600 hover:text-blue-800">?leave</a></li>
                     </ul>
                 </section>
 
@@ -4958,11 +4958,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -4990,16 +4990,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Unban Command</title>
+    <title>Memo Bot - Unban Command</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="CRAC Bot | Unban Command">
-    <meta property="og:description" content="Learn how to use the unban command in CRAC Bot to remove bans from users.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/commands/unban">
+    <meta property="og:title" content="Memo Bot | Unban Command">
+    <meta property="og:description" content="Learn how to use the unban command in Memo Bot to remove bans from users.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/commands/unban">
     <meta property="og:type" content="website">
 
     <style>
@@ -5019,13 +5019,13 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
@@ -5034,7 +5034,7 @@
         <!-- Command Header -->
         <div class="mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <a href="https://crac.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
+                <a href="https://Memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
                 <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Moderation</span>
             </div>
             <h1 class="text-4xl font-bold mb-2">Unban Command</h1>
@@ -5099,7 +5099,7 @@
                         <div class="border rounded p-4">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-gray-50 rounded p-4">
@@ -5112,7 +5112,7 @@
                         <div class="border rounded p-4 border-red-200">
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">CRAC Bot</span>
+                                <span class="font-medium">Memo Bot</span>
                             </div>
                             <div class="pl-10">
                                 <div class="bg-red-50 rounded p-4">
@@ -5148,9 +5148,9 @@
                 <section class="bg-white rounded-lg shadow-sm p-6">
                     <h3 class="text-xl font-bold mb-4">Related Commands</h3>
                     <ul class="space-y-2">
-                        <li><a href="https://crac.nerd-bear.org/commands/ban" class="text-blue-600 hover:text-blue-800">?ban</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/kick" class="text-blue-600 hover:text-blue-800">?kick</a></li>
-                        <li><a href="https://crac.nerd-bear.org/commands/timeout" class="text-blue-600 hover:text-blue-800">?timeout</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/ban" class="text-blue-600 hover:text-blue-800">?ban</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/kick" class="text-blue-600 hover:text-blue-800">?kick</a></li>
+                        <li><a href="https://Memo.nerd-bear.org/commands/timeout" class="text-blue-600 hover:text-blue-800">?timeout</a></li>
                     </ul>
                 </section>
 
@@ -5169,11 +5169,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -5201,17 +5201,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC - Discord Bot</title>
+    <title>Memo - Discord Bot</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
 
     <!-- Open Graph Meta Tags (for Discord and other platforms) -->
-    <meta property="og:title" content="CRAC Bot | Home">
+    <meta property="og:title" content="Memo Bot | Home">
     <meta property="og:description" content="A versatile Discord bot for server management and user interaction. Features include moderation tools, customizable status, character info lookup, and message logging. Actively developed with frequent updates. Created by Nerd Bear for enhancing Discord communities.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/">
     <meta property="og:type" content="website">
 
     <style>
@@ -5228,23 +5228,23 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
 
     <main class="container mx-auto mt-24 p-6">
         <div class="flex flex-col items-center">
-            <a href="https://crac.nerd-bear.org/" class="mb-8">
-                <img src="https://crac.nerd-bear.org/pfp-5.png" alt="CRAC Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
+            <a href="https://Memo.nerd-bear.org/" class="mb-8">
+                <img src="https://Memo.nerd-bear.org/pfp-5.png" alt="Memo Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
             </a>
-            <h2 class="text-5xl font-bold mb-4 text-gray-900"><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Welcome to CRAC Bot</a></h2>
+            <h2 class="text-5xl font-bold mb-4 text-gray-900"><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Welcome to Memo Bot</a></h2>
             <p class="text-xl mb-12 text-gray-600">The ultimate do-it-all Discord bot for moderation and fun!</p>
             <button id="cta-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition shadow-lg">
                 Add to Discord
@@ -5265,7 +5265,7 @@
             </div>
             <div class="bg-white p-8 rounded-lg shadow-md">
                 <h4 class="text-xl font-bold mb-4 text-blue-600">Customization</h4>
-                <p class="text-gray-600">Tailor CRAC to fit your server's unique needs.</p>
+                <p class="text-gray-600">Tailor Memo to fit your server's unique needs.</p>
             </div>
         </div>
     </section>
@@ -5273,18 +5273,18 @@
     <div class="bg-blue-100 py-3 px-6 mt-12">
         <div class="container mx-auto text-center">
             <p class="text-blue-800">
-                Recent changes to our <a href="https://crac.nerd-bear.org/privacy-policy" class="font-semibold underline hover:text-blue-600 transition">Privacy Policy</a>. Please review.
+                Recent changes to our <a href="https://Memo.nerd-bear.org/privacy-policy" class="font-semibold underline hover:text-blue-600 transition">Privacy Policy</a>. Please review.
             </p>
         </div>
     </div>
 
     <footer class="bg-gray-200 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -5321,17 +5321,17 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CRAC - Discord Bot | Privacy Policy</title>
+        <title>Memo - Discord Bot | Privacy Policy</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
         <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
 
         <!-- Open Graph Meta Tags (for Discord and other platforms) -->
-        <meta property="og:title" content="CRAC Bot | Privacy Policy">
-        <meta property="og:description" content="Privacy Policy for CRAC Bot - Learn how we collect, use, and protect your data when you use our Discord bot.">
-        <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-        <meta property="og:url" content="https://crac.nerd-bear.org/privacy">
+        <meta property="og:title" content="Memo Bot | Privacy Policy">
+        <meta property="og:description" content="Privacy Policy for Memo Bot - Learn how we collect, use, and protect your data when you use our Discord bot.">
+        <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+        <meta property="og:url" content="https://Memo.nerd-bear.org/privacy">
         <meta property="og:type" content="website">
 
         <style>
@@ -5349,32 +5349,32 @@
         <nav class="container mx-auto p-6">
             <div class="flex justify-between items-center">
                 <h1 class="text-3xl font-bold text-blue-600">
-                    <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                    <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
                 </h1>
                 <ul class="flex space-x-6">
-                    <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                    <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                    <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                    <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                    <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                    <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                    <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                    <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
                 </ul>
             </div>
         </nav>
 
         <main class="container mx-auto mt-24 p-6">
             <div class="flex flex-col items-center mb-12">
-                <a href="https://crac.nerd-bear.org/" class="mb-8">
-                    <img src="https://crac.nerd-bear.org/pfp-5.png" alt="CRAC Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
+                <a href="https://Memo.nerd-bear.org/" class="mb-8">
+                    <img src="https://Memo.nerd-bear.org/pfp-5.png" alt="Memo Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
                 </a>
                 <h2 class="text-4xl font-bold mb-4 text-gray-900">
-                    <a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Privacy Policy</a>
+                    <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Privacy Policy</a>
                 </h2>
             </div>
             <div class="bg-white p-8 rounded-lg shadow-md">
                 <h3 class="text-2xl font-bold mb-4 text-blue-600">1. Information We Collect</h3>
-                <We class="mb-6">When you use CRAC Bot, we may collect certain information such as your Discord user ID, server ID, message content when using bot commands, and other relevant data necessary for the bot's functionality. We also have a Database of all the commands that users ran, and the hashed user ID. This is needed when moderators of a guild want to check what commands a user ran.</p>
+                <We class="mb-6">When you use Memo Bot, we may collect certain information such as your Discord user ID, server ID, message content when using bot commands, and other relevant data necessary for the bot's functionality. We also have a Database of all the commands that users ran, and the hashed user ID. This is needed when moderators of a guild want to check what commands a user ran.</p>
 
                 <h3 class="text-2xl font-bold mb-4 text-blue-600">2. How We Use Your Information</h3>
-                <p class="mb-6">We use the collected information to provide and improve CRAC Bot's services, including command execution, server management, and user interaction. We do not sell or share your personal information with third parties.</p>
+                <p class="mb-6">We use the collected information to provide and improve Memo Bot's services, including command execution, server management, and user interaction. We do not sell or share your personal information with third parties.</p>
 
                 <h3 class="text-2xl font-bold mb-4 text-blue-600">3. Data Storage and Security</h3>
                 <p class="mb-6">We take reasonable measures to protect your data from unauthorized access or disclosure. However, no method of transmission over the internet or electronic storage is 100% secure.</p>
@@ -5386,24 +5386,24 @@
                 <p class="mb-6">We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
 
                 <h3 class="text-2xl font-bold mb-4 text-blue-600">6. Compliance with Discord's Policies</h3>
-                <p class="mb-6">CRAC Bot complies with Discord's Developer Terms of Service and Developer Policy. We do not collect or use any data beyond what is necessary for the bot's functionality and what is allowed by Discord's policies.</p>
+                <p class="mb-6">Memo Bot complies with Discord's Developer Terms of Service and Developer Policy. We do not collect or use any data beyond what is necessary for the bot's functionality and what is allowed by Discord's policies.</p>
 
                 <h3 class="text-2xl font-bold mb-4 text-blue-600">7. Children's Privacy</h3>
-                <p class="mb-6">CRAC Bot is not intended for use by children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and you are aware that your child has provided us with personal information,
+                <p class="mb-6">Memo Bot is not intended for use by children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and you are aware that your child has provided us with personal information,
                     please contact us.</p>
 
                 <h3 class="text-2xl font-bold mb-4 text-blue-600">8. Contact Us</h3>
-                <p>If you have any questions about this Privacy Policy, please contact us at crac@nerd-bear.org.</p>
+                <p>If you have any questions about this Privacy Policy, please contact us at Memo@nerd-bear.org.</p>
             </div>
         </main>
 
         <footer class="bg-gray-100 mt-24 py-8">
             <div class="container mx-auto text-center text-gray-600">
-                <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+                <p>&copy; 2024 Memo Bot. All rights reserved.</p>
                 <div class="mt-4">
-                    <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                    <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                    <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                    <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                    <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                    <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
                 </div>
             </div>
         </footer>
@@ -5419,17 +5419,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Support</title>
+    <title>Memo Bot - Support</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
     <!-- Open Graph Meta Tags (for Discord and other platforms) -->
-    <meta property="og:title" content="CRAC Bot | Support">
-    <meta property="og:description" content="Get help with CRAC Bot through our support articles or by contacting our support team.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/support">
+    <meta property="og:title" content="Memo Bot | Support">
+    <meta property="og:description" content="Get help with Memo Bot through our support articles or by contacting our support team.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/support">
     <meta property="og:type" content="website">
 
     <style>
@@ -5445,24 +5445,24 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
 
     <main class="container mx-auto mt-24 p-6">
         <div class="flex flex-col items-center mb-12">
-            <a href="https://crac.nerd-bear.org/" class="mb-8">
-                <img src="https://crac.nerd-bear.org/pfp-5.png" alt="CRAC Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
+            <a href="https://Memo.nerd-bear.org/" class="mb-8">
+                <img src="https://Memo.nerd-bear.org/pfp-5.png" alt="Memo Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
             </a>
             <h2 class="text-4xl font-bold mb-4 text-gray-900">Support Center</h2>
-            <p class="text-xl text-gray-600 mb-8">Get help with CRAC Bot</p>
+            <p class="text-xl text-gray-600 mb-8">Get help with Memo Bot</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
@@ -5472,7 +5472,7 @@
                 <p class="text-gray-600 mb-6">Browse our collection of help articles to find answers to common questions:</p>
                 <ul class="space-y-4">
                     <li>
-                        <a href="https://crac.nerd-bear.org/support/article/commands-guide" class="flex items-center text-blue-600 hover:text-blue-800">
+                        <a href="https://Memo.nerd-bear.org/support/article/commands-guide" class="flex items-center text-blue-600 hover:text-blue-800">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
@@ -5480,7 +5480,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://crac.nerd-bear.org/support/article/config-guide" class="flex items-center text-blue-600 hover:text-blue-800">
+                        <a href="https://Memo.nerd-bear.org/support/article/config-guide" class="flex items-center text-blue-600 hover:text-blue-800">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
@@ -5488,7 +5488,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://crac.nerd-bear.org/support/article/add-feedback" class="flex items-center text-blue-600 hover:text-blue-800">
+                        <a href="https://Memo.nerd-bear.org/support/article/add-feedback" class="flex items-center text-blue-600 hover:text-blue-800">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
@@ -5496,7 +5496,7 @@
                         </a>
                     </li>
                 </ul>
-                <a href="https://crac.nerd-bear.org/articles" class="inline-block mt-6 text-blue-600 hover:text-blue-800">
+                <a href="https://Memo.nerd-bear.org/articles" class="inline-block mt-6 text-blue-600 hover:text-blue-800">
                     View all articles →
                 </a>
             </div>
@@ -5528,11 +5528,11 @@
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -5560,17 +5560,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC - Discord Bot | Terms of Use</title>
+    <title>Memo - Discord Bot | Terms of Use</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
 
     <!-- Open Graph Meta Tags (for Discord and other platforms) -->
-    <meta property="og:title" content="CRAC Bot | Terms of Use">
-    <meta property="og:description" content="Terms of Use for CRAC Bot - A versatile Discord bot for server management and user interaction. Please read these terms carefully before using CRAC Bot.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/terms">
+    <meta property="og:title" content="Memo Bot | Terms of Use">
+    <meta property="og:description" content="Terms of Use for Memo Bot - A versatile Discord bot for server management and user interaction. Please read these terms carefully before using Memo Bot.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/terms">
     <meta property="og:type" content="website">
     
     <style>
@@ -5586,64 +5586,64 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
 
     <main class="container mx-auto mt-24 p-6">
         <div class="flex flex-col items-center mb-12">
-            <a href="https://crac.nerd-bear.org/" class="mb-8">
-                <img src="https://crac.nerd-bear.org/pfp-5.png" alt="CRAC Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
+            <a href="https://Memo.nerd-bear.org/" class="mb-8">
+                <img src="https://Memo.nerd-bear.org/pfp-5.png" alt="Memo Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
             </a>
             <h2 class="text-4xl font-bold mb-4 text-gray-900">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Terms of Use</a>
             </h2>
         </div>
 
         <div class="bg-white p-8 rounded-lg shadow-md">
             <h3 class="text-2xl font-bold mb-4 text-blue-600">1. Acceptance of Terms</h3>
-            <p class="mb-6">By using CRAC Bot, you agree to these Terms of Use. If you disagree with any part of these terms, please do not use our bot.</p>
+            <p class="mb-6">By using Memo Bot, you agree to these Terms of Use. If you disagree with any part of these terms, please do not use our bot.</p>
 
             <h3 class="text-2xl font-bold mb-4 text-blue-600">2. Use of the Bot</h3>
-            <p class="mb-6">CRAC Bot is provided for Discord server management and entertainment purposes. You agree to use it only for its intended purposes and in compliance with Discord's Terms of Service.</p>
+            <p class="mb-6">Memo Bot is provided for Discord server management and entertainment purposes. You agree to use it only for its intended purposes and in compliance with Discord's Terms of Service.</p>
 
             <h3 class="text-2xl font-bold mb-4 text-blue-600">3. User Responsibilities</h3>
-            <p class="mb-6">You are responsible for all activities that occur under your Discord account while using CRAC Bot. Do not use the bot for any illegal or unauthorized purpose.</p>
+            <p class="mb-6">You are responsible for all activities that occur under your Discord account while using Memo Bot. Do not use the bot for any illegal or unauthorized purpose.</p>
 
             <h3 class="text-2xl font-bold mb-4 text-blue-600">4. Modifications to Bot or Terms</h3>
-            <p class="mb-6">We reserve the right to modify or discontinue CRAC Bot at any time. We may also revise these Terms of Use at our discretion. Continued use of the bot after any changes constitutes acceptance of those changes.</p>
+            <p class="mb-6">We reserve the right to modify or discontinue Memo Bot at any time. We may also revise these Terms of Use at our discretion. Continued use of the bot after any changes constitutes acceptance of those changes.</p>
 
             <h3 class="text-2xl font-bold mb-4 text-blue-600">5. Limitation of Liability</h3>
-            <p class="mb-6">CRAC Bot is provided "as is" without warranties of any kind. We are not liable for any damages or losses related to your use of the bot.</p>
+            <p class="mb-6">Memo Bot is provided "as is" without warranties of any kind. We are not liable for any damages or losses related to your use of the bot.</p>
 
             <h3 class="text-2xl font-bold mb-4 text-blue-600">6. Privacy</h3>
-            <p class="mb-6">Our use and collection of your information is governed by our Privacy Policy. By using CRAC Bot, you consent to our data practices as described in that policy.</p>
+            <p class="mb-6">Our use and collection of your information is governed by our Privacy Policy. By using Memo Bot, you consent to our data practices as described in that policy.</p>
 
             <h3 class="text-2xl font-bold mb-4 text-blue-600">7. Termination</h3>
-            <p class="mb-6">We may terminate or suspend your access to CRAC Bot immediately, without prior notice, for conduct that we believe violates these Terms of Use or is harmful to other users of the bot, us, or third parties, or for any other reason.</p>
+            <p class="mb-6">We may terminate or suspend your access to Memo Bot immediately, without prior notice, for conduct that we believe violates these Terms of Use or is harmful to other users of the bot, us, or third parties, or for any other reason.</p>
 
             <h3 class="text-2xl font-bold mb-4 text-blue-600">8. Governing Law</h3>
             <p class="mb-6">These Terms shall be governed by and construed in accordance with the laws of United States of America and the United Kingdom, without regard to its conflict of law provisions.</p>
 
             <h3 class="text-2xl font-bold mb-4 text-blue-600">9. Contact Us</h3>
-            <p>If you have any questions about these Terms, please contact us at crac@nerd-bear.org.</p>
+            <p>If you have any questions about these Terms, please contact us at Memo@nerd-bear.org.</p>
         </div>
     </main>
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>
@@ -5659,17 +5659,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAC Bot - Version History</title>
+    <title>Memo Bot - Version History</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
     <!-- Open Graph Meta Tags (for Discord and other platforms) -->
-    <meta property="og:title" content="CRAC Bot | Version History">
-    <meta property="og:description" content="Explore the version history of CRAC Bot, a versatile Discord bot for server management and user interaction. See the latest updates, features, and improvements.">
-    <meta property="og:image" content="https://crac.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://crac.nerd-bear.org/versions">
+    <meta property="og:title" content="Memo Bot | Version History">
+    <meta property="og:description" content="Explore the version history of Memo Bot, a versatile Discord bot for server management and user interaction. See the latest updates, features, and improvements.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/versions">
     <meta property="og:type" content="website">
 
     <style>
@@ -5685,24 +5685,24 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-800 transition">CRAC Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
             <ul class="flex space-x-6">
-                <li><a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://crac.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://crac.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://crac.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
         </div>
     </nav>
 
     <main class="container mx-auto mt-24 p-6">
         <div class="flex flex-col items-center mb-12">
-            <a href="https://crac.nerd-bear.org/" class="mb-8">
-                <img src="https://crac.nerd-bear.org/pfp-5.png" alt="CRAC Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
+            <a href="https://Memo.nerd-bear.org/" class="mb-8">
+                <img src="https://Memo.nerd-bear.org/pfp-5.png" alt="Memo Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
             </a>
             <h2 class="text-4xl font-bold mb-4 text-gray-900">
-                <a href="https://crac.nerd-bear.org/" class="hover:text-blue-600 transition">CRAC Bot Version History</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Memo Bot Version History</a>
             </h2>
         </div>
         
@@ -5713,19 +5713,19 @@
         <div class="mb-8" id="toc">
             <h3 class="text-2xl font-bold mb-4">Table of Contents</h3>
             <ul class="space-y-2">
-                <li><a href="#v0-4-4" class="text-blue-600 hover:underline">CRAC 0.4.4 Beta pre-release</a></li>
-                <li><a href="#v0-4-3" class="text-blue-600 hover:underline">CRAC 0.4.3 Beta pre-release</a></li>
-                <li><a href="#v0-4-2" class="text-blue-600 hover:underline">CRAC 0.4.2 Beta pre-release</a></li>
-                <li><a href="#v0-4-1" class="text-blue-600 hover:underline">CRAC 0.4.1 Beta pre-release</a></li>
+                <li><a href="#v0-4-4" class="text-blue-600 hover:underline">Memo 0.4.4 Beta pre-release</a></li>
+                <li><a href="#v0-4-3" class="text-blue-600 hover:underline">Memo 0.4.3 Beta pre-release</a></li>
+                <li><a href="#v0-4-2" class="text-blue-600 hover:underline">Memo 0.4.2 Beta pre-release</a></li>
+                <li><a href="#v0-4-1" class="text-blue-600 hover:underline">Memo 0.4.1 Beta pre-release</a></li>
             </ul>
         </div>
         
         <div class="space-y-12" id="versions-container">
             <div class="bg-white p-8 rounded-lg shadow-md" id="v0-4-4">
-                <h3 class="text-2xl font-bold text-blue-600 mb-4">CRAC 0.4.4 Beta pre-release 🧪</h3>
+                <h3 class="text-2xl font-bold text-blue-600 mb-4">Memo 0.4.4 Beta pre-release 🧪</h3>
                 <p class="mb-2"><strong>Program size:</strong> ~0.04 MB (~43.1 KB)</p>
                 <p class="mb-4"><strong>Release date:</strong> 05/10/2024 2:45 AM BST</p>
-                <a href="https://github.com/nerd-bear/CRAC/releases/tag/0.4.4" class="inline-block mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Download v0.4.4</a>
+                <a href="https://github.com/nerd-bear/Memo/releases/tag/0.4.4" class="inline-block mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Download v0.4.4</a>
                 
                 <p class="mb-4">This is a simple beta testing release with around 17 simple commands, the commands are: help, charinfo, tts, profile, play, join, leave, timeout, kick, ban, unban, shutdown, start, stream, play, watch, and listen. Nearly daily updates are to be expected.</p>
                 
@@ -5767,14 +5767,14 @@
                 <h4 class="text-xl font-bold mb-2 text-blue-600">Update notes:</h4>
                 <p class="mb-4">I will remove all status config commands as they affect the bot across all guilds (Servers) and are just added as a proof of concept. The commands and features I will be adding are config files, untimeout commands, voice chat mute commands, per guild config, music features, and other fun features! Another feature, probably the biggest one (since it will allow for a lot of new features) will be the music queue backend change since it will allow for many new features.</p>
                 
-                <p class="text-sm text-gray-600 italic">Created by Nerd Bear (This version of CRAC is open source and under the apache2 license)</p>
+                <p class="text-sm text-gray-600 italic">Created by Nerd Bear (This version of Memo is open source and under the apache2 license)</p>
             </div>
 
             <div class="bg-white p-8 rounded-lg shadow-md" id="v0-4-3">
-                <h3 class="text-2xl font-bold text-blue-600 mb-4">CRAC 0.4.3 Beta pre-release 🧪</h3>
+                <h3 class="text-2xl font-bold text-blue-600 mb-4">Memo 0.4.3 Beta pre-release 🧪</h3>
                 <p class="mb-2"><strong>Program size:</strong> ~0.03 MB (~30.8 KB)</p>
                 <p class="mb-4"><strong>Release date:</strong> 04/10/2024 2:17 AM BST</p>
-                <a href="https://github.com/nerd-bear/CRAC/releases/tag/0.4.3" class="inline-block mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Download v0.4.3</a>
+                <a href="https://github.com/nerd-bear/Memo/releases/tag/0.4.3" class="inline-block mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Download v0.4.3</a>
                 
                 <p class="mb-4">This is a simple beta testing release with around 12 simple commands, the commands are: help, charinfo, timeout, kick, ban, unban, shutdown, start, stream, play, watch, and listen. Nearly daily updates are to be expected.</p>
                 
@@ -5807,14 +5807,14 @@
                 <h4 class="text-xl font-bold mb-2 text-blue-600">Update notes:</h4>
                 <p class="mb-4">I will be removing all status config commands as they affect the bot across all guilds (Servers) and are just added as a proof of concept. The commands and features I will be adding are config files, untimeout command, voice chat mute commands, per guild config, music features, and other fun features!</p>
                 
-                <p class="text-sm text-gray-600 italic">Created by Nerd Bear (This version of CRAC is open source and under the apache2 license)</p>
+                <p class="text-sm text-gray-600 italic">Created by Nerd Bear (This version of Memo is open source and under the apache2 license)</p>
             </div>
 
             <div class="bg-white p-8 rounded-lg shadow-md" id="v0-4-2">
-                <h3 class="text-2xl font-bold text-blue-600 mb-4">CRAC 0.4.2 Beta pre-release 🧪</h3>
+                <h3 class="text-2xl font-bold text-blue-600 mb-4">Memo 0.4.2 Beta pre-release 🧪</h3>
                 <p class="mb-2"><strong>Program size:</strong> ~0.02 MB (~18.3 KB)</p>
                 <p class="mb-4"><strong>Release date:</strong> 03/10/2024 3:39 AM BST</p>
-                <a href="https://github.com/nerd-bear/CRAC/releases/tag/0.4.2" class="inline-block mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Download v0.4.2</a>
+                <a href="https://github.com/nerd-bear/Memo/releases/tag/0.4.2" class="inline-block mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Download v0.4.2</a>
                 
                 <p class="mb-4">This is a simple beta testing release with around 10 simple commands, the commands are: help, charinfo, kick, ban, shutdown, start, stream, play, watch and listen. Nearly daily updates are to be expected.</p>
                 
@@ -5836,14 +5836,14 @@
                     <li>Added logger info level logs to show what user ran what command when</li>
                 </ul>
                 
-                <p class="text-sm text-gray-600 italic">Created by Nerd Bear (This version of CRAC is open source and under the apache2 license)</p>
+                <p class="text-sm text-gray-600 italic">Created by Nerd Bear (This version of Memo is open source and under the apache2 license)</p>
             </div>
 
             <div class="bg-white p-8 rounded-lg shadow-md" id="v0-4-1">
-                <h3 class="text-2xl font-bold text-blue-600 mb-4">CRAC 0.4.1 Beta pre-release 🧪</h3>
+                <h3 class="text-2xl font-bold text-blue-600 mb-4">Memo 0.4.1 Beta pre-release 🧪</h3>
                 <p class="mb-2"><strong>Program size:</strong> ~0.02 MB (~18.3 KB)</p>
                 <p class="mb-4"><strong>Release date:</strong> 02/10/2024 4:09 AM BST</p>
-                <a href="https://github.com/nerd-bear/CRAC/releases/tag/0.4.1" class="inline-block mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Download v0.4.1</a>
+                <a href="https://github.com/nerd-bear/Memo/releases/tag/0.4.1" class="inline-block mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Download v0.4.1</a>
                 
                 <p class="mb-4">This is a simple beta testing release with around 10 simple commands, the commands are: help, charinfo, kick, ban, shutdown, start, stream, play, watch and listen. Nearly daily updates are to be expected.</p>
                 
@@ -5856,18 +5856,18 @@
                     <li>More unknown issues may exist</li>
                 </ul>
                 
-                <p class="text-sm text-gray-600 italic">Created by Nerd Bear (This version of CRAC is open source and under the apache2 license)</p>
+                <p class="text-sm text-gray-600 italic">Created by Nerd Bear (This version of Memo is open source and under the apache2 license)</p>
             </div>
         </div>
     </main>
 
     <footer class="bg-gray-100 mt-24 py-8">
         <div class="container mx-auto text-center text-gray-600">
-            <p>&copy; 2024 CRAC Bot. All rights reserved.</p>
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
             <div class="mt-4">
-                <a href="https://crac.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
-                <a href="https://crac.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
-                <a href="https://crac.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
             </div>
         </div>
     </footer>

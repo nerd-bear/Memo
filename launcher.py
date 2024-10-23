@@ -10,10 +10,10 @@ def main(token: str):
         rich_print("Usage: python3 ./launcher.py --token <token>")
         raise click.Abort()
 
-    from src.bot import CRAC
+    from src.bot import Memo
 
     try:
-        CRAC.run(token)
+        Memo.run(token)
     except Exception as e:
         rich_print(f"[red]{e}[/red]")
         click.Abort()

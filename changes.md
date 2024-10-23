@@ -1,4 +1,4 @@
-# CRAC Bot Changelog
+# Memo Bot Changelog
 
 ## Latest Updates
 

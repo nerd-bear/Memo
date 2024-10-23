@@ -1,4 +1,4 @@
-# CRAC Bot
+# Memo Bot
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -17,7 +17,7 @@
 
 ## Introduction
 
-CRAC Bot is a versatile, all-purpose Discord bot designed to enhance server management and user interaction. Currently in active development, CRAC Bot offers a wide range of features from moderation tools to fun commands, making it a valuable addition to any Discord server.
+Memo Bot is a versatile, all-purpose Discord bot designed to enhance server management and user interaction. Currently in active development, Memo Bot offers a wide range of features from moderation tools to fun commands, making it a valuable addition to any Discord server.
 
 ## Features
 
@@ -88,12 +88,12 @@ Here's a detailed list of available commands:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your-username/crac-bot.git
+   git clone https://github.com/your-username/Memo-bot.git
    ```
 
 2. Navigate to the project directory:
    ```
-   cd crac-bot
+   cd Memo-bot
    ```
 
 3. Install the required dependencies:
@@ -142,7 +142,7 @@ The `config.json` file contains important settings for the bot:
         "prefix": "?"
     },
     "bot_version": "0.4.5",
-    "bot_name": "CRAC",
+    "bot_name": "Memo",
     "tts_mode": "fast",
     "guilds": {
         "1288144110880030795": {
@@ -169,7 +169,7 @@ The `config.json` file contains important settings for the bot:
 
 ## Dependencies
 
-CRAC Bot relies on several Python libraries:
+Memo Bot relies on several Python libraries:
 
 - discord.py: The core library for interacting with the Discord API.
 - Pillow: Used for image manipulation in the `charinfo` command.
@@ -182,7 +182,7 @@ For a complete list of dependencies, refer to the `requirements.txt` file.
 
 ## Development
 
-CRAC Bot is under active development with nearly daily updates. The development process includes:
+Memo Bot is under active development with nearly daily updates. The development process includes:
 
 - Regular feature additions and improvements
 - Bug fixes and performance optimizations
@@ -197,7 +197,7 @@ Future development plans include:
 
 ## Contributing
 
-We welcome contributions to CRAC Bot! Here's how you can contribute:
+We welcome contributions to Memo Bot! Here's how you can contribute:
 
 1. Fork the repository
 2. Create a new branch for your feature or bug fix
@@ -217,12 +217,12 @@ If you need help or want to report a bug, you can:
 
 1. Open an issue on this GitHub repository
 2. Join our support Discord server (link to be added)
-3. Contact us via email at crac@nerd-bear.org
+3. Contact us via email at Memo@nerd-bear.org
 
 ## Creator
 
-CRAC Bot is created and maintained by Nerd Bear. For more information about the creator and other projects, visit [nerd-bear.org](https://nerd-bear.org).
+Memo Bot is created and maintained by Nerd Bear. For more information about the creator and other projects, visit [nerd-bear.org](https://nerd-bear.org).
 
 ---
 
-CRAC Bot © 2024 by Nerd Bear. All rights reserved.
+Memo Bot © 2024 by Nerd Bear. All rights reserved.

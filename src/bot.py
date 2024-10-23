@@ -31,7 +31,7 @@ log_info("Loading Config", True)
 config = load_config(CONFIG_PATH)
 log_info("Completed loading config", True)
 
-log_info("Loading default values into memory", True)
+log_info("Loading default values into Memory", True)
 color_manager = ColorManager(config)
 log_info("Initialized color manager", True)
 
@@ -42,7 +42,7 @@ log_info("Loaded footer icon", True)
 
 BOT_PREFIX = config["defaults"].get("prefix", "?")
 log_info("Loaded bot prefix", True)
-BOT_NAME = config.get("bot_name", "CRAC Bot")
+BOT_NAME = config.get("bot_name", "Memo Bot")
 log_info("Loaded bot name", True)
 BOT_VERSION = config.get("bot_version", "1.0.0")
 log_info("Loaded bot version", True)
@@ -55,7 +55,7 @@ log_info("Loaded logging channel id", True)
 
 intents = disnake.Intents.all()
 log_info("Initialized intents", True)
-CRAC = commands.Bot(command_prefix="/", intents=intents)
+Memo = commands.Bot(command_prefix="/", intents=intents)
 log_info("Initialized bot", True)
 console = Console()
 log_info("Initialized console", True)
@@ -65,15 +65,15 @@ log_info("Loaded tts detector factory seed", True)
 
 bot_active = True
 log_info("Initialized bot to be active", True)
-log_info("Completed loading default values into memory", True)
+log_info("Completed loading default values into Memory", True)
 
 
 async def get_info_text() -> str:
     return f"""
     {BOT_NAME} v{BOT_VERSION}
-    Logged in as {CRAC.user.name} (ID: {CRAC.user.id})
-    Connected to {len(CRAC.guilds)} guilds
-    Bot is ready to use. Ping: {fetch_latency(CRAC)}ms
+    Logged in as {Memo.user.name} (ID: {Memo.user.id})
+    Connected to {len(Memo.guilds)} guilds
+    Bot is ready to use. Ping: {fetch_latency(Memo)}ms
     Prefix: {BOT_PREFIX}
     Initialization complete.
     """
@@ -97,7 +97,7 @@ def debug_command(func):
     return wrapper
 
 
-@CRAC.event
+@Memo.event
 async def on_ready() -> None:
     markdown = Markdown(f"# Discord {BOT_NAME} version {BOT_VERSION}")
     console.print(markdown)
@@ -109,7 +109,7 @@ async def on_ready() -> None:
 
     console.print(panel)
 
-    channel = CRAC.get_channel(LOGGING_CHANNEL_ID)
+    channel = Memo.get_channel(LOGGING_CHANNEL_ID)
     
     if channel:
         embed = disnake.Embed(
@@ -124,16 +124,16 @@ async def on_ready() -> None:
         )
         await channel.send(embed=embed)
 
-    await CRAC.change_presence(
+    await Memo.change_presence(
         activity=disnake.Game(name=f"Run {BOT_PREFIX}help for help")
     )
 
 
-@CRAC.event
+@Memo.event
 async def on_message(message: disnake.Message) -> None:
     global bot_active
 
-    if message.author == CRAC.user:
+    if message.author == Memo.user:
         return
 
     if isinstance(message.channel, disnake.DMChannel):
@@ -146,7 +146,7 @@ async def on_message(message: disnake.Message) -> None:
         content = message.content.lower()
         if any(word in content for word in ["nigger", "nigga", "negro", "nigro"]):
             await handle_inappropriate_word(message)
-        if CRAC.user in message.mentions:
+        if Memo.user in message.mentions:
             await message.channel.send(
                 f"Hello {message.author.mention}! You mentioned me. How can I help you?"
             )
@@ -399,7 +399,21 @@ async def ban_command(message: disnake.Message) -> None:
         await message.channel.send(embed=embed)
         return
 
-    member = message.mentions[0]
+    member = message.guild.get_member(message.mentions[0].id)
+    
+    if member is None:
+        embed = disnake.Embed(
+            title="Member Not Found",
+            description=f"Please mention a user to ban. Usage: {BOT_PREFIX}ban @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(
+            text=FOOTER_TEXT,
+            icon_url=FOOTER_ICON,
+        )
+        await message.channel.send(embed=embed)
+        return
+
     reason = " ".join(message.content.split()[2:]) or "No reason provided"
 
     try:
@@ -443,9 +457,9 @@ async def shutdown_command(message: disnake.Message) -> None:
         return
 
     bot_active = False
-    await CRAC.change_presence(status=disnake.Status.invisible)
+    await Memo.change_presence(status=disnake.Status.invisible)
 
-    for vc in CRAC.voice_clients:
+    for vc in Memo.voice_clients:
         await vc.disconnect()
 
     embed = disnake.Embed(
@@ -478,7 +492,7 @@ async def start_command(message: disnake.Message) -> None:
         return
 
     bot_active = True
-    await CRAC.change_presence(
+    await Memo.change_presence(
         status=disnake.Status.online,
         activity=disnake.Game(name=f"Run {BOT_PREFIX}help for help"),
     )
@@ -800,7 +814,7 @@ async def timeout_command(message: disnake.Message) -> None:
 
 async def join_vc_command(message: disnake.Message) -> None:
     try:
-        channel = CRAC.get_channel(message.author.voice.channel.id)
+        channel = Memo.get_channel(message.author.voice.channel.id)
         await channel.connect()
     except Exception as e:
         richPrint(e)
@@ -872,7 +886,7 @@ async def tts_command(message: disnake.Message) -> None:
 
     vc.play(
         disnake.FFmpegPCMAudio(source=output_file),
-        after=lambda e: asyncio.run_coroutine_threadsafe(vc.disconnect(), CRAC.loop),
+        after=lambda e: asyncio.run_coroutine_threadsafe(vc.disconnect(), Memo.loop),
     )
 
     while vc.is_playing():
@@ -998,7 +1012,7 @@ async def profile_command(message: disnake.Message) -> None:
         return
 
     try:
-        fetched_user = await CRAC.fetch_user(user.id)
+        fetched_user = await Memo.fetch_user(user.id)
 
     except disnake.errors.NotFound as e:
         embed = disnake.Embed(
@@ -1230,15 +1244,15 @@ async def restart_command(message: disnake.Message) -> None:
     )
     await message.channel.send(embed=embed)
     
-    for vc in CRAC.voice_clients:
+    for vc in Memo.voice_clients:
         await vc.disconnect(force=True)
     
-    if hasattr(CRAC.http, '_client_session') and CRAC.http._client_session:
-        await CRAC.http._client_session.close()
+    if hasattr(Memo.http, '_client_session') and Memo.http._client_session:
+        await Memo.http._client_session.close()
         await asyncio.sleep(0.5)  
         
     try:
-        await CRAC.close()
+        await Memo.close()
     except:
         pass
         
@@ -1269,7 +1283,7 @@ async def translate_command(message: disnake.Message) -> None:
 
 
 async def ping_command(message: disnake.Message) -> None:
-    bot_latency = fetch_latency(CRAC)
+    bot_latency = fetch_latency(Memo)
 
     embed = disnake.Embed(
         title="Bot latency",
@@ -1298,7 +1312,7 @@ async def server_command(message: disnake.Message) -> None:
             await message.channel.send(embed=embed)
             return
 
-        if CRAC.intents.members:
+        if Memo.intents.members:
             try:
                 await guild.chunk()
             except disnake.HTTPException:
@@ -1496,12 +1510,12 @@ async def vc_undeafen_command(message: disnake.Message) -> None:
     member.edit(deafen=False)
 
 
-@CRAC.event
+@Memo.event
 async def on_message_delete(message: disnake.Message):
-    if message.author == CRAC.user:
+    if message.author == Memo.user:
         return
 
-    channel = CRAC.get_channel(LOGGING_CHANNEL_ID)
+    channel = Memo.get_channel(LOGGING_CHANNEL_ID)
     if not channel:
         return
 
@@ -1526,12 +1540,12 @@ async def on_message_delete(message: disnake.Message):
     await channel.send(embed=embed)
 
 
-@CRAC.event
+@Memo.event
 async def on_message_edit(before: disnake.Message, after: disnake.Message):
-    if before.author == CRAC.user:
+    if before.author == Memo.user:
         return
 
-    channel = CRAC.get_channel(LOGGING_CHANNEL_ID)
+    channel = Memo.get_channel(LOGGING_CHANNEL_ID)
     if not channel:
         return
 
@@ -1552,6 +1566,43 @@ async def on_message_edit(before: disnake.Message, after: disnake.Message):
         text=FOOTER_TEXT,
         icon_url=FOOTER_ICON,
     )
+    await channel.send(embed=embed)
+
+
+@Memo.event
+async def on_member_join(member: disnake.Member):
+    channel = member.guild.text_channels[0]
+
+    if not channel:
+        return
+    
+    embed = disnake.Embed(
+        title=f"Welcome to the server {member.mention}!",
+        color=color_manager.get_color("Green"),
+        timestamp=datetime.datetime.utcnow(),
+    )
+
+    embed.add_field(name="Account Created At", value=f"<t:{int(member.created_at.timestamp())}:F>")
+    embed.set_thumbnail(member.avatar.url)
+    embed.set_footer(FOOTER_TEXT, FOOTER_ICON)
+    await channel.send(embed=embed)
+
+
+@Memo.event
+async def on_member_remove(member: disnake.Member):
+    channel = member.guild.text_channels[0]
+
+    if not channel:
+        return
+    
+    embed = disnake.Embed(
+        title=f"Goodbye {member.mention}!",
+        color=color_manager.get_color("Red"),
+        timestamp=datetime.datetime.utcnow()
+    )
+
+    embed.set_thumbnail(member.avatar.url)
+    embed.set_footer(FOOTER_TEXT, FOOTER_ICON)
     await channel.send(embed=embed)
 
 

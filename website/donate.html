@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memo Bot - Support Development</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+
+    <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
+    
+    <meta property="og:title" content="Memo Bot | Support Development">
+    <meta property="og:description" content="Support Memo Bot's development and get exclusive perks. Every donation helps keep the bot running and improving.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/donate">
+    <meta property="og:type" content="website">
+
+    <style>
+        .pfp-hover {
+            transition: transform 0.3s ease-in-out;
+        }
+        .pfp-hover:hover {
+            transform: scale(1.1);
+        }
+        .donate-btn {
+            transition: all 0.3s ease;
+        }
+        .donate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .tier-card {
+            transition: transform 0.3s ease;
+        }
+        .tier-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="container mx-auto p-6">
+        <div class="flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-blue-600">
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
+            </h1>
+            <ul class="flex space-x-6">
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-12 p-6">
+        <!-- Header Section -->
+        <div class="text-center mb-16">
+            <h1 class="text-5xl font-bold mb-4">Support Memo Bot</h1>
+            <p class="text-xl text-gray-600 mb-8">Help keep Memo Bot running and improving</p>
+            <a href="https://Memo.nerd-bear.org/donate/paypal" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="donate-btn inline-block bg-blue-500 text-white font-bold py-4 px-8 rounded-full text-xl hover:bg-blue-600 transition">
+                Donate with PayPal
+            </a>
+        </div>
+
+        <!-- Why Donate Section -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8">Why Support Us?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="text-4xl mb-4">🚀</div>
+                    <h3 class="text-xl font-bold mb-2">Keep Memo Bot Running</h3>
+                    <p class="text-gray-600">Your support helps cover hosting costs and ensures Memo Bot stays online 24/7.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="text-4xl mb-4">⭐</div>
+                    <h3 class="text-xl font-bold mb-2">Enable New Features</h3>
+                    <p class="text-gray-600">Donations help us develop new features and improve existing ones.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="text-4xl mb-4">💙</div>
+                    <h3 class="text-xl font-bold mb-2">Support Development</h3>
+                    <p class="text-gray-600">Show your appreciation and help motivate continued development.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Donation Tiers -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8">Donation Tiers</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Basic Tier -->
+                <div class="tier-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2">Basic Supporter</h3>
+                        <div class="text-4xl font-bold text-blue-600 mb-4">$5</div>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Supporter role in our Discord Server
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Name in bot credits
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Premium Tier -->
+                <div class="tier-card bg-white rounded-lg shadow-md overflow-hidden border-2 border-blue-500">
+                    <div class="bg-blue-500 text-white text-center py-2">MOST POPULAR</div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2">Premium Supporter</h3>
+                        <div class="text-4xl font-bold text-blue-600 mb-4">$10</div>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                All Basic benefits
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Early access to features
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Priority support
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Elite Tier -->
+                <div class="tier-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2">Elite Supporter</h3>
+                        <div class="text-4xl font-bold text-blue-600 mb-4">$20</div>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                All Premium benefits
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Custom role color
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Feature request priority
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-2">How do I claim my rewards?</h3>
+                    <p class="text-gray-600">After donating, join our Discord server and open a ticket. Provide your PayPal transaction ID, and we'll set up your rewards within 24 hours.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-2">Is my donation recurring?</h3>
+                    <p class="text-gray-600">No, all donations are one-time payments. You can choose to donate again anytime you want to support us further.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-2">How long do rewards last?</h3>
+                    <p class="text-gray-600">Rewards are permanent! Once you receive your perks, they'll stay with your account indefinitely.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-2">Can I donate a custom amount?</h3>
+                    <p class="text-gray-600">Yes! You can modify the donation amount on PayPal. You'll receive the tier rewards for the nearest tier below your donation amount.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="text-center mb-16">
+            <h2 class="text-3xl font-bold mb-4">Ready to Support Memo Bot?</h2>
+            <p class="text-xl text-gray-600 mb-8">Your support helps keep Memo Bot free for everyone!</p>
+            <a href="https://Memo.nerd-bear.org/donate/paypal" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="donate-btn inline-block bg-blue-500 text-white font-bold py-4 px-8 rounded-full text-xl hover:bg-blue-600 transition">
+                Support Development
+            </a>
+        </section>
+    </main>
+
+    <footer class="bg-gray-100 py-8">
+        <div class="container mx-auto text-center text-gray-600">
+            <p>&copy; 2024 Memo Bot. All rights reserved.</p>
+            <div class="mt-4">
+                <a href="https://Memo.nerd-bear.org/privacy-policy" class="text-blue-600 hover:text-blue-800 mx-2">Privacy Policy</a>
+                <a href="https://Memo.nerd-bear.org/terms-of-use" class="text-blue-600 hover:text-blue-800 mx-2">Terms of Use</a>
+                <a href="https://Memo.nerd-bear.org/support" class="text-blue-600 hover:text-blue-800 mx-2">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.from('main > *', {
+                duration: 0.5,
+                opacity: 0,
+                y: 20,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+        });
+    </script>
+</body>
+</html>
