@@ -236,7 +236,7 @@ def fetch_help_embed(
     """
     help_embed = disnake.Embed(
         color=color_manager.get_color("Blue"),
-        title=f"{bot_name} v{bot_version} Help Information",
+        title=f"{bot_name} Help Information",
         description=f"Here are the available commands (prefix: {bot_prefix}):",
     )
     help_embed.set_footer(text=footer_text, icon_url=footer_icon)

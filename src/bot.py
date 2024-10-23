@@ -171,7 +171,7 @@ async def on_message(message: disnake.Message) -> None:
     command = message.content.split()[0][len(BOT_PREFIX) :].lower()
     args = message.content.split()[1:]
 
-    history.add_history(SHA3.hash_256(str(message.author.id)), SHA3.hash_256(str(message.guild.id)), command, args)
+    history.add_history(SHA3.hash_256(str(message.author.id)), SHA3.hash_256(str(message.guild)), command, args)
 
     match command:
         case "help":
@@ -239,6 +239,18 @@ async def on_message(message: disnake.Message) -> None:
 
         case "quote":
             await quote_command(message)
+
+        case "mute":
+            await vc_mute_command(message)
+
+        case "unmute":
+            await vc_unmute_command(message)
+
+        case "deafen":
+            await vc_deafen_command(message)
+
+        case "undeafen":
+            await vc_undeafen_command(message)
 
         case _:
             embed = disnake.Embed(
@@ -1422,6 +1434,66 @@ async def quote_command(message: disnake.Message) -> None:
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
 
     await message.channel.send(embed=embed)
+
+
+async def vc_mute_command(message: disnake.Message) -> None:
+    if  len(message.mentions) < 1:
+        await message.channel.send("Please mention a valid member.")
+        return
+
+    member = message.guild.get_member(message.mentions[0].id)
+
+    if not member:
+        await message.channel.send("Please mention a valid member.")
+        return
+    
+    if not member.voice:
+        await message.channel.send("That user is not in a voice channel.")
+        return
+    
+    member.edit(mute=True)
+
+
+async def vc_unmute_command(message: disnake.Message) -> None:
+    if  len(message.mentions) < 1:
+        await message.channel.send("Please mention a valid member.")
+        return
+    
+    member = message.guild.get_member(message.mentions[0].id)
+    
+    if not member:
+        await message.channel.send("Please mention a valid member.")
+        return
+
+    member.edit(mute=False)
+
+
+async def vc_deafen_command(message: disnake.Message) -> None:
+    if  len(message.mentions) < 1:
+        await message.channel.send("Please mention a valid member.")
+        return
+    
+    member = message.guild.get_member(message.mentions[0].id)
+    
+    if not member:
+        await message.channel.send("Please mention a valid member.")
+        return
+    
+    member.edit(deafen=True)
+
+
+async def vc_undeafen_command(message: disnake.Message) -> None:
+    if  len(message.mentions) < 1:
+        await message.channel.send("Please mention a valid member.")
+        return
+    
+    member = message.guild.get_member(message.mentions[0].id)
+    
+    if not member:
+        await message.channel.send("Please mention a valid member.")
+        return
+    
+    member.edit(deafen=False)
 
 
 @CRAC.event
