@@ -174,84 +174,85 @@ async def on_message(message: disnake.Message) -> None:
 
     history.add_history(SHA3.hash_256(str(message.author.id)), command, args)
 
-    if command == "help":
-        await help_command(message)
+    match command:
+        case "help":
+            await help_command(message)
 
-    elif command == "timeout":
-        await timeout_command(message)
+        case "timeout":
+            await timeout_command(message)
 
-    elif command == "kick":
-        await kick_command(message)
+        case "kick":
+            await kick_command(message)
 
-    elif command == "ban":
-        await ban_command(message)
+        case "ban":
+            await ban_command(message)
 
-    elif command == "unban":
-        await unban_command(message)
+        case "unban":
+            await unban_command(message)
 
-    elif command == "shutdown":
-        await shutdown_command(message)
+        case "shutdown":
+            await shutdown_command(message)
 
-    elif command == "start":
-        await start_command(message)
+        case "start":
+            await start_command(message)
 
-    elif command == "charinfo":
-        await charinfo_command(message)
+        case "charinfo":
+            await charinfo_command(message)
 
-    elif command == "join":
-        await join_vc_command(message)
+        case "join":
+            await join_vc_command(message)
 
-    elif command == "leave":
-        await leave_vc_command(message)
+        case "leave":
+            await leave_vc_command(message)
 
-    elif command == "tts":
-        await tts_command(message)
+        case "tts":
+            await tts_command(message)
 
-    elif command == "play":
-        await play_command(message)
+        case "play":
+            await play_command(message)
 
-    elif command == "profile":
-        await profile_command(message)
+        case "profile":
+            await profile_command(message)
 
-    elif command == "nick":
-        await nick_command(message)
+        case "nick":
+            await nick_command(message)
 
-    elif command == "feedback":
-        await feedback_command(message)
+        case "feedback":
+            await feedback_command(message)
 
-    elif command == "restart":
-        await restart_command(message)
+        case "restart":
+            await restart_command(message)
 
-    elif command == "translate":
-        await translate_command(message)
+        case "translate":
+            await translate_command(message)
 
-    elif command == "ping":
-        await ping_command(message)
+        case "ping":
+            await ping_command(message)
 
-    elif command == "server":
-        await server_command(message)
+        case "server":
+            await server_command(message)
 
-    elif command == "joke":
-        await joke_command(message)
+        case "joke":
+            await joke_command(message)
 
-    elif command == "coin":
-        await coin_command(message)
+        case "coin":
+            await coin_command(message)
 
-    elif command == "quote":
-        await quote_command(message)
+        case "quote":
+            await quote_command(message)
 
-    else:
-        embed = disnake.Embed(
-            title="Invalid Command",
-            description=f"The command you are running is not valid. Please run `?help` for a list of commands and their usages!",
-            color=color_manager.get_color("Red"),
-        )
-        embed.set_footer(
-            text=FOOTER_TEXT,
-            icon_url=FOOTER_ICON,
-        )
-        await message.channel.send(embed=embed)
-        return
+        case _:
+            embed = disnake.Embed(
+                title="Invalid Command",
+                description=f"The command you are running is not valid. Please run `?help` for a list of commands and their usages!",
+                color=color_manager.get_color("Red"),
+            )
+            embed.set_footer(
+                text=FOOTER_TEXT,
+                icon_url=FOOTER_ICON,
+            )
+            await message.channel.send(embed=embed)
+            return
 
 
 async def handle_inappropriate_word(message: disnake.Message) -> None:
