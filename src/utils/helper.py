@@ -288,6 +288,22 @@ def fetch_help_embed(
             "desc": "Timeout a user for a specified duration (Mod only)",
             "usage": f"{bot_prefix}timeout @user <duration> <unit> [reason]",
         },
+        "mute": {
+            "desc": "Server mutes a member (Mod only)",
+            "usage": f"{bot_prefix}mute @user [reason]"
+        },
+        "unmute": {
+            "desc": "Server unmutes a member (Mod only)",
+            "usage": f"{bot_prefix}unmute @user [reason]",
+        },
+        "deafen": {
+            "desc": "Server deafens a member (Mod only)",
+            "usage": f"{bot_prefix}deafen @user [reason]",
+        },
+        "undeafen": {
+            "desc": "Server undeafens a member (Mod only)",
+            "usage": f"{bot_prefix}undeafen @user [reason]",
+        },
         "kick": {
             "desc": "Kick a user from the server (Mod only)",
             "usage": f"{bot_prefix}kick @user [reason]",

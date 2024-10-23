@@ -55,7 +55,18 @@ log_info("Loaded logging channel id", True)
 
 intents = disnake.Intents.all()
 log_info("Initialized intents", True)
-Memo = commands.Bot(command_prefix="/", intents=intents)
+
+command_sync_flags = commands.CommandSyncFlags.default()
+command_sync_flags.sync_commands_debug = True
+log_info("Initialized command sync flags", True)
+
+Memo = commands.Bot(
+    command_prefix="/",
+    intents=intents,
+    test_guilds=[1288144110880030795],
+    command_sync_flags=command_sync_flags,
+)
+
 log_info("Initialized bot", True)
 console = Console()
 log_info("Initialized console", True)
@@ -106,6 +117,8 @@ async def on_ready() -> None:
     panel = Panel(
         info_text, title=f"{BOT_NAME} v{BOT_VERSION} Initialization Info", expand=False
     )
+
+    await Memo.fetch_global_commands()
 
     console.print(panel)
 
@@ -1477,63 +1490,379 @@ async def quote_command(message: disnake.Message) -> None:
 
 
 async def vc_mute_command(message: disnake.Message) -> None:
-    if len(message.mentions) < 1:
-        await message.channel.send("Please mention a valid member.")
+    if not message.author.guild_permissions.mute_members:
+        embed = disnake.Embed(
+            title="Permission Denied",
+            description="You need the `Mute Members` permission to use this command.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    if len(message.mentions) < 1 or len(message.content.split()) < 3:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please mention a valid member and provide a reason. Usage: {BOT_PREFIX}mute @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
         return
 
     member = message.guild.get_member(message.mentions[0].id)
+    reason = " ".join(message.content.split()[2:])
 
     if not member:
-        await message.channel.send("Please mention a valid member.")
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please mention a valid member. Usage: {BOT_PREFIX}mute @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    if message.author.top_role <= member.top_role:
+        embed = disnake.Embed(
+            title="Permission Denied",
+            description="You cannot mute this user as they have an equal or higher role than you.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
         return
 
     if not member.voice:
-        await message.channel.send("That user is not in a voice channel.")
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Member not in voice channel. Usage: {BOT_PREFIX}mute @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
         return
 
-    member.edit(mute=True)
+    if member.voice.mute:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Member is already muted. Usage: {BOT_PREFIX}mute @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    try:
+        dm_embed = disnake.Embed(
+            title="You've Been Voice Muted",
+            description=f"You were voice muted in {message.guild.name}.\nReason: {reason}",
+            color=color_manager.get_color("Red"),
+        )
+        dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await member.send(embed=dm_embed)
+    except:
+        pass
+
+    try:
+        await member.edit(mute=True, reason=reason)
+        embed = disnake.Embed(
+            title="Voice Mute",
+            description=f"Muted {member.mention}\nReason: {reason}",
+            color=color_manager.get_color("Blue"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+    except disnake.Forbidden:
+        embed = disnake.Embed(
+            title="Error",
+            description="I don't have permission to mute this member.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
 
 
 async def vc_unmute_command(message: disnake.Message) -> None:
-    if len(message.mentions) < 1:
-        await message.channel.send("Please mention a valid member.")
+    if not message.author.guild_permissions.mute_members:
+        embed = disnake.Embed(
+            title="Permission Denied",
+            description="You need the `Mute Members` permission to use this command.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    if len(message.mentions) < 1 or len(message.content.split()) < 3:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please mention a valid member and provide a reason. Usage: {BOT_PREFIX}unmute @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
         return
 
     member = message.guild.get_member(message.mentions[0].id)
+    reason = " ".join(message.content.split()[2:])
 
     if not member:
-        await message.channel.send("Please mention a valid member.")
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please mention a valid member. Usage: {BOT_PREFIX}unmute @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
         return
 
-    member.edit(mute=False)
+    if message.author.top_role <= member.top_role:
+        embed = disnake.Embed(
+            title="Permission Denied",
+            description="You cannot unmute this user as they have an equal or higher role than you.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    if not member.voice:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Member not in voice channel. Usage: {BOT_PREFIX}unmute @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    if not member.voice.mute:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Member is already unmuted. Usage: {BOT_PREFIX}unmute @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    try:
+        dm_embed = disnake.Embed(
+            title="You've Been Voice Unmuted",
+            description=f"You were voice unmuted in {message.guild.name}.\nReason: {reason}",
+            color=color_manager.get_color("Green"),
+        )
+        dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await member.send(embed=dm_embed)
+    except:
+        pass
+
+    try:
+        await member.edit(mute=False, reason=reason)
+        embed = disnake.Embed(
+            title="Voice Unmute",
+            description=f"Unmuted {member.mention}\nReason: {reason}",
+            color=color_manager.get_color("Blue"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+    except disnake.Forbidden:
+        embed = disnake.Embed(
+            title="Error",
+            description="I don't have permission to unmute this member.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
 
 
 async def vc_deafen_command(message: disnake.Message) -> None:
-    if len(message.mentions) < 1:
-        await message.channel.send("Please mention a valid member.")
+    if not message.author.guild_permissions.deafen_members:
+        embed = disnake.Embed(
+            title="Permission Denied",
+            description="You need the `Deafen Members` permission to use this command.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    if len(message.mentions) < 1 or len(message.content.split()) < 3:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please mention a valid member and provide a reason. Usage: {BOT_PREFIX}deafen @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
         return
 
     member = message.guild.get_member(message.mentions[0].id)
+    reason = " ".join(message.content.split()[2:])
 
     if not member:
-        await message.channel.send("Please mention a valid member.")
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please mention a valid member. Usage: {BOT_PREFIX}deafen @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
         return
 
-    member.edit(deafen=True)
+    if message.author.top_role <= member.top_role:
+        embed = disnake.Embed(
+            title="Permission Denied",
+            description="You cannot deafen this user as they have an equal or higher role than you.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    if not member.voice:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Member not in voice channel. Usage: {BOT_PREFIX}deafen @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    if member.voice.deaf:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Member is already deafened. Usage: {BOT_PREFIX}deafen @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    try:
+        dm_embed = disnake.Embed(
+            title="You've Been Voice Deafened",
+            description=f"You were voice deafened in {message.guild.name}.\nReason: {reason}",
+            color=color_manager.get_color("Red"),
+        )
+        dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await member.send(embed=dm_embed)
+    except:
+        pass
+
+    try:
+        await member.edit(deafen=True, reason=reason)
+        embed = disnake.Embed(
+            title="Voice Deafen",
+            description=f"Deafened {member.mention}\nReason: {reason}",
+            color=color_manager.get_color("Blue"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+    except disnake.Forbidden:
+        embed = disnake.Embed(
+            title="Error",
+            description="I don't have permission to deafen this member.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
 
 
 async def vc_undeafen_command(message: disnake.Message) -> None:
-    if len(message.mentions) < 1:
-        await message.channel.send("Please mention a valid member.")
+    if not message.author.guild_permissions.deafen_members:
+        embed = disnake.Embed(
+            title="Permission Denied",
+            description="You need the `Deafen Members` permission to use this command.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    if len(message.mentions) < 1 or len(message.content.split()) < 3:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please mention a valid member and provide a reason. Usage: {BOT_PREFIX}undeafen @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
         return
 
     member = message.guild.get_member(message.mentions[0].id)
+    reason = " ".join(message.content.split()[2:])
 
     if not member:
-        await message.channel.send("Please mention a valid member.")
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please mention a valid member. Usage: {BOT_PREFIX}undeafen @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
         return
 
-    member.edit(deafen=False)
+    if message.author.top_role <= member.top_role:
+        embed = disnake.Embed(
+            title="Permission Denied",
+            description="You cannot undeafen this user as they have an equal or higher role than you.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    if not member.voice:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Member not in voice channel. Usage: {BOT_PREFIX}undeafen @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    if not member.voice.deaf:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Member is already undeafened. Usage: {BOT_PREFIX}undeafen @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    try:
+        dm_embed = disnake.Embed(
+            title="You've Been Voice Undeafened",
+            description=f"You were voice undeafened in {message.guild.name}.\nReason: {reason}",
+            color=color_manager.get_color("Green"),
+        )
+        dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await member.send(embed=dm_embed)
+    except:
+        pass
+
+    try:
+        await member.edit(deafen=False, reason=reason)
+        embed = disnake.Embed(
+            title="Voice Undeafen",
+            description=f"Undeafened {member.mention}\nReason: {reason}",
+            color=color_manager.get_color("Blue"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+    except disnake.Forbidden:
+        embed = disnake.Embed(
+            title="Error",
+            description="I don't have permission to undeafen this member.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
 
 
 @Memo.event
