@@ -21,5 +21,3 @@ def main(token: str):
 
 if __name__ == "__main__":
     main()
-
-# python ./launcher.py --token "MTI4OTkyMTQ3NjYxNDU1MzY3Mg.GNo3VX.kjVPN-1ri34TtfuWZ-ADqhSeW56fARaLu7pMnk"
