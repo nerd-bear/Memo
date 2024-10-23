@@ -1,228 +1,175 @@
-# Memo Bot
+# Memo Discord Bot
 
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Features](#features)
-3. [Commands](#commands)
-4. [Installation](#installation)
-5. [Usage](#usage)
-6. [Configuration](#configuration)
-7. [Project Structure](#project-structure)
-8. [Dependencies](#dependencies)
-9. [Development](#development)
-10. [Contributing](#contributing)
-11. [License](#license)
-12. [Support](#support)
-13. [Creator](#creator)
+<div align="center">
+  <img src="assets/logo/png/padded_bear.png" alt="Memo Bot Logo" width="200">
+  
+  [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+  [![Version](https://img.shields.io/badge/version-0.4.6-brightgreen.svg)](https://github.com/your-username/Memo-bot/releases)
+  [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+  [![Discord.py](https://img.shields.io/badge/disnake-2.8+-blue.svg)](https://github.com/DisnakeDev/disnake)
+</div>
 
-## Introduction
+## Overview
 
-Memo Bot is a versatile, all-purpose Discord bot designed to enhance server management and user interaction. Currently in active development, Memo Bot offers a wide range of features from moderation tools to fun commands, making it a valuable addition to any Discord server.
+Memo Bot is a versatile Discord bot designed to enhance server management and user interaction. From moderation tools to fun commands, Memo Bot provides a comprehensive suite of features to improve your Discord server experience.
 
-## Features
+### Key Features
 
-1. **Server Moderation**
-   - Kick users
-   - Ban and unban users
-   - Timeout users
-   - Nickname management
+- 🛡️ **Server Moderation**
+  - Kick/Ban management
+  - User timeouts
+  - Voice channel controls
+  - Nickname management
 
-2. **User Interaction**
-   - Character information lookup
-   - Text-to-speech functionality
-   - Music playback from YouTube
-   - User profile display
+- 🎵 **Voice Features**
+  - YouTube music playback
+  - Text-to-speech (TTS)
+  - Voice channel controls
 
-3. **Bot Management**
-   - Customizable bot status
-   - Start/shutdown commands
-   - Feedback system
+- 🔧 **Utility Commands**
+  - User profiles
+  - Server statistics
+  - Character information lookup
+  - Language translation
 
-4. **Message Handling**
-   - Logging of message edits and deletions
-   - Inappropriate word detection and filtering
+- 🎮 **Fun Commands**
+  - Random quotes
+  - Dad jokes
+  - Coin flips
+  - And more!
 
-5. **Voice Channel Integration**
-   - Join and leave voice channels
-   - Play audio in voice channels
+## Quick Start
 
-6. **Customization**
-   - Configurable command prefix
-   - Guild-specific settings
-
-## Commands
-
-Here's a detailed list of available commands:
-
-1. `?help`: Displays a help message with all available commands and their usage.
-
-2. `?kick @user [reason]`: Kicks the mentioned user from the server. Requires kick permissions.
-   
-3. `?ban @user [reason]`: Bans the mentioned user from the server. Requires ban permissions.
-   
-4. `?unban @user`: Unbans the specified user from the server. Requires ban permissions.
-   
-5. `?timeout @user <duration> <unit> [reason]`: Timeouts the mentioned user for the specified duration. Requires moderate members permission.
-   
-6. `?shutdown`: Shuts down the bot. Requires administrator permissions.
-   
-7. `?start`: Starts the bot if it's offline. Requires administrator permissions.
-   
-8. `?charinfo [character]`: Provides detailed information about the specified character, including Unicode data.
-   
-9. `?tts [message]`: Converts the given text to speech and plays it in the user's current voice channel.
-   
-10. `?play [youtube_url]`: Plays audio from the specified YouTube video in the user's current voice channel.
-    
-11. `?join`: Makes the bot join the user's current voice channel.
-    
-12. `?leave`: Makes the bot leave the current voice channel.
-    
-13. `?profile @user`: Displays detailed profile information about the mentioned user.
-    
-14. `?nick @user [new_nickname]`: Changes the nickname of the mentioned user. Requires manage nicknames permission.
-    
-15. `?feedback [message]`: Allows users to submit feedback about the bot, which is stored in a database.
-
-## Installation
-
-1. Clone the repository:
-   ```
+1. **Installation**
+   ```bash
+   # Clone the repository
    git clone https://github.com/your-username/Memo-bot.git
-   ```
-
-2. Navigate to the project directory:
-   ```
    cd Memo-bot
-   ```
 
-3. Install the required dependencies:
-   ```
+   # Install dependencies
    pip install -r requirements.txt
-   ```
 
-4. Set up your Discord bot token:
-   - Create a new application in the [Discord Developer Portal](https://discord.com/developers/applications)
-   - Create a bot for your application and copy the bot token
-   - Create a `config.json` file in the project root and add your token:
-     ```json
-     {
-         "token": "YOUR_BOT_TOKEN_HERE"
-     }
-     ```
-
-5. Set up the SQLite database:
-   ```
+   # Set up the database
    python setup/create_feedback_table.py
    python setup/create_history_table.py
    python setup/create_usage_table.py
    ```
 
-## Usage
-
-1. Run the bot:
+2. **Configuration**
+   - Create a `config.json` file in the project root:
+   ```json
+   {
+       "defaults": {
+           "prefix": "?",
+           "footer_text": "Your footer text",
+           "footer_icon": "Your footer icon URL"
+       },
+       "bot_version": "0.4.6",
+       "bot_name": "Memo",
+       "tts_mode": "fast",
+       "log_channel_id": "YOUR_LOG_CHANNEL_ID"
+   }
    ```
-   python launcher.py
+
+3. **Launch**
+   ```bash
+   python launcher.py --token YOUR_BOT_TOKEN
    ```
 
-2. Invite the bot to your Discord server:
-   - Go to the OAuth2 URL generator in your Discord Developer Portal
-   - Select the "bot" scope and the necessary permissions
-   - Use the generated URL to invite the bot to your server
+## Commands
 
-3. Once the bot is in your server, use `?help` to see all available commands.
+Here's a quick overview of the main commands:
 
-## Configuration
+### Moderation
+- `?kick @user [reason]` - Kick a user
+- `?ban @user [reason]` - Ban a user
+- `?timeout @user <duration> <unit> [reason]` - Timeout a user
+- `?mute @user [reason]` - Server mute a user
+- `?deafen @user [reason]` - Server deafen a user
 
-The `config.json` file contains important settings for the bot:
+### Voice & Music
+- `?play [youtube_url]` - Play music from YouTube
+- `?tts [text]` - Convert text to speech
+- `?join` - Join voice channel
+- `?leave` - Leave voice channel
 
-```json
-{
-    "defaults": {
-        "prefix": "?"
-    },
-    "bot_version": "0.4.5",
-    "bot_name": "Memo",
-    "tts_mode": "fast",
-    "guilds": {
-        "1288144110880030795": {
-            "prefix": "*"
-        }
-    }
-}
-```
+### Utility
+- `?profile @user` - View user profile
+- `?server` - View server info
+- `?translate [text]` - Translate text to English
+- `?charinfo [character]` - Get character information
 
-- `defaults.prefix`: The default command prefix for the bot.
-- `bot_version`: The current version of the bot.
-- `bot_name`: The name of the bot.
-- `tts_mode`: The mode for text-to-speech functionality ("fast" or "slow").
-- `guilds`: Guild-specific settings, including custom prefixes.
+### Fun
+- `?joke` - Get a random dad joke
+- `?quote` - Get quote of the day
+- `?coin` - Flip a coin
+
+For a complete list of commands, use `?help` in Discord.
 
 ## Project Structure
 
-- `main/bot.py`: The main bot file containing command implementations and event handlers.
-- `launcher.py`: The entry point for running the bot.
-- `db_manager/`: Directory containing database management modules.
-- `setup/`: Directory containing database setup scripts.
-- `temp/audio/`: Directory for temporary audio files used by the TTS feature.
-- `website/`: Directory containing HTML files for the bot's website.
-
-## Dependencies
-
-Memo Bot relies on several Python libraries:
-
-- discord.py: The core library for interacting with the Discord API.
-- Pillow: Used for image manipulation in the `charinfo` command.
-- gTTS: Google Text-to-Speech library for the TTS feature.
-- yt_dlp: YouTube downloader used for the music playback feature.
-- rich: Used for console output formatting and logging.
-- langdetect: Used for language detection in the TTS feature.
-
-For a complete list of dependencies, refer to the `requirements.txt` file.
+```
+Memo-bot/
+├── assets/               # Bot assets (logos, emojis)
+├── db_manager/          # Database management modules
+├── setup/               # Database setup scripts
+├── src/                # Main bot source code
+│   ├── bot.py         # Core bot implementation
+│   └── utils/         # Utility functions
+├── temp/               # Temporary files
+├── website/            # Bot website files
+├── config.json         # Bot configuration
+├── launcher.py         # Bot launcher
+├── LICENSE            # Apache 2.0 license
+└── README.md          # Project documentation
+```
 
 ## Development
 
-Memo Bot is under active development with nearly daily updates. The development process includes:
+### Requirements
+- Python 3.8 or higher
+- Discord Developer Account
+- Required Python packages (see requirements.txt)
 
-- Regular feature additions and improvements
-- Bug fixes and performance optimizations
-- Refactoring for better code organization and maintainability
-- Implementation of user feedback and feature requests
+### Core Dependencies
+- disnake
+- gTTS
+- yt_dlp
+- rich
+- click
+- deep-translator
+- pillow
 
-Future development plans include:
-- Implementing a music queue system
-- Adding more fun and interactive commands
-- Improving error handling and user feedback
-- Enhancing the configuration system for more granular control
-
-## Contributing
-
-We welcome contributions to Memo Bot! Here's how you can contribute:
-
+### Contributing
 1. Fork the repository
-2. Create a new branch for your feature or bug fix
-3. Make your changes and commit them with clear, descriptive commit messages
-4. Push your changes to your fork
-5. Submit a pull request to the main repository
-
-Please ensure your code adheres to the existing style conventions and includes appropriate tests.
-
-## License
-
-This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for the full license text.
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## Support
 
-If you need help or want to report a bug, you can:
+- [Documentation](https://Memo.nerd-bear.org/docs)
+- [Issue Tracker](https://github.com/your-username/Memo-bot/issues)
+- [Discord Support Server](https://discord.gg/your-invite)
+- Email: support@nerd-bear.org
 
-1. Open an issue on this GitHub repository
-2. Join our support Discord server (link to be added)
-3. Contact us via email at Memo@nerd-bear.org
+## License
 
-## Creator
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
-Memo Bot is created and maintained by Nerd Bear. For more information about the creator and other projects, visit [nerd-bear.org](https://nerd-bear.org).
+## Acknowledgments
+
+- [DisnakeDev](https://github.com/DisnakeDev/disnake) for the Discord API wrapper
+- All contributors who have helped improve Memo Bot
+
+## Authors
+
+- **Nerd Bear** - *Initial work and maintenance* - [nerd-bear](https://github.com/nerd-bear)
 
 ---
 
-Memo Bot © 2024 by Nerd Bear. All rights reserved.
+<div align="center">
+  <strong>Made with ❤️ by Nerd Bear</strong><br>
+  © 2024 Memo Bot. All rights reserved.
+</div>
