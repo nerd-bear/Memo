@@ -15,7 +15,7 @@ def add_feedback(user_id: str, message: str) -> bool:
 
     datetime_value = datetime.datetime.today().now().__format__("%S:%M:%H %d/%m/%y")
 
-    db_connection = sqlite3.connect("./Memo.db")
+    db_connection = sqlite3.connect("./memo.db")
     db_cursor = db_connection.cursor()
     db_cursor.execute(
         f'INSERT INTO feedback VALUES (\'{user_id}\', "{message}", "{datetime_value}")'

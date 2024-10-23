@@ -20,7 +20,9 @@ import hashlib
 
 class SHA3:
     @staticmethod
-    def salt_hash(input_str: str, salt: Optional[bytes] = None) -> Tuple[Union[str, bytes], bytes]:
+    def salt_hash(
+        input_str: str, salt: Optional[bytes] = None
+    ) -> Tuple[Union[str, bytes], bytes]:
         """
         Generate a salted hash of the input string using PBKDF2 HMAC-SHA256.
         """
@@ -30,7 +32,6 @@ class SHA3:
         hashed = hashlib.pbkdf2_hmac("sha256", encoded_str, salt, 100000)
         return salt, hashed
 
-
     @staticmethod
     def hash_256(input_str: str) -> str:
         """
@@ -38,7 +39,6 @@ class SHA3:
         """
         encoded_str = input_str.encode("utf-8")
         return hashlib.sha3_256(encoded_str).hexdigest()
-
 
     @staticmethod
     def hash_384(input_str: str) -> str:
@@ -48,7 +48,6 @@ class SHA3:
         encoded_str = input_str.encode("utf-8")
         return hashlib.sha3_384(encoded_str).hexdigest()
 
-
     @staticmethod
     def hash_512(input_str: str) -> str:
         """
@@ -57,15 +56,13 @@ class SHA3:
         encoded_str = input_str.encode("utf-8")
         return hashlib.sha3_512(encoded_str).hexdigest()
 
-
     @staticmethod
     def hash_224(input_str: str) -> str:
         """
         Generate a SHA-224 hash of the input string.
-        """ 
+        """
         encoded_str = input_str.encode("utf-8")
         return hashlib.sha3_224(encoded_str).hexdigest()
-
 
     @staticmethod
     def generate_salt(size: int = 32, hex: bool = True) -> Union[str, bytes]:
@@ -74,7 +71,6 @@ class SHA3:
         """
         salt = os.urandom(size).hex() if hex else os.urandom(size)
         return salt
-
 
     @staticmethod
     def compare_hash_to_salted(
@@ -85,7 +81,6 @@ class SHA3:
         """
         _, new_hash = SHA3.salt_hash(hashed, stored_salt)
         return new_hash == salted_and_hashed
-
 
 
 def set_langdetect_seed(seed: int = 0) -> None:
@@ -146,7 +141,9 @@ def log_info(value: str = "None", startup_log: bool = False) -> None:
     """
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(timestamp, end=" ")
-    richPrint(f"[bold][blue]INFO[/blue][/bold]     {"[purple]startup.[/purple]" if startup_log else ""}{value}")
+    richPrint(
+        f"[bold][blue]INFO[/blue][/bold]     {"[purple]startup.[/purple]" if startup_log else ""}{value}"
+    )
 
 
 def fetch_latency(client: commands.Bot, shouldRound: bool = True) -> float:
@@ -163,7 +160,7 @@ async def send_error_embed(
     description: str,
     FOOTER_TEXT: str,
     FOOTER_ICON: str,
-    color_manager: 'ColorManager'
+    color_manager: "ColorManager",
 ) -> None:
     """
     Send an error embed to the specified Discord message channel.
@@ -177,12 +174,8 @@ async def send_error_embed(
     await message.channel.send(embed=embed)
 
 
-
 def get_char_image(
-    char: str,
-    bg: str = "white",
-    fg: str = "black",
-    format: str = "png"
+    char: str, bg: str = "white", fg: str = "black", format: str = "png"
 ) -> Optional[str]:
     """
     Generate an image of a single character.
@@ -224,7 +217,7 @@ def detect_language(text: str) -> str:
 
 
 def fetch_help_embed(
-    color_manager: 'ColorManager',
+    color_manager: "ColorManager",
     bot_name: str,
     bot_version: str,
     bot_prefix: str,
@@ -320,10 +313,7 @@ def fetch_help_embed(
 
 
 def fetch_info_embed(
-    color_manager: 'ColorManager',
-    bot_name: str,
-    bot_version: str,
-    bot_prefix: str
+    color_manager: "ColorManager", bot_name: str, bot_version: str, bot_prefix: str
 ) -> disnake.Embed:
     """
     Create and return an info embed for the bot.
@@ -334,7 +324,7 @@ def fetch_info_embed(
         description=f"Here is some general information about the bot, please keep in mind that the bot is in development.",
     )
 
-    info_embed.add_field(name="Command Information", value=f"Prefix: `{bot_prefix}`")   
+    info_embed.add_field(name="Command Information", value=f"Prefix: `{bot_prefix}`")
 
 
 async def fetch_random_joke() -> Optional[str]:

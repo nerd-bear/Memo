@@ -2,7 +2,7 @@ import sqlite3
 from typing import List, Tuple
 import json
 
-DB_PATH = "./Memo.db"
+DB_PATH = "./memo.db"
 
 
 def get_db_connection():

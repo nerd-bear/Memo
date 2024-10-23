@@ -110,7 +110,7 @@ async def on_ready() -> None:
     console.print(panel)
 
     channel = Memo.get_channel(LOGGING_CHANNEL_ID)
-    
+
     if channel:
         embed = disnake.Embed(
             title=f"{BOT_NAME} v{BOT_VERSION} Initialization Info",
@@ -137,7 +137,14 @@ async def on_message(message: disnake.Message) -> None:
         return
 
     if isinstance(message.channel, disnake.DMChannel):
-        await send_error_embed(message, "Please run in server", "When running commands or interacting with the bot, please do so in the server as we do not currently support DM interactions.", FOOTER_TEXT, FOOTER_ICON, color_manager)
+        await send_error_embed(
+            message,
+            "Please run in server",
+            "When running commands or interacting with the bot, please do so in the server as we do not currently support DM interactions.",
+            FOOTER_TEXT,
+            FOOTER_ICON,
+            color_manager,
+        )
         return
 
     if not message.content.startswith(BOT_PREFIX):
@@ -171,7 +178,12 @@ async def on_message(message: disnake.Message) -> None:
     command = message.content.split()[0][len(BOT_PREFIX) :].lower()
     args = message.content.split()[1:]
 
-    history.add_history(SHA3.hash_256(str(message.author.id)), SHA3.hash_256(str(message.guild)), command, args)
+    history.add_history(
+        SHA3.hash_256(str(message.author.id)),
+        SHA3.hash_256(str(message.guild)),
+        command,
+        args,
+    )
 
     match command:
         case "help":
@@ -280,17 +292,12 @@ async def handle_inappropriate_word(message: disnake.Message) -> None:
         value="Please read our rules before sending such messages!",
         inline=False,
     )
-    dm_embed.add_field(
-        name="Server",
-        value=f"{message.guild.name}",
-        inline=False
-    )
+    dm_embed.add_field(name="Server", value=f"{message.guild.name}", inline=False)
     dm_embed.set_footer(
         text=FOOTER_TEXT,
         icon_url=FOOTER_ICON,
     )
     dm_embed.set_thumbnail(url=message.guild.icon.url)
-
 
     try:
         await user.send(embed=dm_embed)
@@ -400,7 +407,7 @@ async def ban_command(message: disnake.Message) -> None:
         return
 
     member = message.guild.get_member(message.mentions[0].id)
-    
+
     if member is None:
         embed = disnake.Embed(
             title="Member Not Found",
@@ -572,7 +579,6 @@ async def charinfo_command(message: disnake.Message) -> None:
 
 
 async def unban_command(message: disnake.Message) -> None:
-
     if not message.author.guild_permissions.administrator:
         embed = disnake.Embed(
             title="Permission Denied",
@@ -1257,19 +1263,19 @@ async def restart_command(message: disnake.Message) -> None:
         icon_url=FOOTER_ICON,
     )
     await message.channel.send(embed=embed)
-    
+
     for vc in Memo.voice_clients:
         await vc.disconnect(force=True)
-    
-    if hasattr(Memo.http, '_client_session') and Memo.http._client_session:
+
+    if hasattr(Memo.http, "_client_session") and Memo.http._client_session:
         await Memo.http._client_session.close()
-        await asyncio.sleep(0.5)  
-        
+        await asyncio.sleep(0.5)
+
     try:
         await Memo.close()
     except:
         pass
-        
+
     os.execv(sys.executable, ["python"] + sys.argv)
 
 
@@ -1383,19 +1389,25 @@ async def server_command(message: disnake.Message) -> None:
             "I don't have permission to access some server information.",
             FOOTER_TEXT=FOOTER_TEXT,
             FOOTER_ICON=FOOTER_ICON,
-            color_manager=color_manager
+            color_manager=color_manager,
         )
     except disnake.HTTPException as e:
-        await send_error_embed(message, "HTTP Error", f"An HTTP error occurred: {e}",
+        await send_error_embed(
+            message,
+            "HTTP Error",
+            f"An HTTP error occurred: {e}",
             FOOTER_TEXT=FOOTER_TEXT,
             FOOTER_ICON=FOOTER_ICON,
-            color_manager=color_manager)
+            color_manager=color_manager,
+        )
     except Exception as e:
         await send_error_embed(
-            message, "Unexpected Error", f"An unexpected error occurred: {e}",
+            message,
+            "Unexpected Error",
+            f"An unexpected error occurred: {e}",
             FOOTER_TEXT=FOOTER_TEXT,
             FOOTER_ICON=FOOTER_ICON,
-            color_manager=color_manager
+            color_manager=color_manager,
         )
         log_info(f"Unexpected error in server command: {e}")
 
@@ -1416,7 +1428,7 @@ async def joke_command(message: disnake.Message) -> None:
             description="Sorry, I couldn't fetch a joke at the moment.",
             FOOTER_TEXT=FOOTER_TEXT,
             FOOTER_ICON=FOOTER_ICON,
-            color_manager=color_manager
+            color_manager=color_manager,
         )
 
 
@@ -1465,7 +1477,7 @@ async def quote_command(message: disnake.Message) -> None:
 
 
 async def vc_mute_command(message: disnake.Message) -> None:
-    if  len(message.mentions) < 1:
+    if len(message.mentions) < 1:
         await message.channel.send("Please mention a valid member.")
         return
 
@@ -1474,21 +1486,21 @@ async def vc_mute_command(message: disnake.Message) -> None:
     if not member:
         await message.channel.send("Please mention a valid member.")
         return
-    
+
     if not member.voice:
         await message.channel.send("That user is not in a voice channel.")
         return
-    
+
     member.edit(mute=True)
 
 
 async def vc_unmute_command(message: disnake.Message) -> None:
-    if  len(message.mentions) < 1:
+    if len(message.mentions) < 1:
         await message.channel.send("Please mention a valid member.")
         return
-    
+
     member = message.guild.get_member(message.mentions[0].id)
-    
+
     if not member:
         await message.channel.send("Please mention a valid member.")
         return
@@ -1497,30 +1509,30 @@ async def vc_unmute_command(message: disnake.Message) -> None:
 
 
 async def vc_deafen_command(message: disnake.Message) -> None:
-    if  len(message.mentions) < 1:
+    if len(message.mentions) < 1:
         await message.channel.send("Please mention a valid member.")
         return
-    
+
     member = message.guild.get_member(message.mentions[0].id)
-    
+
     if not member:
         await message.channel.send("Please mention a valid member.")
         return
-    
+
     member.edit(deafen=True)
 
 
 async def vc_undeafen_command(message: disnake.Message) -> None:
-    if  len(message.mentions) < 1:
+    if len(message.mentions) < 1:
         await message.channel.send("Please mention a valid member.")
         return
-    
+
     member = message.guild.get_member(message.mentions[0].id)
-    
+
     if not member:
         await message.channel.send("Please mention a valid member.")
         return
-    
+
     member.edit(deafen=False)
 
 
@@ -1589,14 +1601,16 @@ async def on_member_join(member: disnake.Member):
 
     if not channel:
         return
-    
+
     embed = disnake.Embed(
         title=f"Welcome to the server {member.mention}!",
         color=color_manager.get_color("Green"),
         timestamp=datetime.datetime.utcnow(),
     )
 
-    embed.add_field(name="Account Created At", value=f"<t:{int(member.created_at.timestamp())}:F>")
+    embed.add_field(
+        name="Account Created At", value=f"<t:{int(member.created_at.timestamp())}:F>"
+    )
     embed.set_thumbnail(member.avatar.url)
     embed.set_footer(FOOTER_TEXT, FOOTER_ICON)
     await channel.send(embed=embed)
@@ -1608,11 +1622,11 @@ async def on_member_remove(member: disnake.Member):
 
     if not channel:
         return
-    
+
     embed = disnake.Embed(
         title=f"Goodbye {member.mention}!",
         color=color_manager.get_color("Red"),
-        timestamp=datetime.datetime.utcnow()
+        timestamp=datetime.datetime.utcnow(),
     )
 
     embed.set_thumbnail(member.avatar.url)
@@ -1628,7 +1642,9 @@ async def slash_help(interaction: disnake.ApplicationCommandInteraction):
     await interaction.response.send_message(embed=embed, ephemeral=True)
 
 
-@commands.slash_command(name="info", description="Shows important information about the bot.")
+@commands.slash_command(
+    name="info", description="Shows important information about the bot."
+)
 async def slash_info(interaction: disnake.ApplicationCommandInteraction):
     embed = fetch_info_embed(
         color_manager, BOT_NAME, BOT_VERSION, BOT_PREFIX, FOOTER_TEXT, FOOTER_ICON
