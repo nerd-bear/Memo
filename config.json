@@ -28,11 +28,5 @@
       "Pink":     "#FFCCE5",
       "Gray":     "#E0E0E0",
       "Lavender": "#E6E6FA"
-    },
-
-    "guilds": {
-        "1288144110880030795": {
-            "prefix": "?"
-        }
     }
 }

@@ -17,7 +17,7 @@ from deep_translator import GoogleTranslator
 
 import yt_dlp
 
-from db_manager import history, feedback
+from db_manager import history, feedback, guild_configs
 from src.utils.helper import *
 
 log_info("Loaded all needed imports", True)
@@ -139,7 +139,7 @@ async def on_ready() -> None:
 
 @Memo.event
 async def on_message(message: disnake.Message) -> None:
-    guild_prefix = config["guilds"][str(message.guild.id)].get("prefix", "?")
+    guild_prefix = guild_configs.get_guild_config(str(message.guild.id))["command_prefix"] if guild_configs.get_guild_config(str(message.guild.id)) != None else "?"
     global bot_active
 
     if message.author == Memo.user:
@@ -220,7 +220,8 @@ async def on_message(message: disnake.Message) -> None:
         "mute":      vc_mute_command,
         "unmute":    vc_unmute_command,
         "deafen":    vc_deafen_command,
-        "undeafen":  vc_undeafen_command
+        "undeafen":  vc_undeafen_command,
+        "setprefix": set_prefix_command,
     }
 
     if command not in commands:
@@ -1838,6 +1839,54 @@ async def eight_ball_command(message: disnake.Message, prefix: str = "?"):
     embed.set_thumbnail(url="https://e7.pngegg.com/pngimages/322/428/png-clipart-eight-ball-game-pool-computer-icons-ball-game-text.png")
 
     await message.channel.send(embed=embed)
+
+
+async def set_prefix_command(message: disnake.Message, prefix: str = "?") -> None:
+    if not message.author.guild_permissions.administrator:
+        embed = disnake.Embed(
+            title="Permission Denied",
+            description="You need the `Administrator` permission to use this command.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+    
+    if len(message.content.split()) < 2:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please provide a new prefix. Usage: {prefix}setprefix [new prefix]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+    
+    new_prefix = message.content.split()[1][0]
+    
+    # Try to set the config first
+    if guild_configs.set_guild_config(str(message.guild.id), new_prefix):
+        success = True
+    else:
+        # If setting fails, try to add new config
+        success = guild_configs.add_guild_config(str(message.guild.id), new_prefix)
+
+    if success:
+        embed = disnake.Embed(
+            title="Prefix Changed",
+            description=f"The prefix has been changed to `{new_prefix}`",
+            color=color_manager.get_color("Blue"),
+        )
+    else:
+        embed = disnake.Embed(
+            title="Error",
+            description="Failed to update the prefix. Please try again later.",
+            color=color_manager.get_color("Red"),
+        )
+        
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed)
+
 
 @Memo.event
 async def on_message_delete(message: disnake.Message):
