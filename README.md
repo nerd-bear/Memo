@@ -149,7 +149,7 @@ Memo-bot/
 
 ## Support
 
-- [Documentation](https://Memo.nerd-bear.org/docs)
+- [Documentation](https://memo.nerd-bear.org/docs)
 - [Issue Tracker](https://github.com/your-username/Memo-bot/issues)
 - [Discord Support Server](https://discord.gg/your-invite)
 - Email: support@nerd-bear.org
