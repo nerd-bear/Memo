@@ -201,14 +201,25 @@ async def on_message(message: disnake.Message) -> None:
         "unban": unban_command,
         "shutdown": shutdown_command,
         "start": start_command,
+        "restart": restart_command,
         "charinfo": charinfo_command,
         "join": join_vc_command,
         "leave": leave_vc_command,
         "tts": tts_command,
         "play": play_command,
-        "feedback": feedback_command,
         "translate": translate_command,
         "ping": ping_command,
+        "nick": nick_command,
+        "profile": profile_command,
+        "feedback": feedback_command,
+        "server": server_command,
+        "joke": joke_command,
+        "coin": coin_command,
+        "8ball": eight_ball_command,
+        "mute": vc_mute_command,
+        "unmute": vc_unmute_command,
+        "deafen": vc_deafen_command,
+        "undeafen": vc_undeafen_command
     }
 
     if command not in commands:
