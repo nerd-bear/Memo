@@ -193,100 +193,38 @@ async def on_message(message: disnake.Message) -> None:
         args,
     )
 
-    match command:
-        case "help":
-            await help_command(message)
+    commands = {
+        "help": help_command,
+        "timeout": timeout_command,
+        "kick": kick_command,
+        "ban": ban_command,
+        "unban": unban_command,
+        "shutdown": shutdown_command,
+        "start": start_command,
+        "charinfo": charinfo_command,
+        "join": join_vc_command,
+        "leave": leave_vc_command,
+        "tts": tts_command,
+        "play": play_command,
+        "feedback": feedback_command,
+        "translate": translate_command,
+        "ping": ping_command,
+    }
 
-        case "timeout":
-            await timeout_command(message)
-
-        case "kick":
-            await kick_command(message)
-
-        case "ban":
-            await ban_command(message)
-
-        case "unban":
-            await unban_command(message)
-
-        case "shutdown":
-            await shutdown_command(message)
-
-        case "start":
-            await start_command(message)
-
-        case "charinfo":
-            await charinfo_command(message)
-
-        case "join":
-            await join_vc_command(message)
-
-        case "leave":
-            await leave_vc_command(message)
-
-        case "tts":
-            await tts_command(message)
-
-        case "play":
-            await play_command(message)
-
-        case "profile":
-            await profile_command(message)
-
-        case "nick":
-            await nick_command(message)
-
-        case "feedback":
-            await feedback_command(message)
-
-        case "restart":
-            await restart_command(message)
-
-        case "translate":
-            await translate_command(message)
-
-        case "ping":
-            await ping_command(message)
-
-        case "server":
-            await server_command(message)
-
-        case "joke":
-            await joke_command(message)
-
-        case "coin":
-            await coin_command(message)
-
-        case "quote":
-            await quote_command(message)
-
-        case "mute":
-            await vc_mute_command(message)
-
-        case "unmute":
-            await vc_unmute_command(message)
-
-        case "deafen":
-            await vc_deafen_command(message)
-
-        case "undeafen":
-            await vc_undeafen_command(message)
-
-        case "8ball":
-            await eight_ball_command(message)
-
-        case _:
-            embed = disnake.Embed(
-                title="Invalid Command",
-                description=f"The command you are running is not valid. Please run `?help` for a list of commands and their usages!",
-                color=color_manager.get_color("Red"),
-            )
-            embed.set_footer(
-                text=FOOTER_TEXT,
-                icon_url=FOOTER_ICON,
-            )
-            await message.channel.send(embed=embed)
-            return
+    if command not in commands:
+        embed = disnake.Embed(
+            title="Invalid Command",
+            description=f"The command you are running is not valid. Please run `?help` for a list of commands and their usages!",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(
+            text=FOOTER_TEXT,
+            icon_url=FOOTER_ICON,
+        )
+        await message.channel.send(embed=embed)
+        return
+    
+    await commands[command](message)
 
 
 async def handle_inappropriate_word(message: disnake.Message) -> None:
