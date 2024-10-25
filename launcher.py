@@ -20,4 +20,4 @@ def main(token: str):
 
 
 if __name__ == "__main__":
-    main()
+  main()

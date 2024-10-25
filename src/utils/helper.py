@@ -276,6 +276,10 @@ def fetch_help_embed(
             "desc": "Fetches a random quote of the day",
             "usage": f"{bot_prefix}quote",
         },
+        "8ball": {
+            "desc": "Answers a yes or no question",
+            "usage": f"{bot_prefix}8ball [question]",
+        },
         "ping": {
             "desc": "Gets the ping (latency) of the Discord Bot",
             "usage": f"{bot_prefix}ping",
@@ -329,7 +333,7 @@ def fetch_help_embed(
 
 
 def fetch_info_embed(
-    color_manager: "ColorManager", bot_name: str, bot_version: str, bot_prefix: str
+    color_manager: "ColorManager", bot_name: str, bot_version: str, bot_prefix: str, footer_text: str, footer_icon: str
 ) -> disnake.Embed:
     """
     Create and return an info embed for the bot.
@@ -341,7 +345,9 @@ def fetch_info_embed(
     )
 
     info_embed.add_field(name="Command Information", value=f"Prefix: `{bot_prefix}`")
+    info_embed.set_footer(text=footer_text, icon_url=footer_icon)
 
+    return info_embed
 
 async def fetch_random_joke() -> Optional[str]:
     """
