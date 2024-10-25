@@ -8,7 +8,6 @@ import unicodedata
 
 import disnake
 from disnake.ext import commands
-from disnake.ui import Button, Select, Modal, TextInput, View
 
 from rich import print as richPrint
 from rich.console import Console
@@ -56,15 +55,11 @@ log_info("Loaded logging channel id", True)
 intents = disnake.Intents.all()
 log_info("Initialized intents", True)
 
-command_sync_flags = commands.CommandSyncFlags.default()
-command_sync_flags.sync_commands_debug = True
 log_info("Initialized command sync flags", True)
 
 Memo = commands.Bot(
-    command_prefix="/",
+    command_prefix="?",
     intents=intents,
-    test_guilds=[1288144110880030795],
-    command_sync_flags=command_sync_flags,
 )
 
 log_info("Initialized bot", True)
@@ -276,6 +271,9 @@ async def on_message(message: disnake.Message) -> None:
 
         case "undeafen":
             await vc_undeafen_command(message)
+
+        case "8ball":
+            await eight_ball_command(message)
 
         case _:
             embed = disnake.Embed(
@@ -1865,6 +1863,31 @@ async def vc_undeafen_command(message: disnake.Message) -> None:
         await message.channel.send(embed=embed)
 
 
+async def eight_ball_command(message: disnake.Message):
+    if len(message.content.split()) < 2:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please provide a question. Usage: {BOT_PREFIX}8ball [question]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    choices = ["Yes", "No", "Maybe", "Ask again later", "It is certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely on it", "As I see it, yes", "Most likely", "Outlook good", "Signs point to yes", "Reply hazy try again", "Ask again later", "Better not tell", "Outlook not so good", "Very doubtful", "Don't count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful"]
+
+    random.choice(choices)
+
+    embed = disnake.Embed(
+        title="8 Ball",
+        description=f"**Question:** {" ".join(message.content.split()[1:])}\n**Answer:** {random.choice(choices)}",
+        color=color_manager.get_color("Blue"),
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    embed.set_thumbnail(url="https://e7.pngegg.com/pngimages/322/428/png-clipart-eight-ball-game-pool-computer-icons-ball-game-text.png")
+
+    await message.channel.send(embed=embed)
+
 @Memo.event
 async def on_message_delete(message: disnake.Message):
     if message.author == Memo.user:
@@ -1971,7 +1994,7 @@ async def slash_help(interaction: disnake.ApplicationCommandInteraction):
     await interaction.response.send_message(embed=embed, ephemeral=True)
 
 
-@commands.slash_command(
+@Memo.slash_command(
     name="info", description="Shows important information about the bot."
 )
 async def slash_info(interaction: disnake.ApplicationCommandInteraction):
@@ -1979,3 +2002,33 @@ async def slash_info(interaction: disnake.ApplicationCommandInteraction):
         color_manager, BOT_NAME, BOT_VERSION, BOT_PREFIX, FOOTER_TEXT, FOOTER_ICON
     )
     await interaction.response.send_message(embed=embed, ephemeral=True)
+
+
+@Memo.slash_command(description="Send information about the Playground server!", guild_ids=[1288144110880030795])
+async def playground_info(inter: disnake.ApplicationCommandInteraction):
+    
+    embed = disnake.Embed(description="""
+        * Welcome to **Playground**, the server for the **Discord Memo community**! We offer some amazing community content, fun and unique features and great support for Memo. There are some rules that you need to follow to enjoy our community. Please check that out in the <#1291572712652804157> channel.
+        """, title="Welcome to Playground!", color=disnake.Color.blue())
+
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    embed.set_author(name="Memo - Playground")
+
+    await inter.user.send(
+        embed=embed,
+        components=[
+            disnake.ui.Button(label="Support", style=disnake.ButtonStyle.blurple, custom_id="help_support"),
+            disnake.ui.Button(label="More information", style=disnake.ButtonStyle.link, url="https://memo.nerd-bear.org"),
+        ],
+    )
+
+
+@Memo.listen("on_button_click")
+async def help_listener(inter: disnake.MessageInteraction):
+    if inter.component.custom_id not in ["help_support"]:
+        return
+
+    embed = disnake.Embed(description="We see you are looking for some support... Well here you go! You can visit our website at https://memo.nerd-bear.org. If you want more direct responses, then you can message the lead developer and official holder of the Memo Discord Development Team by sending a message to nerd.bear on Discord!", title="Support", color=color_manager.get_color("Blue"))
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+
+    await inter.user.send(embed=embed)

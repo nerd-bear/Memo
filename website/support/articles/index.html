@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memo Bot - Quote Command</title>
+    <title>Memo Bot - Articles</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
     
-    <meta property="og:title" content="Memo Bot | Quote Command">
-    <meta property="og:description" content="Get a random famous quote using Memo Bot's quote command.">
+    <!-- Open Graph Meta Tags (for Discord and other platforms) -->
+    <meta property="og:title" content="Memo Bot | Articles">
+    <meta property="og:description" content="Explore all articles about Memo Bot, including guides on commands, configuration, and feedback submission.">
     <meta property="og:image" content="https://memo.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://memo.nerd-bear.org/commands/quote">
+    <meta property="og:url" content="https://memo.nerd-bear.org/articles">
     <meta property="og:type" content="website">
 
     <style>
@@ -21,10 +22,6 @@
         }
         .pfp-hover:hover {
             transform: scale(1.1);
-        }
-        pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
         }
     </style>
 </head>
@@ -36,7 +33,7 @@
             </h1>
             <ul class="flex space-x-6">
                 <li><a href="https://memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://memo.nerd-bear.org/articles" class="hover:text-blue-600 transition">Articles</a></li>
                 <li><a href="https://memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
                 <li><a href="https://memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
             </ul>
@@ -44,144 +41,55 @@
     </nav>
 
     <main class="container mx-auto mt-12 p-6">
-        <!-- Command Header -->
-        <div class="mb-8">
-            <div class="flex items-center gap-4 mb-4">
-                <a href="https://memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
-                <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Fun</span>
-            </div>
-            <h1 class="text-4xl font-bold mb-2">Quote Command</h1>
-            <p class="text-xl text-gray-600">Get an inspiring quote from a famous person</p>
-        </div>
+        <h2 class="text-4xl font-bold mb-8 text-center">Memo Bot Articles</h2>
 
-        <!-- Command Card Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Main Content -->
-            <div class="md:col-span-2 space-y-8">
-                <!-- Usage Section -->
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h2 class="text-2xl font-bold mb-4">Usage</h2>
-                    <div class="bg-gray-50 rounded p-4 mb-4 font-mono">
-                        ?quote
-                    </div>
-                    <p class="mb-4">The quote command returns a random famous quote. Each use of the command provides a different quote from history's most notable figures.</p>
-                    <div class="space-y-2">
-                        <p><strong>Arguments:</strong></p>
-                        <ul class="list-disc list-inside pl-4">
-                            <li>None required - Simply type ?quote</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <!-- Example Quotes Section -->
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h2 class="text-2xl font-bold mb-4">Example Quotes</h2>
-                    <div class="space-y-4">
-                        <div class="p-4 bg-gray-50 rounded">
-                            <p class="font-medium mb-2">Sample Responses:</p>
-                            <ul class="space-y-4 text-gray-600">
-                                <li class="p-4 bg-white rounded shadow-sm italic">
-                                    "Be the change you wish to see in the world."
-                                    <div class="text-right font-bold mt-2">- Mahatma Gandhi</div>
-                                </li>
-                                <li class="p-4 bg-white rounded shadow-sm italic">
-                                    "I have not failed. I've just found 10,000 ways that won't work."
-                                    <div class="text-right font-bold mt-2">- Thomas A. Edison</div>
-                                </li>
-                                <li class="p-4 bg-white rounded shadow-sm italic">
-                                    "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe."
-                                    <div class="text-right font-bold mt-2">- Albert Einstein</div>
-                                </li>
-                            </ul>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Config Guide Article -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Configuration Guide</h3>
+                    <p class="text-gray-600 mb-4">Learn how to configure Memo Bot for your server's needs.</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex items-center">
+                            <img src="https://nerd-bear.org/favicon.ico" alt="Author Avatar" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-600">Nerd Bear</span>
                         </div>
+                        <span class="text-sm text-gray-500">5 min read</span>
                     </div>
-                </section>
-
-                <!-- Examples Section -->
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h2 class="text-2xl font-bold mb-4">Example</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <p class="font-medium mb-2">Get a random quote:</p>
-                            <pre class="bg-gray-50 rounded p-4">?quote</pre>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Response Section -->
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h2 class="text-2xl font-bold mb-4">Bot Response</h2>
-                    <div class="space-y-4">
-                        <div class="border rounded p-4">
-                            <div class="flex items-center gap-2 mb-2">
-                                <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">Memo Bot</span>
-                            </div>
-                            <div class="pl-10">
-                                <div class="bg-gray-50 rounded p-4">
-                                    <p class="font-medium">Quote of the Moment ✨</p>
-                                    <p class="text-gray-600 italic mt-2">"Success is not final, failure is not fatal: it is the courage to continue that counts."</p>
-                                    <p class="text-gray-600 font-bold text-right mt-2">- Winston Churchill</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                    <a href="/support/article/config-guide" class="mt-4 inline-block text-blue-600 hover:text-blue-800">Read More →</a>
+                </div>
             </div>
 
-            <!-- Sidebar -->
-            <div class="space-y-6">
-                <!-- Required Permissions -->
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h3 class="text-xl font-bold mb-4">Required Permissions</h3>
-                    <ul class="space-y-2 text-gray-600">
-                        <li class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            None required
-                        </li>
-                    </ul>
-                </section>
+            <!-- Commands Guide Article -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Commands Guide</h3>
+                    <p class="text-gray-600 mb-4">Explore all available commands and how to use them effectively.</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex items-center">
+                            <img src="https://nerd-bear.org/favicon.ico" alt="Author Avatar" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-600">Nerd Bear</span>
+                        </div>
+                        <span class="text-sm text-gray-500">8 min read</span>
+                    </div>
+                    <a href="/support/article/commands-guide" class="mt-4 inline-block text-blue-600 hover:text-blue-800">Read More →</a>
+                </div>
+            </div>
 
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h3 class="text-xl font-bold mb-4">Cooldown</h3>
-                    <p class="text-gray-600">No cooldown</p>
-                </section>
-
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h3 class="text-xl font-bold mb-4">Quote Categories</h3>
-                    <ul class="space-y-2 text-gray-600 list-disc list-inside">
-                        <li>Inspirational</li>
-                        <li>Historical</li>
-                        <li>Scientific</li>
-                        <li>Literary</li>
-                        <li>Philosophical</li>
-                        <li>Leadership</li>
-                    </ul>
-                </section>
-
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h3 class="text-xl font-bold mb-4">Best Used For</h3>
-                    <ul class="space-y-2 text-gray-600 list-disc list-inside">
-                        <li>Daily inspiration</li>
-                        <li>Starting discussions</li>
-                        <li>Channel messages</li>
-                        <li>Server greetings</li>
-                        <li>Educational content</li>
-                    </ul>
-                </section>
-
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h3 class="text-xl font-bold mb-4">Good to Know</h3>
-                    <ul class="space-y-2 text-gray-600 list-disc list-inside">
-                        <li>Quotes from verified sources</li>
-                        <li>Attribution included</li>
-                        <li>Family-friendly content</li>
-                        <li>Works in any channel</li>
-                        <li>Random selection each time</li>
-                    </ul>
-                </section>
+            <!-- Feedback Submission Article -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Submitting Feedback</h3>
+                    <p class="text-gray-600 mb-4">Learn how to submit feedback to help improve Memo Bot.</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex items-center">
+                            <img src="https://nerd-bear.org/favicon.ico" alt="Author Avatar" class="w-8 h-8 rounded-full mr-2">
+                            <span class="text-sm text-gray-600">Nerd Bear</span>
+                        </div>
+                        <span class="text-sm text-gray-500">3 min read</span>
+                    </div>
+                    <a href="/support/article/add-feedback" class="mt-4 inline-block text-blue-600 hover:text-blue-800">Read More →</a>
+                </div>
             </div>
         </div>
     </main>
@@ -262,12 +170,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            gsap.from('main > *', {
-                duration: 0.5,
+            gsap.from('.grid > div', {
+                duration: 0.8,
                 opacity: 0,
-                y: 20,
-                stagger: 0.1,
-                ease: 'power2.out'
+                y: 50,
+                stagger: 0.2,
+                ease: 'power3.out'
             });
         });
     </script>

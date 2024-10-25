@@ -3,28 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memo Bot - Help Command</title>
+    <title>Memo - Discord Bot</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
     <link rel="icon" type="image/png" href="http://nerd-bear.org/favicon.ico">
-    
-    <meta property="og:title" content="Memo Bot | Help Command">
-    <meta property="og:description" content="Learn how to use the help command in Memo Bot to learn more about the commands you can use.">
-    <meta property="og:image" content="https://memo.nerd-bear.org/pfp-5.png">
-    <meta property="og:url" content="https://memo.nerd-bear.org/commands/help">
+
+    <!-- Open Graph Meta Tags (for Discord and other platforms) -->
+    <meta property="og:title" content="Memo Bot | Home">
+    <meta property="og:description" content="A versatile Discord bot for server management and user interaction. Features include moderation tools, customizable status, character info lookup, and message logging. Actively developed with frequent updates. Created by Nerd Bear for enhancing Discord communities.">
+    <meta property="og:image" content="https://Memo.nerd-bear.org/pfp-5.png">
+    <meta property="og:url" content="https://Memo.nerd-bear.org/">
     <meta property="og:type" content="website">
 
     <style>
         .pfp-hover {
             transition: transform 0.3s ease-in-out;
         }
+        
         .pfp-hover:hover {
             transform: scale(1.1);
-        }
-        pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
         }
     </style>
 </head>
@@ -32,110 +30,60 @@
     <nav class="container mx-auto p-6">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold text-blue-600">
-                <a href="https://memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
+                <a href="https://Memo.nerd-bear.org/" class="hover:text-blue-800 transition">Memo Bot</a>
             </h1>
-            <ul class="flex space-x-6">
-                <li><a href="https://memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
-                <li><a href="https://memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
-                <li><a href="https://memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
-                <li><a href="https://memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+            <ul class="flex space-x-6 items-center">
+                <li><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="https://Memo.nerd-bear.org/commands" class="hover:text-blue-600 transition">Commands</a></li>
+                <li><a href="https://Memo.nerd-bear.org/versions" class="hover:text-blue-600 transition">Versions</a></li>
+                <li><a href="https://Memo.nerd-bear.org/support" class="hover:text-blue-600 transition">Support</a></li>
+                <li>
+                    <a href="https://Memo.nerd-bear.org/donate" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition shadow-md">
+                        Donate
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
 
-    <main class="container mx-auto mt-12 p-6">
-        <!-- Command Header -->
-        <div class="mb-8">
-            <div class="flex items-center gap-4 mb-4">
-                <a href="https://memo.nerd-bear.org/commands" class="text-blue-600 hover:text-blue-800">← Back to Commands</a>
-                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Moderation</span>
-            </div>
-            <h1 class="text-4xl font-bold mb-2">Help Command</h1>
-            <p class="text-xl text-gray-600">Display a list of all available commands.</p>
-        </div>
-
-        <!-- Command Card Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Main Content -->
-            <div class="md:col-span-2 space-y-8">
-                <!-- Usage Section -->
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h2 class="text-2xl font-bold mb-4">Usage</h2>
-                    <div class="bg-gray-50 rounded p-4 mb-4 font-mono">
-                        ?help
-                    </div>
-                    <p class="mb-4">The help command shows you a large embed of all the commands that you can run in the guild along with their short description.</p>
-                </section>
-
-                <!-- Examples Section -->
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h2 class="text-2xl font-bold mb-4">Examples</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <p class="font-medium mb-2">Help:</p>
-                            <pre class="bg-gray-50 rounded p-4">?help</pre>
-                        </div>
-                </section>
-
-                <!-- Response Section -->
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h2 class="text-2xl font-bold mb-4">Bot Response</h2>
-                    <div class="space-y-4">
-                        <div class="border rounded p-4">
-                            <div class="flex items-center gap-2 mb-2">
-                                <div class="w-8 h-8 bg-blue-100 rounded-full"></div>
-                                <span class="font-medium">Memo Bot</span>
-                            </div>
-                            <div class="pl-10">
-                                <div class="bg-gray-50 rounded p-4">
-                                    <p class="font-medium">Memo Help Information</p>
-                                    <p class="text-gray-600">?tts</p>
-                                    <p class="text-gray-600 font-bold">Join the vc you are in and uses Text-to-Speech to say your text<br/><code>Usage: ?tts [input_text]</code></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- Sidebar -->
-            <div class="space-y-6">
-                <!-- Required Permissions -->
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h3 class="text-xl font-bold mb-4">Required Permissions</h3>
-                    <ul class="space-y-2 text-gray-600">
-                        <li class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            None
-                        </li>
-                    </ul>
-                </section>
-
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h3 class="text-xl font-bold mb-4">Cooldown</h3>
-                    <p class="text-gray-600">No cooldown</p>
-                </section>
-
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h3 class="text-xl font-bold mb-4">Related Commands</h3>
-                    <ul class="space-y-2">
-                        <li><a href="https://memo.nerd-bear.org/commands/profile" class="text-blue-600 hover:text-blue-800">?profile</a></li>
-                        <li><a href="https://memo.nerd-bear.org/commands/server" class="text-blue-600 hover:text-blue-800">?server</a></li>
-                        <li><a href="https://memo.nerd-bear.org/commands/charinfo" class="text-blue-600 hover:text-blue-800">?charinfo</a></li>
-                    </ul>
-                </section>
-
-                <section class="bg-white rounded-lg shadow-sm p-6">
-                    <h3 class="text-xl font-bold mb-4">Additional Notes</h3>
-                    <ul class="space-y-2 text-gray-600 list-disc list-inside">
-                        <li>There are some commands that are marked as secret/easter egg commands and are not documented.</li>
-                    </ul>
-                </section>
-            </div>
+    <main class="container mx-auto mt-24 p-6">
+        <div class="flex flex-col items-center">
+            <a href="https://Memo.nerd-bear.org/" class="mb-8">
+                <img src="https://Memo.nerd-bear.org/pfp-5.png" alt="Memo Bot" class="rounded-full shadow-lg w-32 h-32 object-cover pfp-hover">
+            </a>
+            <h2 class="text-5xl font-bold mb-4 text-gray-900"><a href="https://Memo.nerd-bear.org/" class="hover:text-blue-600 transition">Welcome to Memo Bot</a></h2>
+            <p class="text-xl mb-12 text-gray-600">The ultimate do-it-all Discord bot for moderation and fun!</p>
+            <button id="cta-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition shadow-lg">
+                Add to Discord
+            </button>
         </div>
     </main>
+
+    <section id="features" class="container mx-auto mt-24 p-6">
+        <h3 class="text-3xl font-bold mb-12 text-center text-gray-800">Features</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h4 class="text-xl font-bold mb-4 text-blue-600">Moderation</h4>
+                <p class="text-gray-600">Powerful tools to keep your server safe and clean.</p>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h4 class="text-xl font-bold mb-4 text-blue-600">Fun Commands</h4>
+                <p class="text-gray-600">Engage your community with interactive and entertaining commands.</p>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h4 class="text-xl font-bold mb-4 text-blue-600">Customization</h4>
+                <p class="text-gray-600">Tailor Memo to fit your server's unique needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="bg-blue-100 py-3 px-6 mt-12">
+        <div class="container mx-auto text-center">
+            <p class="text-blue-800">
+                Recent changes to our <a href="https://Memo.nerd-bear.org/privacy-policy" class="font-semibold underline hover:text-blue-600 transition">Privacy Policy</a>. Please review.
+            </p>
+        </div>
+    </div>
 
     <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto px-6">
@@ -163,7 +111,7 @@
                     <ul class="space-y-2 text-gray-400">
                         <li><a href="suppport@nerd-bear.org" class="hover:text-white transition">24/7 Support Chat</a></li>
                         <li><a href="https://www.nhs.uk/nhs-services/mental-health-services/where-to-get-urgent-help-for-mental-health/" class="hover:text-white transition">Crisis Helpline</a></li>
-                        <li><a href="https://memo.nerd-bear.org/form" class="hover:text-white transition">Community Forums</a></li>
+                        <li><a href="https://crac.nerd-bear.org/form" class="hover:text-white transition">Community Forums</a></li>
                     </ul>
                 </div>
 
@@ -203,8 +151,8 @@
                         © 2024 Memo Bot. All rights reserved. Committed to equality and inclusion.
                     </p>
                     <div class="flex space-x-4 mt-4 md:mt-0">
-                        <a href="https://memo.nerd-bear.org/terms-of-use" class="text-gray-400 hover:text-white text-sm transition">Terms of Use</a>
-                        <a href="https://memo.nerd-bear.org/privacy-policy" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
+                        <a href="https://crac.nerd-bear.org/terms-of-use" class="text-gray-400 hover:text-white text-sm transition">Terms of Use</a>
+                        <a href="https://crac.nerd-bear.org/privacy-policy" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
                     </div>
                 </div>
             </div>
@@ -212,15 +160,23 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            gsap.from('main > *', {
-                duration: 0.5,
-                opacity: 0,
-                y: 20,
-                stagger: 0.1,
-                ease: 'power2.out'
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctaButton = document.getElementById('cta-button');
+            
+            ctaButton.addEventListener('mouseenter', () => {
+                gsap.to(ctaButton, {scale: 1.05, duration: 0.3});
             });
-        });
+
+            ctaButton.addEventListener('mouseleave', () => {
+                gsap.to(ctaButton, {scale: 1, duration: 0.3});
+            });
+
+            // Easter egg
+            let clickCount = 0;
+            ctaButton.addEventListener('click', (e) => {
+                window.location.href = "https://discord.com/oauth2/authorize?client_id=1289921476614553672&permissions=8&integration_type=0&scope=bot";
+            });
+        })
     </script>
 </body>
 </html>
