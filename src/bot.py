@@ -74,6 +74,8 @@ log_info("Initialized bot to be active", True)
 log_info("Completed loading default values into Memory", True)
 
 
+
+
 async def get_info_text() -> str:
     return f"""
     {BOT_NAME} v{BOT_VERSION}
@@ -113,8 +115,6 @@ async def on_ready() -> None:
         info_text, title=f"{BOT_NAME} v{BOT_VERSION} Initialization Info", expand=False
     )
 
-    await Memo.fetch_global_commands()
-
     console.print(panel)
 
     channel = Memo.get_channel(LOGGING_CHANNEL_ID)
@@ -139,7 +139,7 @@ async def on_ready() -> None:
 
 @Memo.event
 async def on_message(message: disnake.Message) -> None:
-    guild_prefix = guild_configs.get_guild_config(str(message.guild.id))["command_prefix"] if guild_configs.get_guild_config(str(message.guild.id)) != None else "?"
+    guild_prefix = guild_configs.get_guild_config(SHA3.hash_256(str(message.guild.id)))["command_prefix"] if guild_configs.get_guild_config(SHA3.hash_256(str(message.guild.id))) != None else "?"
     global bot_active
 
     if message.author == Memo.user:
@@ -178,7 +178,7 @@ async def on_message(message: disnake.Message) -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(
-            text=FOOTER_TEXT,
+        text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
         await message.channel.send(embed=embed)
@@ -1863,18 +1863,18 @@ async def set_prefix_command(message: disnake.Message, prefix: str = "?") -> Non
         return
     
     new_prefix = message.content.split()[1][0]
+
+    hashed_guild_id = SHA3.hash_256(str(message.guild.id))
     
-    # Try to set the config first
-    if guild_configs.set_guild_config(str(message.guild.id), new_prefix):
+    if guild_configs.set_guild_config(hashed_guild_id, new_prefix):
         success = True
     else:
-        # If setting fails, try to add new config
-        success = guild_configs.add_guild_config(str(message.guild.id), new_prefix)
+        success = guild_configs.add_guild_config(hashed_guild_id, new_prefix)
 
     if success:
         embed = disnake.Embed(
             title="Prefix Changed",
-            description=f"The prefix has been changed to `{new_prefix}`",
+            description=f"The prefix has been changed from {prefix} to `{new_prefix}`",
             color=color_manager.get_color("Blue"),
         )
     else:
@@ -1884,6 +1884,25 @@ async def set_prefix_command(message: disnake.Message, prefix: str = "?") -> Non
             color=color_manager.get_color("Red"),
         )
         
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed)
+
+    if new_prefix == "/":
+        embed = disnake.Embed(
+            title="Warning",
+            description="Setting the command prefix to `/` will not make it appear as a regular slash command but instead as a on message command trigger!",
+            color=color_manager.get_color("Orange"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+
+async def setup_command(message: disnake.Message, prefix: str = "?") -> None:
+    embed = disnake.Embed(title="Setup Instructions", 
+                          description="Here are some useful commands to get you started setting up your bot!.",  
+                          color=color_manager.get_color("Blue"))
+    embed.add_field(name="Set command prefix", value=f"The default prefix for commands is `?`. To change this, use the `setprefix` command. This command must be used in the server where you want to change the prefix.", inline=False)
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
     await message.channel.send(embed=embed)
 
