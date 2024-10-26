@@ -7,7 +7,7 @@ from rich import print as rich_print
 def main(token: str):
     if not token.strip():
         rich_print("[bold red]ERROR:[/bold red] Invalid token provided.")
-        rich_print("Usage: python3 ./launcher.py --token <token>")
+        rich_print("Usage: python launcher.py --token <token>")
         raise click.Abort()
 
     from src.bot import Memo

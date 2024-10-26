@@ -5,7 +5,7 @@ import datetime
 def add_feedback(user_id: str, message: str) -> bool:
     """Uses SQLite to add user's feedback to feedback db table
 
-    ### Params:
+    ### Params: 
         `used_id`  `str`   The user id of the person who submitted the feedback.
         `message`  `str`   The name of the command that the user ran.
 

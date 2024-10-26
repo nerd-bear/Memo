@@ -20,6 +20,8 @@ import yt_dlp
 from db_manager import history, feedback, guild_configs
 from src.utils.helper import *
 
+from src.cogs import *
+
 log_info("Loaded all needed imports", True)
 
 
@@ -55,7 +57,7 @@ log_info("Loaded logging channel id", True)
 intents = disnake.Intents.all()
 log_info("Initialized intents", True)
 
-log_info("Initialized command sync flags", True)
+log_info("Initialized command sync flags", True)    
 
 Memo = commands.Bot(
     command_prefix="?",
@@ -107,6 +109,9 @@ def debug_command(func):
 
 @Memo.event
 async def on_ready() -> None:
+    Memo.load_extension("src.cogs.member_join")
+    Memo.load_extension("src.cogs.member_remove")
+
     markdown = Markdown(f"# Discord {BOT_NAME} version {BOT_VERSION}")
     console.print(markdown)
 
@@ -1963,45 +1968,6 @@ async def on_message_edit(before: disnake.Message, after: disnake.Message):
         text=FOOTER_TEXT,
         icon_url=FOOTER_ICON,
     )
-    await channel.send(embed=embed)
-
-
-@Memo.event
-async def on_member_join(member: disnake.Member):
-    channel = member.guild.text_channels[0]
-
-    if not channel:
-        return
-
-    embed = disnake.Embed(
-        title=f"Welcome to the server {member.mention}!",
-        color=color_manager.get_color("Green"),
-        timestamp=datetime.datetime.utcnow(),
-    )
-
-    embed.add_field(
-        name="Account Created At", value=f"<t:{int(member.created_at.timestamp())}:F>"
-    )
-    embed.set_thumbnail(member.avatar.url)
-    embed.set_footer(FOOTER_TEXT, FOOTER_ICON)
-    await channel.send(embed=embed)
-
-
-@Memo.event
-async def on_member_remove(member: disnake.Member):
-    channel = member.guild.text_channels[0]
-
-    if not channel:
-        return
-
-    embed = disnake.Embed(
-        title=f"Goodbye {member.mention}!",
-        color=color_manager.get_color("Red"),
-        timestamp=datetime.datetime.utcnow(),
-    )
-
-    embed.set_thumbnail(member.avatar.url)
-    embed.set_footer(FOOTER_TEXT, FOOTER_ICON)
     await channel.send(embed=embed)
 
 
