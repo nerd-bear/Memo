@@ -83,40 +83,6 @@ log_info("Initialized bot to be active", True)
 log_info("Completed loading default values into Memory", True)
 
 
-def setup_commands():
-    return {
-        "help": help_command,
-        "timeout": timeout_command,
-        "kick": kick_command,
-        "ban": ban_command,
-        "unban": unban_command,
-        "shutdown": shutdown_command,
-        "start": start_command,
-        "restart": restart_command,
-        "charinfo": charinfo_command,
-        "join": join_vc_command,
-        "leave": leave_vc_command,
-        "tts": tts_command,
-        "play": play_command,
-        "translate": translate_command,
-        "ping": ping_command,
-        "nick": nick_command,
-        "profile": profile_command,
-        "feedback": feedback_command,
-        "server": server_command,
-        "joke": joke_command,
-        "coin": coin_command,
-        "8ball": eight_ball_command,
-        "mute": vc_mute_command,
-        "unmute": vc_unmute_command,
-        "deafen": vc_deafen_command,
-        "undeafen": vc_undeafen_command,
-        "setprefix": set_prefix_command,
-        "chat": chat_command,
-    }
-
-commands_dict = setup_commands()
-
 async def get_info_text() -> str:
     return f"""
     {BOT_NAME} v{BOT_VERSION}
@@ -241,6 +207,38 @@ async def on_message(message: disnake.Message) -> None:
         command,
         args,
     )
+
+    commands_dict = {
+        "help": help_command,
+        "timeout": timeout_command,
+        "kick": kick_command,
+        "ban": ban_command,
+        "unban": unban_command,
+        "shutdown": shutdown_command,
+        "start": start_command,
+        "restart": restart_command,
+        "charinfo": charinfo_command,
+        "join": join_vc_command,
+        "leave": leave_vc_command,
+        "tts": tts_command,
+        "play": play_command,
+        "translate": translate_command,
+        "ping": ping_command,
+        "nick": nick_command,
+        "profile": profile_command,
+        "feedback": feedback_command,
+        "server": server_command,
+        "joke": joke_command,
+        "coin": coin_command,
+        "8ball": eight_ball_command,
+        "mute": vc_mute_command,
+        "unmute": vc_unmute_command,
+        "deafen": vc_deafen_command,
+        "undeafen": vc_undeafen_command,
+        "setprefix": set_prefix_command,
+        "chat": chat_command,
+    }
+
 
     if command not in commands_dict:
         embed = disnake.Embed(
