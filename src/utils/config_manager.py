@@ -2,6 +2,7 @@ import json
 from rich import print as richPrint
 from typing import Dict, Any
 
+
 def load_config(config_path: str = "config.json") -> Dict[str, Any]:
     """
     Load the configuration from a JSON file.

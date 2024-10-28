@@ -240,7 +240,6 @@ async def on_message(message: disnake.Message) -> None:
         "chat": chat_command,
     }
 
-
     if command not in commands_dict:
         embed = disnake.Embed(
             title="Invalid Command",

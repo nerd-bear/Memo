@@ -200,7 +200,7 @@ def fetch_help_embed(
         },
         "mute": {
             "desc": "Server mutes a member (Mod only)",
-            "usage": f"{bot_prefix}mute @user [reason]"
+            "usage": f"{bot_prefix}mute @user [reason]",
         },
         "unmute": {
             "desc": "Server unmutes a member (Mod only)",
@@ -239,12 +239,12 @@ def fetch_help_embed(
 
 
 def fetch_info_embed(
-    color_manager: "ColorManager", 
-    bot_name: str, 
-    bot_version: str, 
-    bot_prefix: str, 
-    footer_text: str, 
-    footer_icon: str
+    color_manager: "ColorManager",
+    bot_name: str,
+    bot_version: str,
+    bot_prefix: str,
+    footer_text: str,
+    footer_icon: str,
 ) -> disnake.Embed:
     """
     Create and return an info embed for the bot.
@@ -259,6 +259,7 @@ def fetch_info_embed(
     info_embed.set_footer(text=footer_text, icon_url=footer_icon)
 
     return info_embed
+
 
 async def fetch_random_joke() -> Optional[str]:
     """

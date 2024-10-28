@@ -2,6 +2,7 @@ import disnake
 import datetime
 from disnake.ext import commands
 
+
 class MemberEvents(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -17,15 +18,16 @@ class MemberEvents(commands.Cog):
             title="Welcome to the server!",
             description=f"Hey there {member.mention} are welcome to the guild!",
             color=disnake.Color.green(),
-            timestamp=datetime.datetime.utcnow()
+            timestamp=datetime.datetime.utcnow(),
         )
 
         embed.add_field(
-            name="Account Created At", 
-            value=f"<t:{int(member.created_at.timestamp())}:F>"
+            name="Account Created At",
+            value=f"<t:{int(member.created_at.timestamp())}:F>",
         )
         embed.set_thumbnail(url=member.avatar.url)
         await channel.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(MemberEvents(bot))

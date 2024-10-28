@@ -2,6 +2,7 @@ import os
 from typing import Optional, Tuple, Union
 import hashlib
 
+
 class SHA3:
     @staticmethod
     def salt_hash(
