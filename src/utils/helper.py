@@ -1,6 +1,5 @@
 from typing import Optional, Tuple, List, Dict, Any, Union
 from rich import print as richPrint
-import json
 import datetime
 import disnake
 import aiohttp
@@ -36,36 +35,6 @@ def text_to_speech(text: str, output_file: str, tts_mode: str) -> None:
         tts.save(output_file)
     except Exception as e:
         richPrint(f"ERROR_LOG ~ Text-to-speech conversion failed: {e}")
-
-
-def load_config(config_path: str = "config.json") -> Dict[str, Any]:
-    """
-    Load the configuration from a JSON file.
-    """
-    try:
-        with open(config_path, "r") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        richPrint(
-            f"WARNING: Config file not found at {config_path}. Using default configuration."
-        )
-        return {"default_prefix": "?", "guilds": {}}
-    except json.JSONDecodeError:
-        richPrint(
-            f"ERROR: Invalid JSON in config file {config_path}. Using default configuration."
-        )
-        return {"default_prefix": "?", "guilds": {}}
-
-
-def save_config(config: Dict[str, Any], config_path: str = "config.json") -> None:
-    """
-    Save the configuration to a JSON file.
-    """
-    try:
-        with open(config_path, "w") as f:
-            json.dump(config, f, indent=4)
-    except IOError as e:
-        richPrint(f"ERROR: Failed to save config to {config_path}: {e}")
 
 
 def log_info(value: str = "None", startup_log: bool = False) -> None:
@@ -270,7 +239,12 @@ def fetch_help_embed(
 
 
 def fetch_info_embed(
-    color_manager: "ColorManager", bot_name: str, bot_version: str, bot_prefix: str, footer_text: str, footer_icon: str
+    color_manager: "ColorManager", 
+    bot_name: str, 
+    bot_version: str, 
+    bot_prefix: str, 
+    footer_text: str, 
+    footer_icon: str
 ) -> disnake.Embed:
     """
     Create and return an info embed for the bot.

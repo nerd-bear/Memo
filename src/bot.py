@@ -21,6 +21,7 @@ from db_manager import history, feedback, guild_configs
 from src.utils.helper import *
 from src.utils.sha3 import *
 from src.utils.chatbot import *
+from src.utils.config_manager import *
 
 from src.cogs import *
 

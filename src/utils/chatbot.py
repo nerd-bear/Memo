@@ -1,5 +1,6 @@
 from groq import Groq
 from src.utils.helper import *
+from src.utils.config_manager import *
 
 config = load_config("config.json")
 

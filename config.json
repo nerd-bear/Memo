@@ -10,7 +10,7 @@
     "tts_mode":"fast",
     "log_channel_id": "1290060885485948950",
     "tts_detector_factory_seed": "0",
-    "groq_token": "Your_token_from_groq",
+    "groq_token": "your_groq_token",
     
     "colors": {
       "Red":      "#FFB3BA",
