@@ -1,4 +1,4 @@
-from typing import Optional, Tuple, List, Dict, Any, Union
+from typing import Optional, Tuple, Union
 from rich import print as richPrint
 import datetime
 import disnake
@@ -150,6 +150,10 @@ def fetch_help_embed(
             "desc": "Lets you send a message to the chat bot and it will send back a response",
             "usage": f"{bot_prefix}chat [input_text]",
         },
+        "afk": {
+            "desc": "Allows users to toggle AFK status on/off",
+            "usage": f"{bot_prefix}afk [message]",
+        },
         "nick": {
             "desc": "Changes guild specific username of a member (Mod only)",
             "usage": f"{bot_prefix}nick @user [new_nick]",
@@ -193,6 +197,10 @@ def fetch_help_embed(
         "translate": {
             "desc": "Translates the provided text to english",
             "usage": f"{bot_prefix}translate [text]",
+        },
+        "setprefix": {
+            "desc": "Changes the command prefix for your guild (Admin only)",
+            "usage": f"{bot_prefix}setprefix [prefix]",
         },
         "timeout": {
             "desc": "Timeout a user for a specified duration (Mod only)",

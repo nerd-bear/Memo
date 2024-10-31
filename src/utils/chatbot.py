@@ -17,7 +17,6 @@ class ChatBot:
         Args:
             system_prompt (str, optional): Initial system prompt to set the AI's behavior
         """
-        # Initialize conversation history with system prompt if provided
         self.conversation_history = []
         if system_prompt:
             self.set_system_prompt(system_prompt)
@@ -30,7 +29,6 @@ class ChatBot:
         Args:
             system_prompt (str): The system prompt to set
         """
-        # Clear existing history and set new system prompt
         self.conversation_history = [{"role": "system", "content": system_prompt}]
 
     def get_response(self, user_input: str):
@@ -43,7 +41,6 @@ class ChatBot:
         Returns:
             str: The AI's response
         """
-        # Append user message
         self.conversation_history.append({"role": "user", "content": user_input})
 
         chat_completion = client.chat.completions.create(
@@ -52,7 +49,6 @@ class ChatBot:
         )
 
         bot_response = chat_completion.choices[0].message.content
-        # Append assistant response
         self.conversation_history.append({"role": "assistant", "content": bot_response})
 
         return bot_response

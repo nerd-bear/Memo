@@ -21,7 +21,7 @@ class MemberLeaveEvents(commands.Cog):
             timestamp=datetime.datetime.utcnow(),
         )
 
-        embed.set_thumbnail(url=member.avatar.url)  # Fixed: added url=
+        embed.set_thumbnail(url=member.avatar.url) 
         await channel.send(embed=embed)
 
 

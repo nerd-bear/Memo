@@ -73,7 +73,7 @@ Memo Bot is a versatile Discord bot designed to enhance server management and us
 
 3. **Launch**
    ```bash
-   python launcher.py --token YOUR_BOT_TOKEN
+   python -B launcher.py --token YOUR_BOT_TOKEN
    ```
 
 ## Commands

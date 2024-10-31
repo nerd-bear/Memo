@@ -1,3 +1,5 @@
+print("\n\n") # Needed as some restarts sometimes print on non-empty lines
+
 import asyncio
 import datetime
 import os
@@ -8,6 +10,7 @@ import unicodedata
 
 import disnake
 from disnake.ext import commands
+from disnake.activity import Activity
 
 from rich import print as richPrint
 from rich.console import Console
@@ -62,9 +65,18 @@ log_info("Initialized intents", True)
 
 log_info("Initialized command sync flags", True)
 
+crp_activity = Activity(
+        name="Hidden context info",
+        type=disnake.ActivityType.custom,
+        state=f"Run ?help to get help", 
+    )
+
+log_info("Initialized custom crp activity", True)
+
 Memo = commands.Bot(
     command_prefix="?",
     intents=intents,
+    activity=crp_activity
 )
 
 log_info("Initialized bot", True)
@@ -75,6 +87,8 @@ log_info("Initialized chat bot", True)
 
 console = Console()
 log_info("Initialized console", True)
+
+afk_users: dict[int, str] = {}
 
 set_langdetect_seed(config.get("tts_detector_factory_seed", 0))
 log_info("Loaded tts detector factory seed", True)
@@ -143,17 +157,15 @@ async def on_ready() -> None:
         )
         await channel.send(embed=embed)
 
-    await Memo.change_presence(activity=disnake.Game(name=f"Run {prefix}help for help"))
-
 
 @Memo.event
 async def on_message(message: disnake.Message) -> None:
     guild_prefix = (
-        guild_configs.get_guild_config(SHA3.hash_256(str(message.guild.id)))[
+        (guild_configs.get_guild_config(SHA3.hash_256(str(message.guild.id)))[
             "command_prefix"
         ]
         if guild_configs.get_guild_config(SHA3.hash_256(str(message.guild.id))) != None
-        else "?"
+        else "?") if isinstance(message.channel, disnake.DMChannel) == False else "?"
     )
     global bot_active
 
@@ -172,11 +184,46 @@ async def on_message(message: disnake.Message) -> None:
         return
 
     if not message.content.startswith(guild_prefix):
-        if bot_active == False:
+        if not bot_active: 
             return
+            
         content = message.content.lower()
+        
         if any(word in content for word in ["nigger", "nigga", "negro", "nigro"]):
             await handle_inappropriate_word(message)
+
+        if message.author.id in afk_users:
+            embed = disnake.Embed(
+                title="AFK Status Removed",
+                description=f"{message.author.mention} is no longer AFK. Welcome back!",
+                color=color_manager.get_color("Blue"),
+            )
+            embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+            await message.channel.send(embed=embed)
+            del afk_users[message.author.id]
+
+        for mentioned_user in message.mentions:
+            if mentioned_user.id in afk_users:
+                embed = disnake.Embed(
+                    title="User is AFK",
+                    description=f"{mentioned_user.mention} is currently AFK.\nMessage: {afk_users[mentioned_user.id]}",
+                    color=color_manager.get_color("Yellow"),
+                )
+                embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+                await message.channel.send(embed=embed)
+
+        if message.reference and message.reference.resolved:
+            referenced_user_id = message.reference.resolved.author.id
+            if referenced_user_id in afk_users:
+                referenced_user = message.reference.resolved.author
+                embed = disnake.Embed(
+                    title="User is AFK",
+                    description=f"{referenced_user.mention} is currently AFK.\nMessage: {afk_users[referenced_user_id]}",
+                    color=color_manager.get_color("Yellow"),
+                )
+                embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+                await message.channel.send(embed=embed)
+
         if Memo.user in message.mentions:
             await message.channel.send(
                 f"Hello {message.author.mention}! You mentioned me. How can I help you?"
@@ -192,10 +239,7 @@ async def on_message(message: disnake.Message) -> None:
             description=f"{BOT_NAME} is currently offline. Use {guild_prefix}start to activate.",
             color=color_manager.get_color("Red"),
         )
-        embed.set_footer(
-            text=FOOTER_TEXT,
-            icon_url=FOOTER_ICON,
-        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
         await message.channel.send(embed=embed)
         return
 
@@ -238,6 +282,7 @@ async def on_message(message: disnake.Message) -> None:
         "undeafen": vc_undeafen_command,
         "setprefix": set_prefix_command,
         "chat": chat_command,
+        "afk": afk_command,
     }
 
     if command not in commands_dict:
@@ -479,7 +524,7 @@ async def start_command(message: disnake.Message, prefix: str = "?") -> None:
     bot_active = True
     await Memo.change_presence(
         status=disnake.Status.online,
-        activity=disnake.Game(name=f"Run {prefix}help for help"),
+        activity=crp_activity,
     )
     embed = disnake.Embed(
         title=f"{BOT_NAME} Starting Up",
@@ -1254,7 +1299,7 @@ async def restart_command(message: disnake.Message, prefix: str = "?") -> None:
     except:
         pass
 
-    os.execv(sys.executable, ["python"] + sys.argv)
+    os.execv(sys.executable, ["python", "-B"] + sys.argv)
 
 
 async def translate_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -1972,6 +2017,33 @@ async def chat_command(message: disnake.Message, prefix: str = "?") -> None:
     groq_response = chat_bot.send_msg(user_promt)
 
     await message.channel.send(groq_response)
+
+
+async def afk_command(message: disnake.Message, prefix: str = "?") -> None:
+    afk_msg = " ".join(message.content.split()[1:]) if len(message.content.split()) > 1 else "None"
+    
+    if message.author.id in afk_users:
+        del afk_users[message.author.id]
+        
+        embed = disnake.Embed(
+            title="AFK Status Removed",
+            description=f"Welcome back! You are no longer AFK.",
+            color=color_manager.get_color("Blue"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+    
+    afk_users[message.author.id] = afk_msg
+    
+    embed = disnake.Embed(
+        title="AFK Status Set",
+        description=f"You are now AFK.\nMessage: {afk_msg}",
+        color=color_manager.get_color("Blue"),
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed)
+
 
 
 @Memo.event
