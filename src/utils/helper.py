@@ -190,6 +190,10 @@ def fetch_help_embed(
             "desc": "Answers a yes or no question",
             "usage": f"{bot_prefix}8ball [question]",
         },
+        "kiss": {
+            "desc": "Allows you to kiss a user",
+            "usage": f"{bot_prefix}kiss @user",
+        },
         "ping": {
             "desc": "Gets the ping (latency) of the Discord Bot",
             "usage": f"{bot_prefix}ping",
