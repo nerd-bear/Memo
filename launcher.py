@@ -84,6 +84,5 @@ def main(token: str, skip_speedtest: bool):
     except Exception as e:
         rich_print(f"[bold red]ERROR:[/bold red] Failed to start bot: {str(e)}")
         raise click.Abort()
-
-if __name__ == "__main__":
-    main()
+    
+main()

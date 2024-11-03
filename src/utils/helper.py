@@ -1,5 +1,5 @@
 from typing import Optional, Tuple, Union
-from rich import print as richPrint
+from rich import print as rich_print
 import datetime
 import disnake
 import aiohttp
@@ -34,7 +34,7 @@ def text_to_speech(text: str, output_file: str, tts_mode: str) -> None:
         tts = gTTS(text=text, lang=language, slow=slow)
         tts.save(output_file)
     except Exception as e:
-        richPrint(f"ERROR_LOG ~ Text-to-speech conversion failed: {e}")
+        rich_print(f"ERROR_LOG ~ Text-to-speech conversion failed: {e}")
 
 
 def log_info(value: str = "None", startup_log: bool = False) -> None:
@@ -43,7 +43,7 @@ def log_info(value: str = "None", startup_log: bool = False) -> None:
     """
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(timestamp, end=" ")
-    richPrint(
+    rich_print(
         f"[bold][blue]INFO[/blue][/bold]     {"[purple]startup.[/purple]" if startup_log else ""}{value}"
     )
 
@@ -101,7 +101,7 @@ def get_char_image(
 
         return temp_file_path
     except Exception as e:
-        richPrint(f"ERROR: Failed to generate character image: {e}")
+        rich_print(f"ERROR: Failed to generate character image: {e}")
         return None
 
 
@@ -114,7 +114,7 @@ def detect_language(text: str) -> str:
         most_common = Counter(detections).most_common(1)[0][0]
         return most_common
     except LangDetectException as e:
-        richPrint(f"ERROR: Language detection failed: {e}")
+        rich_print(f"ERROR: Language detection failed: {e}")
         return "unknown"
 
 
@@ -373,5 +373,5 @@ class ColorManager:
             color = self.get_color(color_name)
             return disnake.Embed(title=title, description=description, color=color)
         except ValueError as e:
-            richPrint(f"ERROR: Failed to create color embed: {e}")
+            rich_print(f"ERROR: Failed to create color embed: {e}")
             return disnake.Embed(title=title, description=description)

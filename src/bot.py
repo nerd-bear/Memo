@@ -12,7 +12,7 @@ import disnake
 from disnake.ext import commands
 from disnake.activity import Activity
 
-from rich import print as richPrint
+from rich import print as rich_print
 from rich.console import Console
 from rich.markdown import Markdown
 from rich.panel import Panel
@@ -57,7 +57,7 @@ log_info("Loaded bot version", True)
 TTS_MODE = config.get("tts_mode", "normal")
 log_info("Loaded tts mode", True)
 
-SYSTEM_PROMT = config.get("system_promt", "none")
+SYSTEM_PROMT = config.get("system_prompt", "none")
 log_info("Loaded system prompt", True)
 
 LOGGING_CHANNEL_ID = int(config.get("log_channel_id", 0))
@@ -83,6 +83,10 @@ log_info("Initialized bot", True)
 chat_bot = ChatBot()
 
 log_info("Initialized chat bot", True)
+
+chat_bot.set_system_prompt(SYSTEM_PROMT)
+
+log_info("Set system prompt", True)
 
 console = Console()
 log_info("Initialized console", True)
@@ -882,7 +886,7 @@ async def join_vc_command(message: disnake.Message, prefix: str = "?") -> None:
         channel = Memo.get_channel(message.author.voice.channel.id)
         await channel.connect()
     except Exception as e:
-        richPrint(e)
+        rich_print(e)
 
 
 async def leave_vc_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -1074,12 +1078,14 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
                 play_embed.add_field(
                     name="Requested by", value=message.author.mention, inline=True
                 )
+
                 if isinstance(duration, (int, float)):
                     play_embed.add_field(
                         name="Duration",
                         value=f"{int(duration/60)}:{int(duration%60):02d}",
                         inline=True,
                     )
+
                 play_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
                 await status_message.edit(embed=play_embed)
 
@@ -1681,8 +1687,9 @@ async def vc_mute_command(message: disnake.Message, prefix: str = "?") -> None:
         )
         dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
         await member.send(embed=dm_embed)
-    except:
-        pass
+    except Exception as e:
+        log_info(f"Failed to DM {member.name} about their voice mute.\n {e}")
+        
 
     try:
         await member.edit(mute=True, reason=reason)
@@ -1775,8 +1782,8 @@ async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None
         )
         dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
         await member.send(embed=dm_embed)
-    except:
-        pass
+    except Exception as e:
+        log_info(f"Failed to DM {member.name} about their voice mute.\n {e}")
 
     try:
         await member.edit(mute=False, reason=reason)
@@ -1869,8 +1876,8 @@ async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None
         )
         dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
         await member.send(embed=dm_embed)
-    except:
-        pass
+    except Exception as e:
+        log_info(f"Failed to DM {member.name} about their voice mute.\n {e}")
 
     try:
         await member.edit(deafen=True, reason=reason)
@@ -1963,8 +1970,8 @@ async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> No
         )
         dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
         await member.send(embed=dm_embed)
-    except:
-        pass
+    except Exception as e:
+        log_info(f"Failed to DM {member.name} about their voice mute.\n {e}")
 
     try:
         await member.edit(deafen=False, reason=reason)
@@ -2120,9 +2127,8 @@ async def chat_command(message: disnake.Message, prefix: str = "?") -> None:
         await message.channel.send(embed=embed)
         return
 
-    chat_bot.set_system_prompt(SYSTEM_PROMT)
-    user_promt = " ".join(message.content.split()[1:])
-    groq_response = chat_bot.send_msg(user_promt)
+    user_prompt = " ".join(message.content.split()[1:])
+    groq_response = chat_bot.send_msg(user_prompt)
 
     await message.channel.send(groq_response)
 
@@ -2161,7 +2167,7 @@ async def kiss_command(message: disnake.Message, prefix: str = "?") -> None:
     if len(message.mentions) < 1:
         embed = disnake.Embed(
             title="Error",
-            description="Please mention someone to kiss them.",
+            description=f"Please mention someone to kiss them. Usage: {prefix}kiss @user",
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -2183,7 +2189,7 @@ async def kiss_command(message: disnake.Message, prefix: str = "?") -> None:
         description=f"{message.mentions[0].mention} got kisses from {message.author.mention}!",
         color=color_manager.get_color("Blue"),
     )
-    message_mentioned = message.channel.send(content=f"{message.mentions[0].mention}")
+    await message.channel.send(content=f"{message.mentions[0].mention}")
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
     await message.channel.send(embed=embed)
 

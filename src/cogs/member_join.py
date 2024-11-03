@@ -16,7 +16,7 @@ class MemberEvents(commands.Cog):
 
         embed = disnake.Embed(
             title="Welcome to the server!",
-            description=f"Hey there {member.mention} are welcome to the guild!",
+            description=f"Hey there {member.mention} and welcome to the guild!",
             color=disnake.Color.green(),
             timestamp=datetime.datetime.utcnow(),
         )
