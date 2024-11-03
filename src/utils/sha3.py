@@ -13,7 +13,7 @@ class SHA3:
         """
         if salt is None:
             salt = SHA3.generate_salt(size=32, hex=True)
-        encoded_str = input_str.encode("utf-8")
+        encoded_str = str(input_str).encode("utf-8")
         hashed = hashlib.pbkdf2_hmac("sha256", encoded_str, salt, 100000)
         return salt, hashed
 
@@ -22,7 +22,7 @@ class SHA3:
         """
         Generate a SHA-256 hash of the input string.
         """
-        encoded_str = input_str.encode("utf-8")
+        encoded_str = str(input_str).encode("utf-8")
         return hashlib.sha3_256(encoded_str).hexdigest()
 
     @staticmethod
@@ -30,7 +30,7 @@ class SHA3:
         """
         Generate a SHA-384 hash of the input string.
         """
-        encoded_str = input_str.encode("utf-8")
+        encoded_str = str(input_str).encode("utf-8")
         return hashlib.sha3_384(encoded_str).hexdigest()
 
     @staticmethod
@@ -38,7 +38,7 @@ class SHA3:
         """
         Generate a SHA-512 hash of the input string.
         """
-        encoded_str = input_str.encode("utf-8")
+        encoded_str = str(input_str).encode("utf-8")
         return hashlib.sha3_512(encoded_str).hexdigest()
 
     @staticmethod
@@ -46,7 +46,7 @@ class SHA3:
         """
         Generate a SHA-224 hash of the input string.
         """
-        encoded_str = input_str.encode("utf-8")
+        encoded_str = str(input_str).encode("utf-8")
         return hashlib.sha3_224(encoded_str).hexdigest()
 
     @staticmethod

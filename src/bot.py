@@ -25,6 +25,7 @@ from src.utils.helper import *
 from src.utils.sha3 import *
 from src.utils.chatbot import *
 from src.utils.config_manager import *
+from src.utils.word_filter import *
 
 from src.cogs import *
 
@@ -111,6 +112,30 @@ async def get_info_text() -> str:
     Initialization complete.
     """
 
+async def restart_memo() -> None:
+    log_info("Restarting Memo...", True)
+
+    for vc in Memo.voice_clients:
+        await vc.disconnect(force=True)
+
+    if hasattr(Memo.http, "_client_session") and Memo.http._client_session:
+        await Memo.http._client_session.close()
+        await asyncio.sleep(1)
+
+    try:
+        await Memo.close()
+    except:
+        pass
+
+    os.execv(sys.executable, ["python", "-B"] + sys.argv)
+
+
+async def auto_restart():
+    while True:
+        await asyncio.sleep(21600)
+        log_info("Auto restarting Memo...")
+        await restart_memo()
+
 
 def debug_command(func):
     @functools.wraps(func)
@@ -132,6 +157,8 @@ def debug_command(func):
 
 @Memo.event
 async def on_ready() -> None:
+    Memo.loop.create_task(auto_restart())
+
     Memo.load_extension("src.cogs.member_join")
     Memo.load_extension("src.cogs.member_remove")
 
@@ -161,14 +188,15 @@ async def on_ready() -> None:
         await channel.send(embed=embed)
 
 
+
 @Memo.event
 async def on_message(message: disnake.Message) -> None:
     guild_prefix = (
         (
-            guild_configs.get_guild_config(SHA3.hash_256(str(message.guild.id)))[
+            guild_configs.get_guild_config(SHA3.hash_256(message.guild.id))[
                 "command_prefix"
             ]
-            if guild_configs.get_guild_config(SHA3.hash_256(str(message.guild.id)))
+            if guild_configs.get_guild_config(SHA3.hash_256(message.guild.id))
             != None
             else "?"
         )
@@ -197,7 +225,7 @@ async def on_message(message: disnake.Message) -> None:
 
         content = message.content.lower().strip()
 
-        if any(word in content for word in ["nigger", "nigga", "negro", "nigro"]):
+        if any(is_bad_word(word) for word in content.split()):
             await handle_inappropriate_word(message)
 
         if message.author.id in afk_users:
@@ -255,8 +283,8 @@ async def on_message(message: disnake.Message) -> None:
     args = message.content.split()[1:]
 
     history.add_history(
-        SHA3.hash_256(str(message.author.id)),
-        SHA3.hash_256(str(message.guild)),
+        SHA3.hash_256(message.author.id),
+        SHA3.hash_256(str(message.guild.id)),
         command,
         args,
     )
@@ -459,7 +487,7 @@ async def ban_command(message: disnake.Message, prefix: str = "?") -> None:
         await member.send(
             embed=disnake.Embed(
                 title="You've Been Banned",
-                description=f"You were banned from {message.guild.name}.\nReason: {reason}",
+                description=f"You were banned from {message.guild.name}.\nReason: {reason}\nModerator: {message.author.mention}",
                 color=color_manager.get_color("Red"),
             )
         )
@@ -469,7 +497,7 @@ async def ban_command(message: disnake.Message, prefix: str = "?") -> None:
     await member.ban(reason=reason)
     embed = disnake.Embed(
         title="User Banned",
-        description=f"{member.mention} has been banned.\nReason: {reason}",
+        description=f"{member.mention} has been banned.\nReason: {reason}\nModerator: {message.author.mention}",
         color=color_manager.get_color("Blue"),
     )
     embed.set_footer(
@@ -830,7 +858,7 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
         await member.timeout(time_delta, reason=reason)
         embed = disnake.Embed(
             title="User Timed Out",
-            description=f"{member.mention} has been timed out for {duration}{unit}.\nReason: {reason}",
+            description=f"{member.mention} has been timed out for {duration}{unit}.\nReason: {reason}\nModerator: {message.author.mention}\nModerator: {message.author.mention}",
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(
@@ -1403,19 +1431,7 @@ async def restart_command(message: disnake.Message, prefix: str = "?") -> None:
     )
     await message.channel.send(embed=embed)
 
-    for vc in Memo.voice_clients:
-        await vc.disconnect(force=True)
-
-    if hasattr(Memo.http, "_client_session") and Memo.http._client_session:
-        await Memo.http._client_session.close()
-        await asyncio.sleep(0.5)
-
-    try:
-        await Memo.close()
-    except:
-        pass
-
-    os.execv(sys.executable, ["python", "-B"] + sys.argv)
+    await restart_memo()
 
 
 async def translate_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -1682,7 +1698,7 @@ async def vc_mute_command(message: disnake.Message, prefix: str = "?") -> None:
     try:
         dm_embed = disnake.Embed(
             title="You've Been Voice Muted",
-            description=f"You were voice muted in {message.guild.name}.\nReason: {reason}",
+            description=f"You were voice muted in {message.guild.name}.\nReason: {reason}\nModerator: {message.author.mention}",
             color=color_manager.get_color("Red"),
         )
         dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -1695,7 +1711,7 @@ async def vc_mute_command(message: disnake.Message, prefix: str = "?") -> None:
         await member.edit(mute=True, reason=reason)
         embed = disnake.Embed(
             title="Voice Mute",
-            description=f"Muted {member.mention}\nReason: {reason}",
+            description=f"Muted {member.mention}\nReason: {reason}\nModerator: {message.author.mention}",
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -1777,7 +1793,7 @@ async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None
     try:
         dm_embed = disnake.Embed(
             title="You've Been Voice Unmuted",
-            description=f"You were voice unmuted in {message.guild.name}.\nReason: {reason}",
+            description=f"You were voice unmuted in {message.guild.name}.\nReason: {reason}\nModerator: {message.author.mention}",
             color=color_manager.get_color("Green"),
         )
         dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -1789,7 +1805,7 @@ async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None
         await member.edit(mute=False, reason=reason)
         embed = disnake.Embed(
             title="Voice Unmute",
-            description=f"Unmuted {member.mention}\nReason: {reason}",
+            description=f"Unmuted {member.mention}\nReason: {reason}\nModerator: {message.author.mention}",
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -1871,7 +1887,7 @@ async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None
     try:
         dm_embed = disnake.Embed(
             title="You've Been Voice Deafened",
-            description=f"You were voice deafened in {message.guild.name}.\nReason: {reason}",
+            description=f"You were voice deafened in {message.guild.name}.\nReason: {reason}\nModerator: {message.author.mention}",
             color=color_manager.get_color("Red"),
         )
         dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -1883,7 +1899,7 @@ async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None
         await member.edit(deafen=True, reason=reason)
         embed = disnake.Embed(
             title="Voice Deafen",
-            description=f"Deafened {member.mention}\nReason: {reason}",
+            description=f"Deafened {member.mention}\nReason: {reason}\nModerator: {message.author.mention}",
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -1965,7 +1981,7 @@ async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> No
     try:
         dm_embed = disnake.Embed(
             title="You've Been Voice Undeafened",
-            description=f"You were voice undeafened in {message.guild.name}.\nReason: {reason}",
+            description=f"You were voice undeafened in {message.guild.name}.\nReason: {reason}\nModerator: {message.author.mention}",
             color=color_manager.get_color("Green"),
         )
         dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -1977,7 +1993,7 @@ async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> No
         await member.edit(deafen=False, reason=reason)
         embed = disnake.Embed(
             title="Voice Undeafen",
-            description=f"Undeafened {member.mention}\nReason: {reason}",
+            description=f"Undeafened {member.mention}\nReason: {reason}\nModerator: {message.author.mention}",
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -2067,7 +2083,7 @@ async def set_prefix_command(message: disnake.Message, prefix: str = "?") -> Non
 
     new_prefix = message.content.split()[1][0]
 
-    hashed_guild_id = SHA3.hash_256(str(message.guild.id))
+    hashed_guild_id = SHA3.hash_256(message.guild.id)
 
     if guild_configs.set_guild_config(hashed_guild_id, new_prefix):
         success = True
