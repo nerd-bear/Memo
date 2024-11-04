@@ -4,7 +4,7 @@
   <img src="assets/logo/png/padded_bear.png" alt="Memo Bot Logo" width="200">
   
   [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-  [![Version](https://img.shields.io/badge/version-0.4.6-brightgreen.svg)](https://github.com/your-username/Memo-bot/releases)
+  [![Version](https://img.shields.io/badge/version-0.4.7-brightgreen.svg)](https://github.com/your-username/Memo-bot/releases)
   [![Python](https://img.shields.io/badge/python-3.12.6+-blue.svg)](https://www.python.org/downloads/)
   [![Discord.py](https://img.shields.io/badge/disnake-2.8+-blue.svg)](https://github.com/DisnakeDev/disnake)
 </div>
@@ -64,7 +64,7 @@ Memo Bot is a versatile Discord bot designed to enhance server management and us
            "footer_text": "Your footer text",
            "footer_icon": "Your footer icon URL"
        },
-       "bot_version": "0.4.6",
+       "bot_version": "0.4.7",
        "bot_name": "Memo",
        "tts_mode": "fast",
        "log_channel_id": "YOUR_LOG_CHANNEL_ID"

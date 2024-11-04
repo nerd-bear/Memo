@@ -9,7 +9,9 @@ class MemberLeaveEvents(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member: disnake.Member):
-        channel = member.guild.text_channels[0]
+        for channel in member.guild.text_channels.reverse():
+            if channel.permissions_for(member).send_messages:
+                channel = channel
 
         if not channel:
             return

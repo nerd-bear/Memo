@@ -2,16 +2,20 @@ import disnake
 import datetime
 from disnake.ext import commands
 
-
 class MemberEvents(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.Cog.listener()
     async def on_member_join(self, member: disnake.Member):
-        channel = member.guild.text_channels[0]
+        channel = None
+        for guild_channel in member.guild.text_channels:
+            if guild_channel.permissions_for(member.guild.me).send_messages:
+                channel = guild_channel
+                break
 
         if not channel:
+            print(f"No channel found to send join message for {member.name} in {member.guild.name}")
             return
 
         embed = disnake.Embed(
@@ -25,9 +29,11 @@ class MemberEvents(commands.Cog):
             name="Account Created At",
             value=f"<t:{int(member.created_at.timestamp())}:F>",
         )
-        embed.set_thumbnail(url=member.avatar.url)
-        await channel.send(embed=embed)
 
+        if member.avatar:
+            embed.set_thumbnail(url=member.avatar.url)
+
+        await channel.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(MemberEvents(bot))
