@@ -1,9 +1,9 @@
 import click
-from rich import print as rich_print
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.console import Console
 import speedtest
 from typing import Tuple
+from src.utils.helper import log_info
 import sys
 
 def format_speed(speed_bps: float) -> str:
@@ -44,8 +44,8 @@ def run_speed_test(console: Console) -> Tuple[float, float, float, str]:
             return download, upload, ping, server_info
 
     except Exception as e:
-        rich_print(f"[bold red]ERROR:[/bold red] Speed test failed: {str(e)}")
-        rich_print("Please ensure you have a working internet connection and try again.")
+        log_info(f"Speed test failed: {str(e)}", error=True)
+        log_info("Please ensure you have a working internet connection and try again.", error=True)
         sys.exit(1)
 
 @click.command()
@@ -56,33 +56,32 @@ def main(token: str, skip_speedtest: bool):
     console = Console()
 
     if not token.strip():
-        rich_print("[bold red]ERROR:[/bold red] Invalid token provided.")
-        rich_print("Usage: python launcher.py --token <token>")
+        log_info("Invalid token provided.", error=True)
+        log_info("Usage: python launcher.py --token <token>", error=True)
         raise click.Abort()
 
     if not skip_speedtest:
-        rich_print("\n[bold blue]Running Internet Speed Test[/bold blue]")
-        rich_print("This may take a minute...\n")
+        log_info("Running Internet Speed Test", startup=True)
+        log_info("This may take a minute...\n", startup=True)
 
         download, upload, ping, server = run_speed_test(console)
 
-        rich_print("\n[bold green]Speed Test Results:[/bold green]")
-        rich_print(f"🔽 Download: {format_speed(download)}")
-        rich_print(f"🔼 Upload: {format_speed(upload)}")
-        rich_print(f"📡 Ping: {ping:.1f} ms")
-        rich_print(f"🖥️  Server: {server}\n")
+        log_info("Speed Test Results:", startup=True)
+        log_info(f"Download: {format_speed(download)}", startup=True)
+        log_info(f"Upload: {format_speed(upload)}", startup=True)
+        log_info(f"Ping: {ping:.1f} ms", startup=True)
+        log_info(f"Server: {server}\n", startup=True)
 
         if download < 5_000_000 or upload < 1_000_000:  
-            rich_print("[bold yellow]Warning:[/bold yellow] Your internet connection appears to be slow, "
-                      "which might affect bot performance.\n")
+            log_info("Your internet connection appears to be slow, which might affect bot performance.", warning=True)
 
     from src.bot import Memo
 
     try:
-        rich_print("[bold blue]Starting Discord Bot[/bold blue]")
+        log_info("Starting Discord Bot", True)
         Memo.run(token)
     except Exception as e:
-        rich_print(f"[bold red]ERROR:[/bold red] Failed to start bot: {str(e)}")
+        log_info(f"Failed to start bot: {str(e)}", error=True)
         raise click.Abort()
     
 main()

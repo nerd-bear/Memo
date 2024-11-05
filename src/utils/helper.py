@@ -1,5 +1,6 @@
 from typing import Optional, Tuple, Union
-from rich import print as rich_print
+from rich.console import Console
+from rich.console import Text
 import datetime
 import disnake
 import aiohttp
@@ -34,19 +35,33 @@ def text_to_speech(text: str, output_file: str, tts_mode: str) -> None:
         tts = gTTS(text=text, lang=language, slow=slow)
         tts.save(output_file)
     except Exception as e:
-        rich_print(f"ERROR_LOG ~ Text-to-speech conversion failed: {e}")
+        log_info(f"Text-to-speech conversion failed: {e}", error=True)
 
 
-def log_info(value: str = "None", startup_log: bool = False) -> None:
+def log_info(*values: str, startup: bool = False, error: bool = False, warning: bool = False, end: str = "\n", sep: str = " ") -> None:
     """
-    Log an information message with a timestamp.
+    Log an information message with a timestamp and supports different formats such as error, warning, info and startup.
     """
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(timestamp, end=" ")
-    rich_print(
-        f"[bold][blue]INFO[/blue][/bold]     {"[purple]startup.[/purple]" if startup_log else ""}{value}"
-    )
 
+    console = Console()
+
+    text_type = "INFO"
+    if error:
+        text_type = "ERROR"
+        text_style = "bold red"
+    elif startup:
+        text_type = "STARTUP"
+        text_style = "bold blue"
+    elif warning:
+        text_type = "WARNING"
+        text_style = "bold yellow"
+
+    text = Text()
+    text.append(f"[{datetime.datetime.utcnow().__format__('%H:%M:%S')}]", style="bold cyan")
+    text.append(f" [{text_type}]", style=text_style)
+    text.append(f" {sep.join(values)}", style="#ffeab0")
+
+    console.print(text, end=end)
 
 def fetch_latency(client: commands.Bot, shouldRound: bool = True) -> float:
     """
@@ -101,7 +116,7 @@ def get_char_image(
 
         return temp_file_path
     except Exception as e:
-        rich_print(f"ERROR: Failed to generate character image: {e}")
+        log_info(f"Failed to generate character image: {e}", error=True)
         return None
 
 
@@ -114,33 +129,27 @@ def detect_language(text: str) -> str:
         most_common = Counter(detections).most_common(1)[0][0]
         return most_common
     except LangDetectException as e:
-        rich_print(f"ERROR: Language detection failed: {e}")
+        log_info(f"Language detection failed: {e}", error=True)
         return "unknown"
 
 
-def fetch_help_embed(
+def fetch_help_dict(
     color_manager: "ColorManager",
     bot_name: str,
     bot_version: str,
     bot_prefix: str,
     footer_text: str,
     footer_icon: str,
-) -> disnake.Embed:
-    """
-    Create and return a help embed for the bot.
-    """
-    help_embed = disnake.Embed(
-        color=color_manager.get_color("Blue"),
-        title=f"{bot_name} Help Information",
-        description=f"Here are the available commands (prefix: {bot_prefix}):",
-    )
-    help_embed.set_footer(text=footer_text, icon_url=footer_icon)
-
-    commands = {
+) -> dict:
+    return {
         "help": {"desc": "Show this help message", "usage": f"{bot_prefix}help"},
         "charinfo": {
             "desc": "Shows information and a image of the character provided",
             "usage": f"{bot_prefix}charinfo [character]",
+        },
+        "man": {
+            "desc": "Displays information about the command",
+            "usage": f"{bot_prefix}man [command_name]",
         },
         "tts": {
             "desc": "Join the vc you are in and uses Text-to-Speech to say your text",
@@ -190,6 +199,10 @@ def fetch_help_embed(
             "desc": "Answers a yes or no question",
             "usage": f"{bot_prefix}8ball [question]",
         },
+        "rps": {
+            "desc": "Allowed you to play rock-paper-scissors against the bot",
+            "usage": f"{bot_prefix}rps [rock|paper|scissors]",
+        },
         "kiss": {
             "desc": "Allows you to kiss a user",
             "usage": f"{bot_prefix}kiss @user",
@@ -202,10 +215,19 @@ def fetch_help_embed(
             "desc": "Translates the provided text to english",
             "usage": f"{bot_prefix}translate [text]",
         },
+        "spellcheck": {
+            "desc": "Returns the text spelled correctly",
+            "usage": f"{bot_prefix}spellcheck [text]",
+        },
         "setprefix": {
             "desc": "Changes the command prefix for your guild (Admin only)",
             "usage": f"{bot_prefix}setprefix [prefix]",
         },
+        "purge": {
+            "desc": "Removes the specified number of messages from the channel (Mod only)",
+            "usage": f"{bot_prefix}purge [number_of_messages]",
+        },
+        
         "timeout": {
             "desc": "Timeout a user for a specified duration (Mod only)",
             "usage": f"{bot_prefix}timeout @user <duration> <unit> [reason]",
@@ -240,13 +262,31 @@ def fetch_help_embed(
         },
     }
 
-    for cmd, info in commands.items():
-        help_embed.add_field(
-            name=f"{bot_prefix}{cmd}",
-            value=f"{info['desc']}\nUsage: `{info['usage']}`",
-            inline=False,
-        )
 
+def fetch_help_embed(
+    color_manager: "ColorManager",
+    bot_name: str,
+    bot_version: str,
+    bot_prefix: str,
+    footer_text: str,
+    footer_icon: str,
+
+) -> disnake.Embed:
+    """
+    Create and return a help embed for the bot.
+    """
+    help_embed = disnake.Embed(
+        color=color_manager.get_color("Blue"),
+        title=f"{bot_name} Help Information",
+        description=f"Here are the available commands (prefix: {bot_prefix}):\n",
+    )
+    help_embed.set_footer(text=footer_text, icon_url=footer_icon)
+
+    commands = fetch_help_dict(color_manager, bot_name, bot_version, bot_prefix, footer_text, footer_icon)
+    
+    for cmd, info in commands.items():
+        help_embed.description = help_embed.description + f"\n **{bot_prefix}{cmd}** \n{info['desc']}\nUsage: `{info['usage']}`\n"
+    
     return help_embed
 
 
@@ -373,5 +413,5 @@ class ColorManager:
             color = self.get_color(color_name)
             return disnake.Embed(title=title, description=description, color=color)
         except ValueError as e:
-            rich_print(f"ERROR: Failed to create color embed: {e}")
+            log_info(f"Failed to create color embed: {e}", error=True)
             return disnake.Embed(title=title, description=description)

@@ -1,0 +1,15 @@
+disnake
+rich
+click
+speedtest-cli
+yt-dlp
+deep-translator
+pillow
+gtts
+langdetect
+aiohttp
+groq
+requests
+urllib3
+Levenshtein
+textblob

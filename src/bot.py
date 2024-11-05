@@ -12,12 +12,11 @@ import disnake
 from disnake.ext import commands
 from disnake.activity import Activity
 
-from rich import print as rich_print
 from rich.console import Console
-from rich.markdown import Markdown
-from rich.panel import Panel
-from deep_translator import GoogleTranslator
+from rich.console import Text
 
+from deep_translator import GoogleTranslator
+from textblob import TextBlob
 import yt_dlp
 
 from db_manager import history, feedback, guild_configs
@@ -80,7 +79,8 @@ log_info("Initialized custom crp activity", True)
 
 Memo = commands.Bot(command_prefix="?", 
                     intents=intents, 
-                    activity=crp_activity)
+                    activity=crp_activity
+                    )
 
 log_info("Initialized bot", True)
 
@@ -115,8 +115,9 @@ async def get_info_text() -> str:
     Initialization complete.
     """
 
+
 async def restart_memo() -> None:
-    log_info("Restarting Memo...", True)
+    log_info("Restarting Memo...")
 
     for vc in Memo.voice_clients:
         await vc.disconnect(force=True)
@@ -140,6 +141,25 @@ async def auto_restart():
         await restart_memo()
 
 
+async def auto_latency_check():
+    last_ping = 0
+    while True:
+        latency = fetch_latency(Memo)
+        
+        text = Text()
+        text.append(f"[{datetime.datetime.utcnow().__format__('%H:%M:%S')}]", style="bold cyan")
+        text.append(" [INFO]", style="bold blue")
+        text.append(" Latency: ", style="bold")
+        text.append(f"{latency}ms", style="bold green")
+        text.append(" Last ping: ", style="bold")
+        text.append(f"{last_ping}ms", style="bold yellow")
+        
+        console.print(text)
+        
+        last_ping = latency
+        await asyncio.sleep(20)
+
+
 def debug_command(func):
     @functools.wraps(func)
     async def wrapper(message: disnake.Message, *args: any, **kwargs: any):
@@ -151,30 +171,39 @@ def debug_command(func):
         embed.set_footer(
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
-        )
+        )   
         await message.channel.send(embed=embed)
         return await func(message, *args, **kwargs)
 
     return wrapper
 
 
+from rich.markdown import Markdown
+from rich.panel import Panel
+from rich.table import Table
+from rich.text import Text
+from rich.console import Group
+
 @Memo.event
 async def on_ready() -> None:
     Memo.loop.create_task(auto_restart())
+    Memo.loop.create_task(auto_latency_check())
 
     Memo.load_extension("src.cogs.member_join")
     Memo.load_extension("src.cogs.member_remove")
     Memo.load_extension("src.cogs.new_guild")
 
-    markdown = Markdown(f"# Discord {BOT_NAME} version {BOT_VERSION}")
-    console.print(markdown)
+    log_info(f"Successfully started {BOT_NAME} {BOT_VERSION}v", startup=True)
 
     info_text = await get_info_text()
-    panel = Panel(
-        info_text, title=f"{BOT_NAME} v{BOT_VERSION} Initialization Info", expand=False
-    )
 
-    console.print(panel)
+    log_info(f"Bot name: {BOT_NAME}", info=True)
+    log_info(f"Bot version: {BOT_VERSION}", info=True)
+    log_info(f"Logged in as {Memo.user.name} (ID: {Memo.user.id})", info=True)
+    log_info(f"Connected to {len(Memo.guilds)} guilds", info=True)
+    log_info(f"Prefix: {prefix}", info=True)
+    log_info(f"Bot is ready to use. Ping: {fetch_latency(Memo)}ms", info=True)
+
 
     channel = Memo.get_channel(LOGGING_CHANNEL_ID)
 
@@ -192,7 +221,6 @@ async def on_ready() -> None:
         await channel.send(embed=embed)
 
 
-
 @Memo.event
 async def on_message(message: disnake.Message) -> None:
     guild_prefix = (
@@ -200,8 +228,7 @@ async def on_message(message: disnake.Message) -> None:
             guild_configs.get_guild_config(SHA3.hash_256(message.guild.id))[
                 "command_prefix"
             ]
-            if guild_configs.get_guild_config(SHA3.hash_256(message.guild.id))
-            != None
+            if guild_configs.get_guild_config(SHA3.hash_256(message.guild.id)) != None
             else "?"
         )
         if isinstance(message.channel, disnake.DMChannel) == False
@@ -324,6 +351,11 @@ async def on_message(message: disnake.Message) -> None:
         "chat": chat_command,
         "afk": afk_command,
         "kiss": kiss_command,
+        "rps": rps_command,
+        "man": man_command,
+        "purge": purge_command,
+        "spellcheck": spellcheck_command,
+        "setup": setup_command,
     }
 
     if command not in commands_dict:
@@ -339,7 +371,22 @@ async def on_message(message: disnake.Message) -> None:
         await message.channel.send(embed=embed)
         return
 
-    await commands_dict[command](message, guild_prefix)
+    try:
+        await commands_dict[command](message, guild_prefix)
+
+    except Exception as e:
+        embed = disnake.Embed(
+            title="An Error Occurred",
+            description=f"An error occurred while executing the command. Please try again later.\nError: {str(e)}",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(
+            text=FOOTER_TEXT,
+            icon_url=FOOTER_ICON,
+        )
+        await message.channel.send(embed=embed)
+        log_info(f"An error occurred while executing command '{command}': {str(e)}", error=True)
+        return
 
 
 async def handle_inappropriate_word(message: disnake.Message) -> None:
@@ -352,7 +399,7 @@ async def handle_inappropriate_word(message: disnake.Message) -> None:
     bad_word_indices = [i for i, word in enumerate(words) if is_bad_word(word)]
 
     if not bad_word_indices:
-        return 
+        return
 
     highlighted_content = message.content
     for index in bad_word_indices:
@@ -447,7 +494,7 @@ async def kick_command(message: disnake.Message, prefix: str = "?") -> None:
         await member.send(
             embed=disnake.Embed(
                 title="You've wBeen Kicked",
-                description=f"You were kicked from {message.guild.name}.\nReason: {reason}",
+                description=f"You were kicked from {message.guild.name}.\n**Reason:** {reason}",
                 color=color_manager.get_color("Red"),
             )
         )
@@ -457,7 +504,7 @@ async def kick_command(message: disnake.Message, prefix: str = "?") -> None:
     await member.kick(reason=reason)
     embed = disnake.Embed(
         title="User Kicked",
-        description=f"{member.mention} has been kicked.\nReason: {reason}",
+        description=f"{member.mention} has been kicked.\n**Reason:** {reason}",
         color=color_manager.get_color("Blue"),
     )
     embed.set_footer(
@@ -515,7 +562,7 @@ async def ban_command(message: disnake.Message, prefix: str = "?") -> None:
         await member.send(
             embed=disnake.Embed(
                 title="You've Been Banned",
-                description=f"You were banned from {message.guild.name}.\nReason: {reason}\nModerator: {message.author.mention}",
+                description=f"You were banned from {message.guild.name}.\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",
                 color=color_manager.get_color("Red"),
             )
         )
@@ -525,7 +572,7 @@ async def ban_command(message: disnake.Message, prefix: str = "?") -> None:
     await member.ban(reason=reason)
     embed = disnake.Embed(
         title="User Banned",
-        description=f"{member.mention} has been banned.\nReason: {reason}\nModerator: {message.author.mention}",
+        description=f"{member.mention} has been banned.\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",
         color=color_manager.get_color("Blue"),
     )
     embed.set_footer(
@@ -605,7 +652,6 @@ async def start_command(message: disnake.Message, prefix: str = "?") -> None:
 
 
 async def charinfo_command(message: disnake.Message, prefix: str = "?") -> None:
-
     try:
         argument_text = " ".join(message.content.split()[1:])
         char_text = argument_text[0]
@@ -883,10 +929,10 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
     time_delta = datetime.timedelta(**{time_units[unit]: duration})
 
     try:
-        await member.timeout(time_delta, reason=reason)
+        await member.timeout(duration=time_delta, reason=reason)
         embed = disnake.Embed(
             title="User Timed Out",
-            description=f"{member.mention} has been timed out for {duration}{unit}.\nReason: {reason}\nModerator: {message.author.mention}\nModerator: {message.author.mention}",
+            description=f"{member.mention} has been timed out for {duration}{unit}.\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",  # Fixed: Removed duplicate moderator mention
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(
@@ -894,6 +940,22 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
             icon_url=FOOTER_ICON,
         )
         await message.channel.send(embed=embed)
+
+        try:
+            dm_embed = disnake.Embed(
+                title="You were timed out",
+                description=f"You have been timed out for {duration}{unit}.",
+                color=color_manager.get_color("Blue"),
+            )
+            dm_embed.add_field(name="Reason", value=reason, inline=True)
+            dm_embed.add_field(name="Moderator", value=message.author.name, inline=True)
+            dm_embed.set_footer(
+                text=FOOTER_TEXT,
+                icon_url=FOOTER_ICON,
+            )
+            await member.send(embed=dm_embed)
+        except:
+            pass 
 
     except disnake.errors.Forbidden:
         embed = disnake.Embed(
@@ -919,30 +981,13 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
         )
         await message.channel.send(embed=embed)
 
-    try:
-        await member.timeout(time_delta, reason=reason)
-        embed = disnake.Embed(
-            title="You were timed out",
-            description=f"You (aka {member.mention}) have been timed out for {duration}{unit}.",
-            color=color_manager.get_color("Blue"),
-        )
-        embed.add_field(name="reason", value=reason, inline=True)
-        embed.set_footer(
-            text=FOOTER_TEXT,
-            icon_url=FOOTER_ICON,
-        )
-        await member.send(embed=embed)
-
-    except:
-        pass
-
 
 async def join_vc_command(message: disnake.Message, prefix: str = "?") -> None:
     try:
         channel = Memo.get_channel(message.author.voice.channel.id)
         await channel.connect()
     except Exception as e:
-        rich_print(e)
+        log_info("Error connecting to voice channel", error=True)
 
 
 async def leave_vc_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -1107,7 +1152,7 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
 
             def after_playing(error):
                 if error:
-                    print(f"Player error: {error}")
+                    log_info(f"Player error: {error}", error=True)
                     asyncio.run_coroutine_threadsafe(
                         message.channel.send(
                             embed=disnake.Embed(
@@ -1119,8 +1164,8 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
                         voice_client.loop,
                     )
 
-            print(f"Attempting to play URL: {url}")
-            print(f"Using FFmpeg options: {ffmpeg_options}")
+            log_info(f"Attempting to play URL: {url}", error=True)
+            log_info(f"Using FFmpeg options: {ffmpeg_options}", error=True)
 
             try:
                 audio_source = disnake.FFmpegPCMAudio(url, **ffmpeg_options)
@@ -1146,7 +1191,7 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
                 await status_message.edit(embed=play_embed)
 
             except Exception as e:
-                print(f"FFmpeg error details: {str(e)}")
+                log_info(f"FFmpeg error details: {str(e)}", error=True)
                 raise Exception(f"FFmpeg error: {str(e)}")
 
     except Exception as e:
@@ -1161,7 +1206,7 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
         if voice_client and voice_client.is_connected():
             await voice_client.disconnect()
 
-        print(f"Play command error: {str(e)}")
+        log_info(f"Play command error: {str(e)}", error=True)
 
 
 async def profile_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -1255,8 +1300,6 @@ async def profile_command(message: disnake.Message, prefix: str = "?") -> None:
     top_role = "<@&" + str(user.roles[-1].id) + ">"
 
     roles: list[str] = []
-
-    print(user.premium_since)
 
     roles_str = ""
 
@@ -1726,20 +1769,19 @@ async def vc_mute_command(message: disnake.Message, prefix: str = "?") -> None:
     try:
         dm_embed = disnake.Embed(
             title="You've Been Voice Muted",
-            description=f"You were voice muted in {message.guild.name}.\nReason: {reason}\nModerator: {message.author.mention}",
+            description=f"You were voice muted in {message.guild.name}.\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",
             color=color_manager.get_color("Red"),
         )
         dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
         await member.send(embed=dm_embed)
     except Exception as e:
         log_info(f"Failed to DM {member.name} about their voice mute.\n {e}")
-        
 
     try:
         await member.edit(mute=True, reason=reason)
         embed = disnake.Embed(
             title="Voice Mute",
-            description=f"Muted {member.mention}\nReason: {reason}\nModerator: {message.author.mention}",
+            description=f"Muted {member.mention}\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -1821,7 +1863,7 @@ async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None
     try:
         dm_embed = disnake.Embed(
             title="You've Been Voice Unmuted",
-            description=f"You were voice unmuted in {message.guild.name}.\nReason: {reason}\nModerator: {message.author.mention}",
+            description=f"You were voice unmuted in {message.guild.name}.\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",
             color=color_manager.get_color("Green"),
         )
         dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -1833,7 +1875,7 @@ async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None
         await member.edit(mute=False, reason=reason)
         embed = disnake.Embed(
             title="Voice Unmute",
-            description=f"Unmuted {member.mention}\nReason: {reason}\nModerator: {message.author.mention}",
+            description=f"Unmuted {member.mention}\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -1915,7 +1957,7 @@ async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None
     try:
         dm_embed = disnake.Embed(
             title="You've Been Voice Deafened",
-            description=f"You were voice deafened in {message.guild.name}.\nReason: {reason}\nModerator: {message.author.mention}",
+            description=f"You were voice deafened in {message.guild.name}.\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",
             color=color_manager.get_color("Red"),
         )
         dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -1927,7 +1969,7 @@ async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None
         await member.edit(deafen=True, reason=reason)
         embed = disnake.Embed(
             title="Voice Deafen",
-            description=f"Deafened {member.mention}\nReason: {reason}\nModerator: {message.author.mention}",
+            description=f"Deafened {member.mention}\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -2009,7 +2051,7 @@ async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> No
     try:
         dm_embed = disnake.Embed(
             title="You've Been Voice Undeafened",
-            description=f"You were voice undeafened in {message.guild.name}.\nReason: {reason}\nModerator: {message.author.mention}",
+            description=f"You were voice undeafened in {message.guild.name}.\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",
             color=color_manager.get_color("Green"),
         )
         dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -2021,7 +2063,7 @@ async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> No
         await member.edit(deafen=False, reason=reason)
         embed = disnake.Embed(
             title="Voice Undeafen",
-            description=f"Undeafened {member.mention}\nReason: {reason}\nModerator: {message.author.mention}",
+            description=f"Undeafened {member.mention}\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -2143,6 +2185,16 @@ async def set_prefix_command(message: disnake.Message, prefix: str = "?") -> Non
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
         await message.channel.send(embed=embed)
         return
+    
+    if new_prefix == prefix:
+        embed = disnake.Embed(
+            title="Warning",
+            description="Setting the command prefix to the same as the current one will not have any effect.",
+            color=color_manager.get_color("Orange"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
 
 
 async def setup_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -2153,7 +2205,12 @@ async def setup_command(message: disnake.Message, prefix: str = "?") -> None:
     )
     embed.add_field(
         name="Set command prefix",
-        value=f"The default prefix for commands is `?`. To change this, use the `setprefix` command. This command must be used in the server where you want to change the prefix. To start setting up advanced options go to https://memo.nerd-bear.org/dashboard",
+        value=f"The default prefix for commands is `?`. To change this, use the `setprefix` command. This command must be used in the server where you want to change the prefix.",
+        inline=False,
+    )
+    embed.add_field(
+        name="Advanced Options",
+        value=f"To start setting up advanced options go to https://memo.nerd-bear.org/dashboard",
         inline=False,
     )
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -2173,6 +2230,9 @@ async def chat_command(message: disnake.Message, prefix: str = "?") -> None:
 
     user_prompt = " ".join(message.content.split()[1:])
     groq_response = chat_bot.send_msg(user_prompt)
+
+    if len(groq_response) > 1900:
+        groq_response = f"Response too long. Truncated to 1900 characters: {groq_response[:1900]}..."
 
     await message.channel.send(groq_response)
 
@@ -2236,6 +2296,172 @@ async def kiss_command(message: disnake.Message, prefix: str = "?") -> None:
     await message.channel.send(content=f"{message.mentions[0].mention}")
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
     await message.channel.send(embed=embed)
+
+
+async def rps_command(message: disnake.Message, prefix: str = "?") -> None:
+    choices = ["rock", "paper", "scissors"]
+    emojis = {"rock": "🗻", "paper": "📄", "scissors": "✂️"}
+
+    if len(message.content.strip().split(" ")) < 2:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please provide your choice. Usage: {prefix}rps [rock, paper, scissors]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    user_choice = message.content.split()[1].lower()
+
+    for choice in choices:
+        if Levenshtein.ratio(user_choice, choice) * 100 >= 50:
+            user_choice = choice
+            break
+
+    if user_choice not in choices:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Invalid choice. Please choose from: {', '.join(choices)}",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    computer_choice = random.choice(choices)
+
+    if user_choice == computer_choice:
+        result = "It's a tie!"
+        color = color_manager.get_color("Blue")
+    elif (
+        (user_choice == "rock" and computer_choice == "scissors")
+        or (user_choice == "scissors" and computer_choice == "paper")
+        or (user_choice == "paper" and computer_choice == "rock")
+    ):
+        result = "User Wins!"
+        color = color_manager.get_color("Green")
+    else:
+        result = "Computer Wins!"
+        color = color_manager.get_color("Red")
+
+    embed = disnake.Embed(
+        title=result,
+        description=f"You chose {emojis[user_choice]}, and the computer chose {emojis[computer_choice]}.",
+        color=color,
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed)
+
+
+async def man_command(message: disnake.Message, prefix: str = "?") -> None:
+    if len(message.content.strip().split(" ")) < 2:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please provide a man's name. Usage: {prefix}man [name_command]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    command_name = message.content.split()[1]
+
+    try:
+        help_dict: dict = fetch_help_dict(
+            color_manager, BOT_NAME, BOT_VERSION, prefix, FOOTER_TEXT, FOOTER_ICON
+        )[command_name]
+        description = help_dict.get("desc", "No description provided.")
+        usage = help_dict.get("usage", "No usage provided.")
+
+    except KeyError:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Command '{command_name}' not found.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    embed = disnake.Embed(
+        title=f"{command_name.capitalize()} Manual Page",
+        description=f"**Description:** {description}\n\
+                      **Usage:** `{usage.split()[0]}` {" ".join(usage.split()[1:])}",
+        color=color_manager.get_color("Blue"),
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed)
+
+
+async def purge_command(message: disnake.Message, prefix: str = "?") -> None:
+    if not message.author.guild_permissions.manage_messages:
+        embed = disnake.Embed(
+            title="Permission Denied",
+            description="You don't have permission to use this command.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    if len(message.content.strip().split(" ")) < 2:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please provide a number of messages to delete. Usage: {prefix}purge [number_of_messages]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+    
+    number_of_messages = int(message.content.split()[1])
+    deleted_messages = await message.channel.purge(limit=number_of_messages + 1)
+
+    embed = disnake.Embed(
+        title="Message Purge",
+        description=f"Deleted {len(deleted_messages) - 1} messages.",
+        color=color_manager.get_color("Green"),
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed)
+    return
+
+
+async def spellcheck_command(message: disnake.Message, prefix: str = "?") -> None:
+    if len(message.content.strip().split(" ")) < 2:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please provide a sentence to spellcheck. Usage: {prefix}spellcheck [sentence]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+    
+    sentence = " ".join(message.content.split()[1:])
+
+    if len(sentence) > 500:
+        embed = disnake.Embed(
+            title="Error",
+            description="The sentence is too long. Please provide a sentence with a maximum length of 500 characters.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed)
+        return
+
+    text_blob = TextBlob(sentence)
+    corrected_sentence = text_blob.correct()
+
+    embed = disnake.Embed(
+        title="Spellcheck Results",
+        description=f"{corrected_sentence}",
+        color=color_manager.get_color("Blue"),
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed)
+    return
 
 
 @Memo.event
