@@ -46,12 +46,14 @@ def log_info(*values: str, startup: bool = False, error: bool = False, warning: 
     console = Console()
 
     text_type = "INFO"
+    text_style = "bold blue"
+
     if error:
         text_type = "ERROR"
         text_style = "bold red"
     elif startup:
         text_type = "STARTUP"
-        text_style = "bold blue"
+        text_style = "bold purple"
     elif warning:
         text_type = "WARNING"
         text_style = "bold yellow"

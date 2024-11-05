@@ -78,7 +78,7 @@ def main(token: str, skip_speedtest: bool):
     from src.bot import Memo
 
     try:
-        log_info("Starting Discord Bot", True)
+        log_info("Starting Discord Bot", startup=True)
         Memo.run(token)
     except Exception as e:
         log_info(f"Failed to start bot: {str(e)}", error=True)
