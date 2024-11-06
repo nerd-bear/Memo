@@ -1,7 +1,7 @@
 import disnake
 from disnake.ext import commands
 
-TOKEN = "your token"
+TOKEN = "your_token"
 
 WALLE2 = commands.Bot(command_prefix='!', intents=disnake.Intents.all())
 

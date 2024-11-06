@@ -1186,11 +1186,9 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
             log_info(f"Using FFmpeg options: {ffmpeg_options}", error=True)
 
             try:
-                # Create the audio source with volume control
                 audio_source = disnake.FFmpegPCMAudio(url, **ffmpeg_options)
                 transformed_source = disnake.PCMVolumeTransformer(audio_source)
                 
-                # Set initial volume
                 guild_data = voice_clients.get(message.guild.id, {'volume': 100})
                 transformed_source.volume = guild_data['volume'] / 100
                 
@@ -2554,7 +2552,6 @@ async def volume_command(message: disnake.Message, prefix: str = "?") -> None:
         await message.channel.send(embed=embed, reference=message)
         return
 
-    # Update the volume in both the transformer and our tracking dict
     if isinstance(voice_client.source, disnake.PCMVolumeTransformer):
         voice_client.source.volume = volume / 100
         
