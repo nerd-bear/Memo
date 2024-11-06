@@ -27,6 +27,12 @@ def text_to_speech(text: str, output_file: str, tts_mode: str) -> None:
     """
     Convert text to speech and save it to a file.
     """
+
+    text = text.replace(" ill ", " I'll ")
+    text = text.replace(" youre ", " you're ")
+    text = text.replace(" pls ", " please ")
+    text = text.replace(" ? ", " question mark. ")
+
     try:
         slow = tts_mode.lower() == "slow"
 
@@ -154,7 +160,7 @@ def fetch_help_dict(
             "usage": f"{bot_prefix}man [command_name]",
         },
         "tts": {
-            "desc": "Join the vc you are in and uses Text-to-Speech to say your text",
+            "desc": "Join the vc you are in and uses Text-to-Speech to say your text (Limit 450 words)",
             "usage": f"{bot_prefix}tts [input_text]",
         },
         "chat": {

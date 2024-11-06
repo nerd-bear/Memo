@@ -88,6 +88,10 @@ chat_bot = ChatBot()
 
 log_info("Initialized chat bot", startup=True)
 
+voice_clients = {}
+
+log_info("Initialized voice clients", startup=True)
+
 chat_bot.set_system_prompt(SYSTEM_PROMT)
 
 log_info("Set system prompt", startup=True)
@@ -260,7 +264,7 @@ async def on_message(message: disnake.Message) -> None:
                 color=color_manager.get_color("Blue"),
             )
             embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-            await message.channel.send(embed=embed)
+            await message.channel.send(embed=embed, reference=message)
             del afk_users[message.author.id]
 
         for mentioned_user in message.mentions:
@@ -271,7 +275,7 @@ async def on_message(message: disnake.Message) -> None:
                     color=color_manager.get_color("Yellow"),
                 )
                 embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-                await message.channel.send(embed=embed)
+                await message.channel.send(embed=embed, reference=message)
 
         if message.reference and message.reference.resolved:
             referenced_user_id = message.reference.resolved.author.id
@@ -283,7 +287,7 @@ async def on_message(message: disnake.Message) -> None:
                     color=color_manager.get_color("Yellow"),
                 )
                 embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-                await message.channel.send(embed=embed)
+                await message.channel.send(embed=embed, reference=message)
 
         if Memo.user in message.mentions:
             await message.channel.send(
@@ -301,7 +305,7 @@ async def on_message(message: disnake.Message) -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     command = message.content.split()[0][len(guild_prefix) :].lower()
@@ -350,6 +354,10 @@ async def on_message(message: disnake.Message) -> None:
         "purge": purge_command,
         "spellcheck": spellcheck_command,
         "setup": setup_command,
+        "volume": volume_command,
+        "pause": pause_command,
+        "resume": resume_command,
+        "stop": stop_command,
     }
 
     if command not in commands_dict:
@@ -362,7 +370,7 @@ async def on_message(message: disnake.Message) -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
@@ -378,7 +386,7 @@ async def on_message(message: disnake.Message) -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         log_info(f"An error occurred while executing command '{command}': {str(e)}", error=True)
         return
 
@@ -451,7 +459,7 @@ async def help_command(message: disnake.Message, prefix: str = "?") -> None:
     embed = fetch_help_embed(
         color_manager, BOT_NAME, BOT_VERSION, prefix, FOOTER_TEXT, FOOTER_ICON
     )
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 async def kick_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -465,7 +473,7 @@ async def kick_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if len(message.mentions) < 1:
@@ -478,7 +486,7 @@ async def kick_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     member = message.mentions[0]
@@ -505,7 +513,7 @@ async def kick_command(message: disnake.Message, prefix: str = "?") -> None:
         text=FOOTER_TEXT,
         icon_url=FOOTER_ICON,
     )
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 async def ban_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -519,7 +527,7 @@ async def ban_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if len(message.mentions) < 1:
@@ -532,7 +540,7 @@ async def ban_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     member = message.guild.get_member(message.mentions[0].id)
@@ -547,7 +555,7 @@ async def ban_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     reason = " ".join(message.content.split()[2:]) or "No reason provided"
@@ -573,7 +581,7 @@ async def ban_command(message: disnake.Message, prefix: str = "?") -> None:
         text=FOOTER_TEXT,
         icon_url=FOOTER_ICON,
     )
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 @debug_command
@@ -589,7 +597,7 @@ async def shutdown_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     bot_active = False
@@ -608,7 +616,7 @@ async def shutdown_command(message: disnake.Message, prefix: str = "?") -> None:
         text=FOOTER_TEXT,
         icon_url=FOOTER_ICON,
     )
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 @debug_command
@@ -624,7 +632,7 @@ async def start_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     bot_active = True
@@ -642,7 +650,7 @@ async def start_command(message: disnake.Message, prefix: str = "?") -> None:
         text=FOOTER_TEXT,
         icon_url=FOOTER_ICON,
     )
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 async def charinfo_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -724,7 +732,7 @@ async def unban_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     args = message.content.strip().split()
@@ -735,7 +743,7 @@ async def unban_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
@@ -747,7 +755,7 @@ async def unban_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
@@ -761,7 +769,7 @@ async def unban_command(message: disnake.Message, prefix: str = "?") -> None:
                 color=color_manager.get_color("Red"),
             )
             embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-            await message.channel.send(embed=embed)
+            await message.channel.send(embed=embed, reference=message)
             return
 
         try:
@@ -802,7 +810,7 @@ async def unban_command(message: disnake.Message, prefix: str = "?") -> None:
                 inline=False,
             )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
 
     except disnake.errors.NotFound:
         embed = disnake.Embed(
@@ -811,7 +819,7 @@ async def unban_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
 
     except disnake.errors.Forbidden as e:
         embed = disnake.Embed(
@@ -820,7 +828,7 @@ async def unban_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
 
     except disnake.errors.HTTPException as e:
         embed = disnake.Embed(
@@ -829,7 +837,7 @@ async def unban_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
 
 
 async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -843,7 +851,7 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     args = message.content.split()[1:]
@@ -857,7 +865,7 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     member = message.mentions[0] if message.mentions else None
@@ -871,7 +879,7 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
@@ -888,7 +896,7 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     reason = " ".join(args[3:]) if len(args) > 3 else "No reason provided"
@@ -903,7 +911,7 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     time_units = {"s": "seconds", "m": "minutes", "h": "hours", "d": "days"}
@@ -917,7 +925,7 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     time_delta = datetime.timedelta(**{time_units[unit]: duration})
@@ -926,14 +934,14 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
         await member.timeout(duration=time_delta, reason=reason)
         embed = disnake.Embed(
             title="User Timed Out",
-            description=f"{member.mention} has been timed out for {duration}{unit}.\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",  # Fixed: Removed duplicate moderator mention
+            description=f"{member.mention} has been timed out for {duration} {time_units[unit]}.\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",  # Fixed: Removed duplicate moderator mention
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
 
         try:
             dm_embed = disnake.Embed(
@@ -961,7 +969,7 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
 
     except disnake.errors.HTTPException:
         embed = disnake.Embed(
@@ -973,20 +981,26 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
 
 
 async def join_vc_command(message: disnake.Message, prefix: str = "?") -> None:
     try:
-        channel = Memo.get_channel(message.author.voice.channel.id)
-        await channel.connect()
+        channel = message.author.voice.channel
+        voice_client = await channel.connect()
+        guild_id = message.guild.id
+        voice_clients[guild_id] = {'client': voice_client, 'volume': 100}
     except Exception as e:
         log_info("Error connecting to voice channel", error=True)
 
 
 async def leave_vc_command(message: disnake.Message, prefix: str = "?") -> None:
     try:
-        await message.guild.voice_client.disconnect()
+        guild_id = message.guild.id
+        voice_client = voice_clients.get(guild_id)
+        if voice_client:
+            await voice_client['client'].disconnect()
+            del voice_clients[guild_id]
     except Exception as e:
         pass
 
@@ -1004,8 +1018,20 @@ async def tts_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
+
+    if len(text.split()) >= 450:
+        embed = disnake.Embed(
+            title="Text too long",
+            description="The text provided is too long. The maximum length for TTS is 450 words.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(
+            text=FOOTER_TEXT,
+            icon_url=FOOTER_ICON,
+        )
+        await message.channel.send(embed=embed, reference=message)
         return
 
     output_file = f"./temp/audio/{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}{random.randint(0, 9)}.mp3"
@@ -1022,7 +1048,7 @@ async def tts_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
@@ -1037,7 +1063,7 @@ async def tts_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
@@ -1068,15 +1094,11 @@ async def tts_command(message: disnake.Message, prefix: str = "?") -> None:
         text=FOOTER_TEXT,
         icon_url=FOOTER_ICON,
     )
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
     return
 
 
 async def play_command(message: disnake.Message, prefix: str = "?") -> None:
-    """
-    Play audio from a YouTube URL or search query in a voice channel.
-    Uses simplified FFmpeg options for better compatibility.
-    """
     args = message.content.split(" ", 1)
     if len(args) < 2:
         embed = disnake.Embed(
@@ -1085,7 +1107,7 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
@@ -1099,11 +1121,13 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
         voice_client = await voice_channel.connect()
+        guild_id = message.guild.id
+        voice_clients[guild_id] = {'client': voice_client, 'volume': 100}
     except disnake.ClientException:
         voice_client = message.guild.voice_client
 
@@ -1116,7 +1140,7 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
         color=color_manager.get_color("Blue"),
     )
     status_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-    status_message = await message.channel.send(embed=status_embed)
+    status_message = await message.channel.send(embed=status_embed, reference=message)
 
     query = args[1]
 
@@ -1162,8 +1186,15 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
             log_info(f"Using FFmpeg options: {ffmpeg_options}", error=True)
 
             try:
+                # Create the audio source with volume control
                 audio_source = disnake.FFmpegPCMAudio(url, **ffmpeg_options)
-                voice_client.play(audio_source, after=after_playing)
+                transformed_source = disnake.PCMVolumeTransformer(audio_source)
+                
+                # Set initial volume
+                guild_data = voice_clients.get(message.guild.id, {'volume': 100})
+                transformed_source.volume = guild_data['volume'] / 100
+                
+                voice_client.play(transformed_source, after=after_playing)
 
                 play_embed = disnake.Embed(
                     title="Now Playing",
@@ -1180,6 +1211,12 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
                         value=f"{int(duration/60)}:{int(duration%60):02d}",
                         inline=True,
                     )
+                
+                play_embed.add_field(
+                    name="Volume",
+                    value=f"{guild_data['volume']}%",
+                    inline=True
+                )
 
                 play_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
                 await status_message.edit(embed=play_embed)
@@ -1202,7 +1239,6 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
 
         log_info(f"Play command error: {str(e)}", error=True)
 
-
 async def profile_command(message: disnake.Message, prefix: str = "?") -> None:
     if len(message.mentions) < 1:
         embed = disnake.Embed(
@@ -1214,7 +1250,7 @@ async def profile_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
@@ -1230,7 +1266,7 @@ async def profile_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
@@ -1246,7 +1282,7 @@ async def profile_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     except disnake.errors.HTTPException as e:
@@ -1259,7 +1295,7 @@ async def profile_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if user not in message.guild.members:
@@ -1272,7 +1308,7 @@ async def profile_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     avatar = user.avatar
@@ -1373,7 +1409,7 @@ async def profile_command(message: disnake.Message, prefix: str = "?") -> None:
     embed.set_image(url=(banner_url if banner_url != None else ""))
     embed.color = color_manager.get_color("Blue")
 
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 async def nick_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -1390,7 +1426,7 @@ async def nick_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if len(message.mentions) < 1:
@@ -1403,7 +1439,7 @@ async def nick_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     user = message.mentions[0]
@@ -1418,7 +1454,7 @@ async def nick_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     args = message.content.split(" ")
@@ -1434,7 +1470,7 @@ async def nick_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     except Exception as e:
@@ -1447,7 +1483,7 @@ async def nick_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
 
@@ -1465,7 +1501,7 @@ async def feedback_command(message: disnake.Message, prefix: str = "?") -> None:
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
         )
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     feedback.add_feedback(message.author.id, feedback_text)
@@ -1480,7 +1516,7 @@ async def feedback_command(message: disnake.Message, prefix: str = "?") -> None:
         text=FOOTER_TEXT,
         icon_url=FOOTER_ICON,
     )
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 @debug_command
@@ -1494,7 +1530,7 @@ async def restart_command(message: disnake.Message, prefix: str = "?") -> None:
         text=FOOTER_TEXT,
         icon_url=FOOTER_ICON,
     )
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
     await restart_memo()
 
@@ -1516,7 +1552,7 @@ async def translate_command(message: disnake.Message, prefix: str = "?") -> None
             icon_url=FOOTER_ICON,
         )
 
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
 
     except Exception as e:
         await message.channel.send(f"An error occurred: {str(e)}")
@@ -1535,7 +1571,7 @@ async def ping_command(message: disnake.Message, prefix: str = "?") -> None:
         icon_url=FOOTER_ICON,
     )
 
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 async def server_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -1549,7 +1585,7 @@ async def server_command(message: disnake.Message, prefix: str = "?") -> None:
                 color=color_manager.get_color("Red"),
             )
             embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-            await message.channel.send(embed=embed)
+            await message.channel.send(embed=embed, reference=message)
             return
 
         if Memo.intents.members:
@@ -1600,7 +1636,7 @@ async def server_command(message: disnake.Message, prefix: str = "?") -> None:
 
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
 
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
 
     except disnake.Forbidden:
         await send_error_embed(
@@ -1640,7 +1676,7 @@ async def joke_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Blue"), title="Dad joke", description=joke
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
     else:
         send_error_embed(
             message=message,
@@ -1663,7 +1699,7 @@ async def coin_command(message: disnake.Message, prefix: str = "?") -> None:
     )
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
 
-    message = await message.channel.send(embed=embed)
+    message = await message.channel.send(embed=embed, reference=message)
 
     await asyncio.sleep(1.5)
 
@@ -1693,7 +1729,7 @@ async def quote_command(message: disnake.Message, prefix: str = "?") -> None:
     )
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
 
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 async def vc_mute_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -1704,7 +1740,7 @@ async def vc_mute_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if len(message.mentions) < 1 or len(message.content.split()) < 3:
@@ -1714,7 +1750,7 @@ async def vc_mute_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     member = message.guild.get_member(message.mentions[0].id)
@@ -1727,7 +1763,7 @@ async def vc_mute_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if message.author.top_role <= member.top_role:
@@ -1737,7 +1773,7 @@ async def vc_mute_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if not member.voice:
@@ -1747,7 +1783,7 @@ async def vc_mute_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if member.voice.mute:
@@ -1757,7 +1793,7 @@ async def vc_mute_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
@@ -1779,7 +1815,7 @@ async def vc_mute_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
     except disnake.Forbidden:
         embed = disnake.Embed(
             title="Error",
@@ -1787,7 +1823,7 @@ async def vc_mute_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
 
 
 async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -1798,7 +1834,7 @@ async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if len(message.mentions) < 1 or len(message.content.split()) < 3:
@@ -1808,7 +1844,7 @@ async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     member = message.guild.get_member(message.mentions[0].id)
@@ -1821,7 +1857,7 @@ async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if message.author.top_role <= member.top_role:
@@ -1831,7 +1867,7 @@ async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if not member.voice:
@@ -1841,7 +1877,7 @@ async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if not member.voice.mute:
@@ -1851,7 +1887,7 @@ async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
@@ -1873,7 +1909,7 @@ async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
     except disnake.Forbidden:
         embed = disnake.Embed(
             title="Error",
@@ -1881,7 +1917,7 @@ async def vc_unmute_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
 
 
 async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -1892,7 +1928,7 @@ async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if len(message.mentions) < 1 or len(message.content.split()) < 3:
@@ -1902,7 +1938,7 @@ async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     member = message.guild.get_member(message.mentions[0].id)
@@ -1915,7 +1951,7 @@ async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if message.author.top_role <= member.top_role:
@@ -1925,7 +1961,7 @@ async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if not member.voice:
@@ -1935,7 +1971,7 @@ async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if member.voice.deaf:
@@ -1945,7 +1981,7 @@ async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
@@ -1967,7 +2003,7 @@ async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
     except disnake.Forbidden:
         embed = disnake.Embed(
             title="Error",
@@ -1975,7 +2011,7 @@ async def vc_deafen_command(message: disnake.Message, prefix: str = "?") -> None
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
 
 
 async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -1986,7 +2022,7 @@ async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> No
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if len(message.mentions) < 1 or len(message.content.split()) < 3:
@@ -1996,7 +2032,7 @@ async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> No
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     member = message.guild.get_member(message.mentions[0].id)
@@ -2009,7 +2045,7 @@ async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> No
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if message.author.top_role <= member.top_role:
@@ -2019,7 +2055,7 @@ async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> No
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if not member.voice:
@@ -2029,7 +2065,7 @@ async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> No
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if not member.voice.deaf:
@@ -2039,7 +2075,7 @@ async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> No
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     try:
@@ -2061,7 +2097,7 @@ async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> No
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
     except disnake.Forbidden:
         embed = disnake.Embed(
             title="Error",
@@ -2069,7 +2105,7 @@ async def vc_undeafen_command(message: disnake.Message, prefix: str = "?") -> No
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
 
 
 async def eight_ball_command(message: disnake.Message, prefix: str = "?"):
@@ -2080,7 +2116,7 @@ async def eight_ball_command(message: disnake.Message, prefix: str = "?"):
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     choices = [
@@ -2121,7 +2157,7 @@ async def eight_ball_command(message: disnake.Message, prefix: str = "?"):
         url="https://e7.pngegg.com/pngimages/322/428/png-clipart-eight-ball-game-pool-computer-icons-ball-game-text.png"
     )
 
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 async def set_prefix_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -2132,7 +2168,7 @@ async def set_prefix_command(message: disnake.Message, prefix: str = "?") -> Non
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if len(message.content.split()) < 2:
@@ -2142,7 +2178,7 @@ async def set_prefix_command(message: disnake.Message, prefix: str = "?") -> Non
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     new_prefix = message.content.split()[1][0]
@@ -2168,7 +2204,7 @@ async def set_prefix_command(message: disnake.Message, prefix: str = "?") -> Non
         )
 
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
     if new_prefix == "/":
         embed = disnake.Embed(
@@ -2177,7 +2213,7 @@ async def set_prefix_command(message: disnake.Message, prefix: str = "?") -> Non
             color=color_manager.get_color("Orange"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
     
     if new_prefix == prefix:
@@ -2187,7 +2223,7 @@ async def set_prefix_command(message: disnake.Message, prefix: str = "?") -> Non
             color=color_manager.get_color("Orange"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
 
@@ -2208,7 +2244,7 @@ async def setup_command(message: disnake.Message, prefix: str = "?") -> None:
         inline=False,
     )
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 async def chat_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -2219,7 +2255,7 @@ async def chat_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     user_prompt = " ".join(message.content.split()[1:])
@@ -2247,7 +2283,7 @@ async def afk_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     afk_users[message.author.id] = afk_msg
@@ -2258,7 +2294,7 @@ async def afk_command(message: disnake.Message, prefix: str = "?") -> None:
         color=color_manager.get_color("Blue"),
     )
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 async def kiss_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -2269,7 +2305,7 @@ async def kiss_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if message.mentions[0] == message.author:
@@ -2279,7 +2315,7 @@ async def kiss_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     embed = disnake.Embed(
@@ -2289,7 +2325,7 @@ async def kiss_command(message: disnake.Message, prefix: str = "?") -> None:
     )
     await message.channel.send(content=f"{message.mentions[0].mention}")
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 async def rps_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -2303,7 +2339,7 @@ async def rps_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     user_choice = message.content.split()[1].lower()
@@ -2320,7 +2356,7 @@ async def rps_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     computer_choice = random.choice(choices)
@@ -2345,7 +2381,7 @@ async def rps_command(message: disnake.Message, prefix: str = "?") -> None:
         color=color,
     )
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 async def man_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -2356,7 +2392,7 @@ async def man_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     command_name = message.content.split()[1]
@@ -2375,7 +2411,7 @@ async def man_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     embed = disnake.Embed(
@@ -2385,7 +2421,7 @@ async def man_command(message: disnake.Message, prefix: str = "?") -> None:
         color=color_manager.get_color("Blue"),
     )
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
 
 
 async def purge_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -2396,7 +2432,7 @@ async def purge_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     if len(message.content.strip().split(" ")) < 2:
@@ -2406,7 +2442,7 @@ async def purge_command(message: disnake.Message, prefix: str = "?") -> None:
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
     
     number_of_messages = int(message.content.split()[1])
@@ -2418,7 +2454,7 @@ async def purge_command(message: disnake.Message, prefix: str = "?") -> None:
         color=color_manager.get_color("Green"),
     )
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
     return
 
 
@@ -2430,7 +2466,7 @@ async def spellcheck_command(message: disnake.Message, prefix: str = "?") -> Non
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
     
     sentence = " ".join(message.content.split()[1:])
@@ -2442,7 +2478,7 @@ async def spellcheck_command(message: disnake.Message, prefix: str = "?") -> Non
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, reference=message)
         return
 
     text_blob = TextBlob(sentence)
@@ -2454,8 +2490,231 @@ async def spellcheck_command(message: disnake.Message, prefix: str = "?") -> Non
         color=color_manager.get_color("Blue"),
     )
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-    await message.channel.send(embed=embed)
+    await message.channel.send(embed=embed, reference=message)
     return
+
+
+async def volume_command(message: disnake.Message, prefix: str = "?") -> None:
+    if not message.author.voice:
+        embed = disnake.Embed(
+            title="Error",
+            description="You need to be in a voice channel to use this command.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    voice_client = message.guild.voice_client
+    guild_id = message.guild.id
+
+    if not voice_client or not voice_client.is_connected():
+        embed = disnake.Embed(
+            title="Error",
+            description="The bot is not connected to a voice channel.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    if not voice_client.is_playing():
+        embed = disnake.Embed(
+            title="Error",
+            description="The bot is not currently playing any audio.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    args = message.content.split()
+    if len(args) < 2:
+        current_volume = voice_clients.get(guild_id, {}).get('volume', 100)
+        embed = disnake.Embed(
+            title="Current Volume",
+            description=f"The current volume is set to {current_volume}%",
+            color=color_manager.get_color("Blue"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    try:
+        volume = int(args[1])
+        if volume < 0 or volume > 100:
+            raise ValueError
+    except ValueError:
+        embed = disnake.Embed(
+            title="Error",
+            description="Volume must be a number between 0 and 100.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    # Update the volume in both the transformer and our tracking dict
+    if isinstance(voice_client.source, disnake.PCMVolumeTransformer):
+        voice_client.source.volume = volume / 100
+        
+        if guild_id in voice_clients:
+            voice_clients[guild_id]['volume'] = volume
+        else:
+            voice_clients[guild_id] = {'client': voice_client, 'volume': volume}
+
+        embed = disnake.Embed(
+            title="Volume Set",
+            description=f"Volume has been set to {volume}%.",
+            color=color_manager.get_color("Blue"),
+        )
+    else:
+        embed = disnake.Embed(
+            title="Error",
+            description="Cannot adjust volume for the current audio source.",
+            color=color_manager.get_color("Red"),
+        )
+    
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed, reference=message)
+
+
+async def pause_command(message: disnake.Message, prefix: str = "?") -> None:
+    if not message.author.voice:
+        embed = disnake.Embed(
+            title="Error",
+            description="You need to be in a voice channel to use this command.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    voice_client = message.guild.voice_client
+
+    if not voice_client or not voice_client.is_connected():
+        embed = disnake.Embed(
+            title="Error",
+            description="The bot is not connected to a voice channel.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    if not voice_client.is_playing():
+        embed = disnake.Embed(
+            title="Error",
+            description="There is no audio playing at the moment.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    if voice_client.is_paused():
+        embed = disnake.Embed(
+            title="Error",
+            description="The audio is already paused.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    voice_client.pause()
+    embed = disnake.Embed(
+        title="Paused",
+        description="⏸️ The audio has been paused. Use `{}resume` to continue playing.".format(prefix),
+        color=color_manager.get_color("Blue"),
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed, reference=message)
+
+async def resume_command(message: disnake.Message, prefix: str = "?") -> None:
+    if not message.author.voice:
+        embed = disnake.Embed(
+            title="Error",
+            description="You need to be in a voice channel to use this command.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    voice_client = message.guild.voice_client
+
+    if not voice_client or not voice_client.is_connected():
+        embed = disnake.Embed(
+            title="Error",
+            description="The bot is not connected to a voice channel.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    if not voice_client.is_paused():
+        embed = disnake.Embed(
+            title="Error",
+            description="The audio is not paused.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    voice_client.resume()
+    embed = disnake.Embed(
+        title="Resumed",
+        description="▶️ Playback has been resumed.",
+        color=color_manager.get_color("Blue"),
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed, reference=message)
+
+async def stop_command(message: disnake.Message, prefix: str = "?") -> None:
+    if not message.author.voice:
+        embed = disnake.Embed(
+            title="Error",
+            description="You need to be in a voice channel to use this command.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    voice_client = message.guild.voice_client
+
+    if not voice_client or not voice_client.is_connected():
+        embed = disnake.Embed(
+            title="Error",
+            description="The bot is not connected to a voice channel.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    if not voice_client.is_playing() and not voice_client.is_paused():
+        embed = disnake.Embed(
+            title="Error",
+            description="There is no audio playing at the moment.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    voice_client.stop()
+    embed = disnake.Embed(
+        title="Stopped",
+        description="⏹️ Playback has been stopped.",
+        color=color_manager.get_color("Blue"),
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed, reference=message)
+
 
 
 @Memo.event
