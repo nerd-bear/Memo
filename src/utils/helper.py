@@ -28,10 +28,14 @@ def text_to_speech(text: str, output_file: str, tts_mode: str) -> None:
     Convert text to speech and save it to a file.
     """
 
-    text = text.replace(" ill ", " I'll ")
-    text = text.replace(" youre ", " you're ")
-    text = text.replace(" pls ", " please ")
-    text = text.replace(" ? ", " question mark. ")
+
+    text = text.lower()
+    text = text.replace("ill", "I'll ")
+    text = text.replace("youre", "you're")
+    text = text.replace("pls", "please")
+    text = text.replace("?", "question mark.")
+    text = text.replace("wtf", "What The fuck")
+    text = text.replace("tf", "The fuck")
 
     try:
         slow = tts_mode.lower() == "slow"

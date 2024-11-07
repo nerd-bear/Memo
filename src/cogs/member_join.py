@@ -30,6 +30,12 @@ class MemberEvents(commands.Cog):
             value=f"<t:{int(member.created_at.timestamp())}:F>",
         )
 
+        embed.add_field(
+            name="Member number",
+            value=f"You are the {member.guild.member_count}th member",
+            inline=False,
+        )
+
         if member.avatar:
             embed.set_thumbnail(url=member.avatar.url)
 

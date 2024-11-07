@@ -138,6 +138,7 @@ async def restart_memo() -> None:
     os.execv(sys.executable, ["python", "-B"] + sys.argv)
 
 
+
 async def auto_restart():
     while True:
         await asyncio.sleep(21600)
@@ -154,7 +155,7 @@ async def auto_latency_check():
         text.append(f"[{datetime.datetime.utcnow().__format__('%H:%M:%S')}]", style="bold cyan")
         text.append(" [INFO]", style="bold blue")
         text.append(" Latency: ", style="bold")
-        text.append(f"{latency}ms", style="bold green")
+        text.append(f"{latency}ms", style=f"bold {"green" if latency < 300 else "red"}")
         text.append(" Last ping: ", style="bold")
         text.append(f"{last_ping}ms", style="bold yellow")
         
@@ -2262,7 +2263,7 @@ async def chat_command(message: disnake.Message, prefix: str = "?") -> None:
     if len(groq_response) > 1900:
         groq_response = f"Response too long. Truncated to 1900 characters: {groq_response[:1900]}..."
 
-    await message.channel.send(groq_response)
+    await message.channel.send(groq_response, reference=message)
 
 
 async def afk_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -2422,6 +2423,9 @@ async def man_command(message: disnake.Message, prefix: str = "?") -> None:
     await message.channel.send(embed=embed, reference=message)
 
 
+import disnake
+from disnake.ext import commands
+
 async def purge_command(message: disnake.Message, prefix: str = "?") -> None:
     if not message.author.guild_permissions.manage_messages:
         embed = disnake.Embed(
@@ -2442,9 +2446,42 @@ async def purge_command(message: disnake.Message, prefix: str = "?") -> None:
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
         await message.channel.send(embed=embed, reference=message)
         return
-    
-    number_of_messages = int(message.content.split()[1])
-    deleted_messages = await message.channel.purge(limit=number_of_messages + 1)
+
+    try:
+        number_of_messages = int(message.content.split()[1])
+    except ValueError:
+        embed = disnake.Embed(
+            title="Error",
+            description="The number of messages must be an integer.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    if number_of_messages < 1 or number_of_messages > 1000:
+        embed = disnake.Embed(
+            title="Error",
+            description="Please provide a number between 1 and 1000.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    try:
+        deleted_messages = await message.channel.purge(limit=number_of_messages + 1, limit=number_of_messages+1)
+    except disnake.Forbidden:
+        embed = disnake.Embed(
+            title="Error",
+            description="I don't have permission to delete messages in this channel.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+    except disnake.HTTPException as e:
+        pass
 
     embed = disnake.Embed(
         title="Message Purge",
@@ -2454,7 +2491,6 @@ async def purge_command(message: disnake.Message, prefix: str = "?") -> None:
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
     await message.channel.send(embed=embed, reference=message)
     return
-
 
 async def spellcheck_command(message: disnake.Message, prefix: str = "?") -> None:
     if len(message.content.strip().split(" ")) < 2:
