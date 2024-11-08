@@ -11,5 +11,12 @@ async def on_ready():
     print("Bot is ready!")
     print(f"Connected to {len(BOT.guilds)} servers")
     await BOT.change_presence(activity=disnake.Game(name="with your friends"))
-    
+
+@BOT.slash_command(
+    name="ping",
+    description="Check if BOT is alive",
+)
+async def ping(ctx):
+    await ctx.send(f"Pong! {round(BOT.latency * 1000)}ms")
+
 BOT.run(TOKEN)

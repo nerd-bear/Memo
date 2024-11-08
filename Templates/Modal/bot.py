@@ -4,21 +4,14 @@ from disnake import TextInputStyle
 
 TOKEN = "your_token"
 
-WALLE2 = commands.Bot(command_prefix='!', intents=disnake.Intents.all())
+BOT = commands.Bot(command_prefix='!', intents=disnake.Intents.all())
 
-@WALLE2.event
+@BOT.event
 async def on_ready():
-    print(f"Logged in as {WALLE2.user.name}")
+    print(f"Logged in as {BOT.user.name}")
     print("Bot is ready!")
-    print(f"Connected to {len(WALLE2.guilds)} servers")
-    await WALLE2.change_presence(activity=disnake.Game(name="with your friends"))
-
-@WALLE2.slash_command(
-    name="ping",
-    description="Check if WALLE2 is alive",
-)
-async def ping(ctx):
-    await ctx.send(f"Pong! {round(WALLE2.latency * 1000)}ms")
+    print(f"Connected to {len(BOT.guilds)} servers")
+    await BOT.change_presence(activity=disnake.Game(name="with your friends"))
 
 
 class TextModal(disnake.ui.Modal):
@@ -49,13 +42,13 @@ class TextModal(disnake.ui.Modal):
         await interaction.response.send_message(embed=embed)
 
 
-@WALLE2.slash_command(
+@BOT.slash_command(
     name="modal",
-    description="Check if WALLE2 is alive",
+    description="Basic Test Modal",
 )
 async def ping(inter: disnake.AppCmdInter):
     await inter.response.send_modal(modal=TextModal())
     return
 
 
-WALLE2.run(TOKEN)
+BOT.run(TOKEN)

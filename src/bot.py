@@ -106,6 +106,10 @@ log_info("Loaded tts detector factory seed", startup=True)
 
 bot_active = True
 log_info("Initialized bot to be active", startup=True)
+
+LAUNCH_TIME = datetime.datetime.utcnow()
+log_info("Initialized Launch time", startup=True)
+
 log_info("Completed loading default values into Memory", startup=True)
 
 
@@ -114,6 +118,7 @@ async def get_info_text() -> str:
     {BOT_NAME} v{BOT_VERSION}
     Logged in as {Memo.user.name} (ID: {Memo.user.id})
     Connected to {len(Memo.guilds)} guilds
+    Users {get_bot_user_count(Memo)}
     Bot is ready to use. Ping: {fetch_latency(Memo)}ms
     Prefix: {prefix}
     Initialization complete.
@@ -149,13 +154,22 @@ async def auto_restart():
 async def auto_latency_check():
     last_ping = 0
     while True:
-        latency = fetch_latency(Memo)
+        latency = fetch_latency(Memo) 
+
+        text_style = "green"
+        if latency > 300:
+            text_style = "yellow"
+        if latency > 600:
+            text_style = "orange"
+        if latency > 1000:
+            text_style = "red"
+        
         
         text = Text()
         text.append(f"[{datetime.datetime.utcnow().__format__('%H:%M:%S')}]", style="bold cyan")
         text.append(" [INFO]", style="bold blue")
         text.append(" Latency: ", style="bold")
-        text.append(f"{latency}ms", style=f"bold {"green" if latency < 300 else "red"}")
+        text.append(f"{latency}ms", style=f"bold {text_style}")
         text.append(" Last ping: ", style="bold")
         text.append(f"{last_ping}ms", style="bold yellow")
         
@@ -170,7 +184,7 @@ def debug_command(func):
     async def wrapper(message: disnake.Message, *args: any, **kwargs: any):
         embed = disnake.Embed(
             title="Warning",
-            description=f"WARNING! This is a dev/debug command and will not be included in full release v1.0.0",
+            description=f"WARNING! This is a dev/debug command and will not be included in the full release v1.0.0",
             color=color_manager.get_color("Orange"),
         )
         embed.set_footer(
@@ -200,6 +214,7 @@ async def on_ready() -> None:
     log_info(f"Bot version: {BOT_VERSION}")
     log_info(f"Logged in as {Memo.user.name} (ID: {Memo.user.id})")
     log_info(f"Connected to {len(Memo.guilds)} guilds")
+    log_info(f"Users {get_bot_user_count(Memo)}")
     log_info(f"Prefix: {prefix}")
     log_info(f"Bot is ready to use. Ping: {fetch_latency(Memo)}ms")
 
@@ -359,6 +374,7 @@ async def on_message(message: disnake.Message) -> None:
         "pause": pause_command,
         "resume": resume_command,
         "stop": stop_command,
+        "memo": bot_info_command,
     }
 
     if command not in commands_dict:
@@ -2470,7 +2486,7 @@ async def purge_command(message: disnake.Message, prefix: str = "?") -> None:
         return
 
     try:
-        deleted_messages = await message.channel.purge(limit=number_of_messages + 1, limit=number_of_messages+1)
+        deleted_messages = await message.channel.purge(limit=number_of_messages + 1)
     except disnake.Forbidden:
         embed = disnake.Embed(
             title="Error",
@@ -2748,6 +2764,92 @@ async def stop_command(message: disnake.Message, prefix: str = "?") -> None:
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
     await message.channel.send(embed=embed, reference=message)
 
+
+async def bot_info_command(message: disnake.Message, prefix: str = "?"):
+    uptime = datetime.datetime.utcnow() - LAUNCH_TIME
+    uptime_str = format_uptime(uptime)
+
+    embed = disnake.Embed(
+        title=f"{BOT_NAME} Info",
+        color=color_manager.get_color("Blue"),
+    )
+    embed.add_field(name="Name", value=Memo.user.name)
+    embed.add_field(name="ID", value=Memo.user.id)
+    embed.add_field(name="Version", value=BOT_VERSION)
+    embed.add_field(name="Prefix", value=prefix)
+    embed.add_field(name="Uptime", value=uptime_str)
+    embed.add_field(name="Guild Count", value=len(Memo.guilds))
+    embed.add_field(name="Users", value=get_bot_user_count(Memo))
+    embed.add_field(name="Website", value="https://memo.nerd-bear.org/")
+
+    embed.set_thumbnail(url=Memo.user.avatar.url)
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+
+    await message.channel.send(embed=embed, reference=message)
+
+
+async def warn_command(message: disnake.Message, prefix: str = "?"):
+    if message.author.guild_permissions.mute_members:
+        embed = disnake.Embed(
+            title="Permission Denied",
+            description="You don't have the necessary permissions to use this command.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    if len(message.mentions) < 1 or len(message.content.split()) < 3:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"You need to mention someone to warn them and provide a reason. Usage: {prefix}warn @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    member = message.guild.get_member(message.mentions[0].id)
+    reason = " ".join(message.content.split()[2:])
+
+    if not member:
+        embed = disnake.Embed(
+            title="Error",
+            description=f"Please mention a valid member. Usage: {prefix}warn @user [reason]",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+
+    if message.author.top_role <= member.top_role:
+        embed = disnake.Embed(
+            title="Permission Denied",
+            description="You cannot warn this user as they have an equal or higher role than you.",
+            color=color_manager.get_color("Red"),
+        )
+        embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await message.channel.send(embed=embed, reference=message)
+        return
+    
+    try:
+        dm_embed = disnake.Embed(
+            title="You've Been Warned",
+            description=f"You were Warned in {message.guild.name}.\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",
+            color=color_manager.get_color("Red"),
+        )
+        dm_embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+        await member.send(embed=dm_embed)
+    except Exception as e:
+        log_info(f"Failed to DM {member.name} about their warning.\n {e}")
+
+    embed = disnake.Embed(
+        title="Warned",
+        description=f"warned {member.mention}\n**Reason:** {reason}\n**Moderator:** {message.author.mention}",
+        color=color_manager.get_color("Blue"),
+    )
+    embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
+    await message.channel.send(embed=embed, reference=message)
 
 
 @Memo.event

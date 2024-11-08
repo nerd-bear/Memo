@@ -427,3 +427,26 @@ class ColorManager:
         except ValueError as e:
             log_info(f"Failed to create color embed: {e}", error=True)
             return disnake.Embed(title=title, description=description)
+
+
+def get_bot_user_count(bot: commands.Bot):
+    """
+    Get the total number of users the bot is connected to.
+    """
+    return len(bot.users)
+
+
+def format_uptime(uptime: datetime.timedelta) -> str:
+    total_seconds = int(uptime.total_seconds())
+    hours, remainder = divmod(total_seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    
+    uptime_str = []
+    if hours > 0:
+        uptime_str.append(f"{hours} hour{'s' if hours != 1 else ''}")
+    if minutes > 0:
+        uptime_str.append(f"{minutes} minute{'s' if minutes != 1 else ''}")
+    if seconds > 0 or (hours == 0 and minutes == 0):
+        uptime_str.append(f"{seconds} second{'s' if seconds != 1 else ''}")
+    
+    return ' '.join(uptime_str)
