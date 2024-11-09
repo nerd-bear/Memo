@@ -147,7 +147,7 @@ async def restart_memo() -> None:
 async def auto_restart():
     while True:
         await asyncio.sleep(21600)
-        log_info("Auto restarting Memo...", False)
+        log_info("Auto restarting Memo...")
         await restart_memo()
 
 
@@ -2505,7 +2505,7 @@ async def purge_command(message: disnake.Message, prefix: str = "?") -> None:
         color=color_manager.get_color("Green"),
     )
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
-    await message.channel.send(embed=embed, reference=message)
+    await message.channel.send(embed=embed)
     return
 
 async def spellcheck_command(message: disnake.Message, prefix: str = "?") -> None:
@@ -2778,6 +2778,7 @@ async def bot_info_command(message: disnake.Message, prefix: str = "?"):
     embed.add_field(name="Version", value=BOT_VERSION)
     embed.add_field(name="Prefix", value=prefix)
     embed.add_field(name="Uptime", value=uptime_str)
+    embed.add_field(name="Latency", value=f"{fetch_latency(client=Memo, shouldRound=True)}ms")
     embed.add_field(name="Guild Count", value=len(Memo.guilds))
     embed.add_field(name="Users", value=get_bot_user_count(Memo))
     embed.add_field(name="Website", value="https://memo.nerd-bear.org/")

@@ -48,9 +48,20 @@ def text_to_speech(text: str, output_file: str, tts_mode: str) -> None:
         log_info(f"Text-to-speech conversion failed: {e}", error=True)
 
 
-def log_info(*values: str, startup: bool = False, error: bool = False, warning: bool = False, end: str = "\n", sep: str = " ") -> None:
+def log_info(*values: any, startup: bool = False, error: bool = False, warning: bool = False, end: str = "\n", sep: str = " ") -> None:
     """
     Log an information message with a timestamp and supports different formats such as error, warning, info and startup.
+
+    ## Parameters:
+        `*values`: Variable length argument list. The values to be logged.
+        `startup` (bool): Optional. If True, the log message will be marked as a startup message. Default is False.
+        `error` (bool): Optional. If True, the log message will be marked as an error message. Default is False.
+        `warning` (bool): Optional. If True, the log message will be marked as a warning message. Default is False.
+        `end` (str): Optional. The string to be appended at the end of the log message. Default is "\n".
+        `sep` (str): Optional. The string to be used as a separator between the values. Default is " ".
+
+    ## Returns:
+        None
     """
 
     console = Console()
@@ -68,12 +79,18 @@ def log_info(*values: str, startup: bool = False, error: bool = False, warning: 
         text_type = "WARNING"
         text_style = "bold yellow"
 
+    def convert_to_string(value: any):
+        return str(value)
+
+    printable_str = sep.join(map(convert_to_string, values))
+
     text = Text()
     text.append(f"[{datetime.datetime.utcnow().__format__('%H:%M:%S')}]", style="bold cyan")
     text.append(f" [{text_type}]", style=text_style)
-    text.append(f" {sep.join(values)}", style="#ffeab0")
+    text.append(f" {printable_str}", style="#ffeab0")
 
     console.print(text, end=end)
+
 
 def fetch_latency(client: commands.Bot, shouldRound: bool = True) -> float:
     """
@@ -155,6 +172,10 @@ def fetch_help_dict(
 ) -> dict:
     return {
         "help": {"desc": "Show this help message", "usage": f"{bot_prefix}help"},
+        "memo": {
+            "desc": "Gets and shows a lot of information about the bot",
+            "usage": f"{bot_prefix}memo",
+        },
         "charinfo": {
             "desc": "Shows information and a image of the character provided",
             "usage": f"{bot_prefix}charinfo [character]",
@@ -166,7 +187,7 @@ def fetch_help_dict(
         "tts": {
             "desc": "Join the vc you are in and uses Text-to-Speech to say your text (Limit 450 words)",
             "usage": f"{bot_prefix}tts [input_text]",
-        },
+        },  
         "chat": {
             "desc": "Lets you send a message to the chat bot and it will send back a response",
             "usage": f"{bot_prefix}chat [input_text]",
@@ -186,6 +207,22 @@ def fetch_help_dict(
         "play": {
             "desc": "Plays a song in the voice channel you are in",
             "usage": f"{bot_prefix}play [youtube_url]",
+        },
+        "pause": {
+            "desc": "pauses a song in the voice channel you are in",
+            "usage": f"{bot_prefix}pause",
+        },
+        "resume": {
+            "desc": "resumes a song in the voice channel you are in",
+            "usage": f"{bot_prefix}resume",
+        },
+        "stop": {
+            "desc": "stops a song in the voice channel you are in",
+            "usage": f"{bot_prefix}stop",
+        },
+        "volume": {
+            "desc": "volumes a song in the voice channel you are in",
+            "usage": f"{bot_prefix}volume [0-100]",
         },
         "profile": {
             "desc": "Gets information about the user",
@@ -239,7 +276,6 @@ def fetch_help_dict(
             "desc": "Removes the specified number of messages from the channel (Mod only)",
             "usage": f"{bot_prefix}purge [number_of_messages]",
         },
-        
         "timeout": {
             "desc": "Timeout a user for a specified duration (Mod only)",
             "usage": f"{bot_prefix}timeout @user <duration> <unit> [reason]",
@@ -257,7 +293,7 @@ def fetch_help_dict(
             "usage": f"{bot_prefix}deafen @user [reason]",
         },
         "undeafen": {
-            "desc": "Server undeafens a member (Mod only)",
+                "desc": "Server undeafens a member (Mod only)",
             "usage": f"{bot_prefix}undeafen @user [reason]",
         },
         "kick": {
