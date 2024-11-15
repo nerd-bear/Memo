@@ -1,12 +1,13 @@
 class TCM_FILE_NOT_LOADED(Exception):
     def __init__(self):
-        error_message = "\nThe value you are getting is not available as the TCM_FILE object does not contain a loaded cache file. To load a cache file, please run load_tcm(\"./your_file_name.tcm\", your_file_object)\n"
+        error_message = '\nThe value you are getting is not available as the TCM_FILE object does not contain a loaded cache file. To load a cache file, please run load_tcm("./your_file_name.tcm", your_file_object)\n'
 
         super().__init__(error_message)
         self.message = error_message
-            
+
     def __str__(self) -> str:
         return self.message
+
 
 class TCM_FILE:
     def __init__(self, decoding: str = "utf-8"):
@@ -44,13 +45,19 @@ class TCM_FILE:
 
     def __str__(self) -> str:
         return str(self.content)
-    
+
     def __getattribute__(self, name):
-        if super().__getattribute__("loaded") == False and name in ["chars", "cache_state", "raw", "content"]:
+        if super().__getattribute__("loaded") == False and name in [
+            "chars",
+            "cache_state",
+            "raw",
+            "content",
+        ]:
             raise TCM_FILE_NOT_LOADED
-        
+
         return super().__getattribute__(name)
-  
+
+
 def load_tcm(_path: str, _tcm_file: TCM_FILE) -> bool:
     """
     Load a TCM file and populate the TCM_FILE object with its contents.
@@ -108,7 +115,7 @@ def write_tcn(_path: str, _tcm_file: TCM_FILE):
 
 file = TCM_FILE()
 load_tcm("./test/test.tcm", file)
-    
+
 print(f"Decoding format: {file.decoding}")
 print(f"Decoded file body/content: {file.chars}")
 print(f"Cache state: {file.cache_state}")
