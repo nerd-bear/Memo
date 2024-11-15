@@ -4,7 +4,8 @@ from disnake import TextInputStyle
 
 TOKEN = "your_token"
 
-BOT = commands.Bot(command_prefix='!', intents=disnake.Intents.all())
+BOT = commands.Bot(command_prefix="!", intents=disnake.Intents.all())
+
 
 @BOT.event
 async def on_ready():

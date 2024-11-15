@@ -12,7 +12,7 @@ class SHA3:
         Generate a salted hash of the input string using PBKDF2 HMAC-SHA256.
         """
         if salt is None:
-            salt = SHA3.generate_salt(size=32, hex=True)
+            salt = SHA3.generate_salt(size=32, isHex=True)
         encoded_str = str(input_str).encode("utf-8")
         hashed = hashlib.pbkdf2_hmac("sha256", encoded_str, salt, 100000)
         return salt, hashed
@@ -50,7 +50,7 @@ class SHA3:
         return hashlib.sha3_224(encoded_str).hexdigest()
 
     @staticmethod
-    def generate_salt(size: int = 32, hex: bool = True) -> Union[str, bytes]:
+    def generate_salt(size: int = 32, isHex: bool = True) -> Union[str, bytes]:
         """
         Generate a random salt of the specified size.
         """

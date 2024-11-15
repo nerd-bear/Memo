@@ -12,14 +12,14 @@ def load_config(config_path: str = "config.json") -> Dict[str, Any]:
             return json.load(f)
     except FileNotFoundError:
         log_info(
-            f"Config file not found at {config_path}. Using default configuration.", 
-            warning=True
+            f"Config file not found at {config_path}. Using default configuration.",
+            warning=True,
         )
         return {"default_prefix": "?", "guilds": {}}
     except json.JSONDecodeError:
         log_info(
             f"Invalid JSON in config file {config_path}. Using default configuration.",
-            error=True
+            error=True,
         )
         return {"default_prefix": "?", "guilds": {}}
 

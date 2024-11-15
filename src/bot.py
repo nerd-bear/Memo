@@ -48,7 +48,7 @@ log_info("Loaded footer text", startup=True)
 FOOTER_ICON = config["defaults"].get("footer_icon")
 log_info("Loaded footer icon", startup=True)
 
-prefix = config["defaults"].get("prefix", "?")
+DEFAULT_PREFIX = config["defaults"].get("prefix", "?")
 log_info("Loaded bot prefix", startup=True)
 BOT_NAME = config.get("bot_name", "Memo Bot")
 log_info("Loaded bot name", startup=True)
@@ -77,8 +77,8 @@ crp_activity = Activity(
 
 log_info("Initialized custom crp activity", startup=True)
 
-Memo = commands.Bot(command_prefix="?", 
-                    intents=intents, 
+Memo = commands.Bot(command_prefix="?",
+                    intents=intents,
                     activity=crp_activity
                     )
 
@@ -120,7 +120,7 @@ async def get_info_text() -> str:
     Connected to {len(Memo.guilds)} guilds
     Users {get_bot_user_count(Memo)}
     Bot is ready to use. Ping: {fetch_latency(Memo)}ms
-    Prefix: {prefix}
+    Prefix: {DEFAULT_PREFIX}
     Initialization complete.
     """
 
@@ -154,7 +154,7 @@ async def auto_restart():
 async def auto_latency_check():
     last_ping = 0
     while True:
-        latency = fetch_latency(Memo) 
+        latency = fetch_latency(Memo)
 
         text_style = "green"
         if latency > 300:
@@ -163,8 +163,8 @@ async def auto_latency_check():
             text_style = "orange"
         if latency > 1000:
             text_style = "red"
-        
-        
+
+
         text = Text()
         text.append(f"[{datetime.datetime.utcnow().__format__('%H:%M:%S')}]", style="bold cyan")
         text.append(" [INFO]", style="bold blue")
@@ -172,9 +172,9 @@ async def auto_latency_check():
         text.append(f"{latency}ms", style=f"bold {text_style}")
         text.append(" Last ping: ", style="bold")
         text.append(f"{last_ping}ms", style="bold yellow")
-        
+
         console.print(text)
-        
+
         last_ping = latency
         await asyncio.sleep(20)
 
@@ -184,13 +184,13 @@ def debug_command(func):
     async def wrapper(message: disnake.Message, *args: any, **kwargs: any):
         embed = disnake.Embed(
             title="Warning",
-            description=f"WARNING! This is a dev/debug command and will not be included in the full release v1.0.0",
+            description="WARNING! This is a dev/debug command and will not be included in the full release v1.0.0",
             color=color_manager.get_color("Orange"),
         )
         embed.set_footer(
             text=FOOTER_TEXT,
             icon_url=FOOTER_ICON,
-        )   
+        )
         await message.channel.send(embed=embed)
         return await func(message, *args, **kwargs)
 
@@ -215,7 +215,7 @@ async def on_ready() -> None:
     log_info(f"Logged in as {Memo.user.name} (ID: {Memo.user.id})")
     log_info(f"Connected to {len(Memo.guilds)} guilds")
     log_info(f"Users {get_bot_user_count(Memo)}")
-    log_info(f"Prefix: {prefix}")
+    log_info(f"Prefix: {DEFAULT_PREFIX}")
     log_info(f"Bot is ready to use. Ping: {fetch_latency(Memo)}ms")
 
 
@@ -375,6 +375,7 @@ async def on_message(message: disnake.Message) -> None:
         "resume": resume_command,
         "stop": stop_command,
         "memo": bot_info_command,
+        "warn": warn_command,
     }
 
     if command not in commands_dict:
@@ -838,7 +839,7 @@ async def unban_command(message: disnake.Message, prefix: str = "?") -> None:
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
         await message.channel.send(embed=embed, reference=message)
 
-    except disnake.errors.Forbidden as e:
+    except disnake.errors.Forbidden:
         embed = disnake.Embed(
             title="Permission Error",
             description="I don't have permission to unban members.",
@@ -974,7 +975,7 @@ async def timeout_command(message: disnake.Message, prefix: str = "?") -> None:
             )
             await member.send(embed=dm_embed)
         except:
-            pass 
+            pass
 
     except disnake.errors.Forbidden:
         embed = disnake.Embed(
@@ -1007,7 +1008,7 @@ async def join_vc_command(message: disnake.Message, prefix: str = "?") -> None:
         voice_client = await channel.connect()
         guild_id = message.guild.id
         voice_clients[guild_id] = {'client': voice_client, 'volume': 100}
-    except Exception as e:
+    except Exception:
         log_info("Error connecting to voice channel", error=True)
 
 
@@ -1018,7 +1019,7 @@ async def leave_vc_command(message: disnake.Message, prefix: str = "?") -> None:
         if voice_client:
             await voice_client['client'].disconnect()
             del voice_clients[guild_id]
-    except Exception as e:
+    except Exception:
         pass
 
 
@@ -1055,7 +1056,7 @@ async def tts_command(message: disnake.Message, prefix: str = "?") -> None:
 
     try:
         text_to_speech(text, output_file, TTS_MODE)
-    except Exception as e:
+    except Exception:
         embed = disnake.Embed(
             title="Error occurred",
             description=f"A issue occurred during the generation of the Text-to-Speech mp3 file! Usage: {prefix}tts [message]",
@@ -1205,10 +1206,10 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
             try:
                 audio_source = disnake.FFmpegPCMAudio(url, **ffmpeg_options)
                 transformed_source = disnake.PCMVolumeTransformer(audio_source)
-                
+
                 guild_data = voice_clients.get(message.guild.id, {'volume': 100})
                 transformed_source.volume = guild_data['volume'] / 100
-                
+
                 voice_client.play(transformed_source, after=after_playing)
 
                 play_embed = disnake.Embed(
@@ -1226,7 +1227,7 @@ async def play_command(message: disnake.Message, prefix: str = "?") -> None:
                         value=f"{int(duration/60)}:{int(duration%60):02d}",
                         inline=True,
                     )
-                
+
                 play_embed.add_field(
                     name="Volume",
                     value=f"{guild_data['volume']}%",
@@ -1271,7 +1272,7 @@ async def profile_command(message: disnake.Message, prefix: str = "?") -> None:
     try:
         user = message.mentions[0]
 
-    except Exception as e:
+    except Exception:
         embed = disnake.Embed(
             title="Invalid Usage",
             description=f"Usage: {prefix}profile @user",
@@ -1476,6 +1477,20 @@ async def nick_command(message: disnake.Message, prefix: str = "?") -> None:
 
     try:
         await user.edit(nick=" ".join(args[2:]))
+
+        if " ".join(args[2:]).strip() == "":
+            embed = disnake.Embed(
+                title="Successfully reset nickname!",
+                description=f"Successfully reset nickname of <@{user.id}> back to {user.display_name}",
+                color=color_manager.get_color("Blue"),
+            )
+            embed.set_footer(
+                text=FOOTER_TEXT,
+                icon_url=FOOTER_ICON,
+            )
+            await message.channel.send(embed=embed, reference=message)
+            return
+
         embed = disnake.Embed(
             title="Successfully updated nickname!",
             description=f"Successfully updated nickname of <@{user.id}> to {" ".join(args[2:])}",
@@ -1538,7 +1553,7 @@ async def feedback_command(message: disnake.Message, prefix: str = "?") -> None:
 async def restart_command(message: disnake.Message, prefix: str = "?") -> None:
     embed = disnake.Embed(
         title="Restarting",
-        description=f"The restart will take approximately 10 to 30 seconds on average.",
+        description="The restart will take approximately 10 to 30 seconds on average.",
         color=color_manager.get_color("Blue"),
     )
     embed.set_footer(
@@ -2230,7 +2245,7 @@ async def set_prefix_command(message: disnake.Message, prefix: str = "?") -> Non
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
         await message.channel.send(embed=embed, reference=message)
         return
-    
+
     if new_prefix == prefix:
         embed = disnake.Embed(
             title="Warning",
@@ -2250,12 +2265,12 @@ async def setup_command(message: disnake.Message, prefix: str = "?") -> None:
     )
     embed.add_field(
         name="Set command prefix",
-        value=f"The default prefix for commands is `?`. To change this, use the `setprefix` command. This command must be used in the server where you want to change the prefix.",
+        value="The default prefix for commands is `?`. To change this, use the `setprefix` command. This command must be used in the server where you want to change the prefix.",
         inline=False,
     )
     embed.add_field(
         name="Advanced Options",
-        value=f"To start setting up advanced options go to https://memo.nerd-bear.org/dashboard",
+        value="To start setting up advanced options go to https://memo.nerd-bear.org/dashboard",
         inline=False,
     )
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -2294,7 +2309,7 @@ async def afk_command(message: disnake.Message, prefix: str = "?") -> None:
 
         embed = disnake.Embed(
             title="AFK Status Removed",
-            description=f"Welcome back! You are no longer AFK.",
+            description="Welcome back! You are no longer AFK.",
             color=color_manager.get_color("Blue"),
         )
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
@@ -2439,9 +2454,6 @@ async def man_command(message: disnake.Message, prefix: str = "?") -> None:
     await message.channel.send(embed=embed, reference=message)
 
 
-import disnake
-from disnake.ext import commands
-
 async def purge_command(message: disnake.Message, prefix: str = "?") -> None:
     if not message.author.guild_permissions.manage_messages:
         embed = disnake.Embed(
@@ -2496,7 +2508,7 @@ async def purge_command(message: disnake.Message, prefix: str = "?") -> None:
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
         await message.channel.send(embed=embed, reference=message)
         return
-    except disnake.HTTPException as e:
+    except disnake.HTTPException:
         pass
 
     embed = disnake.Embed(
@@ -2518,7 +2530,7 @@ async def spellcheck_command(message: disnake.Message, prefix: str = "?") -> Non
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
         await message.channel.send(embed=embed, reference=message)
         return
-    
+
     sentence = " ".join(message.content.split()[1:])
 
     if len(sentence) > 500:
@@ -2606,7 +2618,7 @@ async def volume_command(message: disnake.Message, prefix: str = "?") -> None:
 
     if isinstance(voice_client.source, disnake.PCMVolumeTransformer):
         voice_client.source.volume = volume / 100
-        
+
         if guild_id in voice_clients:
             voice_clients[guild_id]['volume'] = volume
         else:
@@ -2623,7 +2635,7 @@ async def volume_command(message: disnake.Message, prefix: str = "?") -> None:
             description="Cannot adjust volume for the current audio source.",
             color=color_manager.get_color("Red"),
         )
-    
+
     embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
     await message.channel.send(embed=embed, reference=message)
 
@@ -2832,7 +2844,7 @@ async def warn_command(message: disnake.Message, prefix: str = "?"):
         embed.set_footer(text=FOOTER_TEXT, icon_url=FOOTER_ICON)
         await message.channel.send(embed=embed, reference=message)
         return
-    
+
     try:
         dm_embed = disnake.Embed(
             title="You've Been Warned",
@@ -2853,7 +2865,7 @@ async def warn_command(message: disnake.Message, prefix: str = "?"):
     await message.channel.send(embed=embed, reference=message)
 
 
-@Memo.event
+# @Memo.event
 async def on_message_delete(message: disnake.Message):
     if message.author == Memo.user:
         return
@@ -2883,7 +2895,7 @@ async def on_message_delete(message: disnake.Message):
     await channel.send(embed=embed)
 
 
-@Memo.event
+# @Memo.event
 async def on_message_edit(before: disnake.Message, after: disnake.Message):
     if before.author == Memo.user:
         return
@@ -2917,7 +2929,7 @@ async def on_message_edit(before: disnake.Message, after: disnake.Message):
 )
 async def slash_help(interaction: disnake.ApplicationCommandInteraction):
     embed = fetch_help_embed(
-        color_manager, BOT_NAME, BOT_VERSION, prefix, FOOTER_TEXT, FOOTER_ICON
+        color_manager, BOT_NAME, BOT_VERSION, DEFAULT_PREFIX, FOOTER_TEXT, FOOTER_ICON
     )
     await interaction.response.send_message(embed=embed, ephemeral=True)
 
@@ -2927,7 +2939,7 @@ async def slash_help(interaction: disnake.ApplicationCommandInteraction):
 )
 async def slash_info(interaction: disnake.ApplicationCommandInteraction):
     embed = fetch_info_embed(
-        color_manager, BOT_NAME, BOT_VERSION, prefix, FOOTER_TEXT, FOOTER_ICON
+        color_manager, BOT_NAME, BOT_VERSION, DEFAULT_PREFIX, FOOTER_TEXT, FOOTER_ICON
     )
     await interaction.response.send_message(embed=embed, ephemeral=True)
 
@@ -2964,6 +2976,38 @@ async def playground_info(inter: disnake.ApplicationCommandInteraction):
             ),
         ],
     )
+
+
+@Memo.slash_command(
+    name="embed",
+    description="Send a fully custom embed in any channel"
+)
+async def custom_embed_slash_command(inter: disnake.ApplicationCommandInteraction, channel: disnake.abc.GuildChannel, title: str, description: str, thumbnail: str, author: str, footer: str):
+    embed = disnake.Embed(
+        title=title,
+        description=description,
+        color=color_manager.get_color("Blue")
+    )
+    embed.set_footer(FOOTER_TEXT, FOOTER_ICON)
+    embed.set_author(name=author)
+    embed.set_thumbnail(url=thumbnail)
+
+    if channel.permissions_for(inter.member.guild.me).send_messages:
+        embed = disnake.Embed(
+            title="Error",
+            description="You don't have permission to send messages in this channel.",
+            color=color_manager.get_color("Red")
+        )
+        await inter.response.send_message(embed=embed, ephemeral=True, )
+
+    try:
+        await channel.send(embed=embed)
+
+    except Exception:
+        await inter.response.send_message("Failed to send embed. Please check your permissions.", ephemeral=True, delete_after=5.0)
+        return
+
+    await inter.response.send_message("Embed sent successfully!", ephemeral=True, delete_after=5.0)
 
 
 @Memo.listen("on_button_click")

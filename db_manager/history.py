@@ -3,12 +3,13 @@ import datetime
 import json
 from typing import List, Union
 
+
 def sanitize_input(value: Union[int, str, List[str]]) -> Union[str, List[str]]:
     """Sanitizes input values before database insertion
-    
+
     Args:
         value: The value to sanitize
-        
+
     Returns:
         Sanitized value
     """
@@ -19,7 +20,10 @@ def sanitize_input(value: Union[int, str, List[str]]) -> Union[str, List[str]]:
     else:
         raise ValueError(f"Invalid input type: {type(value)}")
 
-def add_history(user_id: str, guild_id: str, command: str, arguments: List[str] = None) -> bool:
+
+def add_history(
+    user_id: str, guild_id: str, command: str, arguments: List[str] = None
+) -> bool:
     """Uses SQLite to add user command to history of commands ran with enhanced security
 
     Args:
@@ -41,10 +45,10 @@ def add_history(user_id: str, guild_id: str, command: str, arguments: List[str] 
         # Input validation
         if not isinstance(user_id, str) or not isinstance(guild_id, str):
             raise ValueError("User ID and Guild ID must be strings")
-        
+
         if not isinstance(command, str) or not command.strip():
             raise ValueError("Command must be a non-empty string")
-        
+
         if not isinstance(arguments, list):
             raise ValueError("Arguments must be a list")
 
@@ -67,20 +71,23 @@ def add_history(user_id: str, guild_id: str, command: str, arguments: List[str] 
         # Database connection with context manager
         with sqlite3.connect("./memo.db", timeout=20.0) as db_connection:
             query = """
-                INSERT INTO history 
-                    (user_id, guild_id, command, arguments, datetime) 
-                VALUES 
+                INSERT INTO history
+                    (user_id, guild_id, command, arguments, datetime)
+                VALUES
                     (?, ?, ?, ?, ?)
             """
-            
-            db_connection.execute(query, (
-                clean_user_id,
-                clean_guild_id,
-                clean_command,
-                args_json,
-                datetime_value
-            ))
-            
+
+            db_connection.execute(
+                query,
+                (
+                    clean_user_id,
+                    clean_guild_id,
+                    clean_command,
+                    args_json,
+                    datetime_value,
+                ),
+            )
+
             db_connection.commit()
             return True
 

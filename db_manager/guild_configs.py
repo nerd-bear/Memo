@@ -1,19 +1,20 @@
 import sqlite3
 import json
 
+
 def add_guild_config(guild_id: str, command_prefix: str) -> bool:
     try:
         if not isinstance(guild_id, str):
             raise ValueError("ID must be string")
-        
+
         if not isinstance(command_prefix, str):
             raise ValueError("Command_prefix must be a non-empty string")
-        
+
         with sqlite3.connect("./memo.db", timeout=20.0) as db_connection:
             # First check if guild already exists to avoid duplicates
             check_query = """
-                SELECT 1 
-                FROM guild_configs 
+                SELECT 1
+                FROM guild_configs
                 WHERE guild_id = ?
             """
             cursor = db_connection.execute(check_query, (guild_id,))
@@ -23,17 +24,20 @@ def add_guild_config(guild_id: str, command_prefix: str) -> bool:
 
             # If guild doesn't exist, proceed with insert
             query = """
-                INSERT INTO guild_configs 
-                    (guild_id, command_prefix) 
-                VALUES 
+                INSERT INTO guild_configs
+                    (guild_id, command_prefix)
+                VALUES
                     (?, ?)
             """
-            
-            db_connection.execute(query, (
-                guild_id,
-                command_prefix,
-            ))
-            
+
+            db_connection.execute(
+                query,
+                (
+                    guild_id,
+                    command_prefix,
+                ),
+            )
+
             db_connection.commit()
             return True
 
@@ -49,79 +53,81 @@ def add_guild_config(guild_id: str, command_prefix: str) -> bool:
     except Exception as e:
         print(f"ERROR_LOG: Unexpected error: {str(e)}")
         return False
-    
+
 
 def get_guild_config(guild_id: str) -> dict:
     try:
         if not isinstance(guild_id, str):
             raise ValueError("ID must be string")
-        
+
         with sqlite3.connect("./memo.db", timeout=20.0) as db_connection:
             query = """
-                SELECT 
-                    command_prefix 
-                FROM 
-                    guild_configs 
-                WHERE 
+                SELECT
+                    command_prefix
+                FROM
+                    guild_configs
+                WHERE
                     guild_id = ?
             """
-            
-            cursor = db_connection.execute(query, (
-                guild_id,
-            ))
-            
+
+            cursor = db_connection.execute(query, (guild_id,))
+
             result = cursor.fetchone()
-            
+
             if result is None:
                 return None
-            
+
             return {
                 "command_prefix": result[0],
             }
-    
+
     except Exception as e:
         print(f"ERROR_LOG: Unexpected error: {str(e)}")
         return None
-    
+
+
 def set_guild_config(guild_id: str, command_prefix: str) -> bool:
     try:
         if not isinstance(guild_id, str):
             raise ValueError("ID must be string")
-        
+
         if not isinstance(command_prefix, str):
             raise ValueError("Command_prefix must be a non-empty string")
-        
+
         with sqlite3.connect("./memo.db", timeout=20.0) as db_connection:
             # First check if the guild_id exists
             check_query = """
-                SELECT 1 
-                FROM guild_configs 
+                SELECT 1
+                FROM guild_configs
                 WHERE guild_id = ?
             """
-            
+
             cursor = db_connection.execute(check_query, (guild_id,))
             if cursor.fetchone() is None:
                 print(f"ERROR_LOG: Guild ID {guild_id} not found in database")
                 return False
-            
+
             # If guild exists, proceed with update
             update_query = """
-                UPDATE 
-                    guild_configs 
-                SET 
-                    command_prefix = ? 
-                WHERE 
+                UPDATE
+                    guild_configs
+                SET
+                    command_prefix = ?
+                WHERE
                     guild_id = ?
             """
-            
-            db_connection.execute(update_query, (
-                command_prefix,
-                guild_id,
-            ))
-            
+
+            db_connection.execute(
+                update_query,
+                (
+                    command_prefix,
+                    guild_id,
+                ),
+            )
+
             db_connection.commit()
             return True
-            
+
     except Exception as e:
         print(f"ERROR_LOG: Unexpected error: {str(e)}")
         return False

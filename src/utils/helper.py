@@ -14,6 +14,11 @@ from langdetect.lang_detect_exception import LangDetectException
 from PIL import Image, ImageDraw, ImageFont
 from collections import Counter
 from gtts import gTTS
+import subprocess
+import random
+import string
+import os
+import time
 
 
 def set_langdetect_seed(seed: int = 0) -> None:
@@ -27,7 +32,6 @@ def text_to_speech(text: str, output_file: str, tts_mode: str) -> None:
     """
     Convert text to speech and save it to a file.
     """
-
 
     text = text.lower()
     text = text.replace("ill", "I'll ")
@@ -48,7 +52,14 @@ def text_to_speech(text: str, output_file: str, tts_mode: str) -> None:
         log_info(f"Text-to-speech conversion failed: {e}", error=True)
 
 
-def log_info(*values: any, startup: bool = False, error: bool = False, warning: bool = False, end: str = "\n", sep: str = " ") -> None:
+def log_info(
+    *values: any,
+    startup: bool = False,
+    error: bool = False,
+    warning: bool = False,
+    end: str = "\n",
+    sep: str = " ",
+) -> None:
     """
     Log an information message with a timestamp and supports different formats such as error, warning, info and startup.
 
@@ -85,7 +96,9 @@ def log_info(*values: any, startup: bool = False, error: bool = False, warning: 
     printable_str = sep.join(map(convert_to_string, values))
 
     text = Text()
-    text.append(f"[{datetime.datetime.utcnow().__format__('%H:%M:%S')}]", style="bold cyan")
+    text.append(
+        f"[{datetime.datetime.utcnow().__format__('%H:%M:%S')}]", style="bold cyan"
+    )
     text.append(f" [{text_type}]", style=text_style)
     text.append(f" {printable_str}", style="#ffeab0")
 
@@ -97,7 +110,14 @@ def fetch_latency(client: commands.Bot, shouldRound: bool = True) -> float:
     Fetch the latency of the Discord client.
     """
     latency = client.latency * 1000
-    return round(latency) if shouldRound else latency
+
+    if not latency or latency == float("inf"):
+        return float("inf")
+
+    if shouldRound:
+        return round(latency)
+    else:
+        return latency
 
 
 async def send_error_embed(
@@ -187,7 +207,7 @@ def fetch_help_dict(
         "tts": {
             "desc": "Join the vc you are in and uses Text-to-Speech to say your text (Limit 450 words)",
             "usage": f"{bot_prefix}tts [input_text]",
-        },  
+        },
         "chat": {
             "desc": "Lets you send a message to the chat bot and it will send back a response",
             "usage": f"{bot_prefix}chat [input_text]",
@@ -293,7 +313,7 @@ def fetch_help_dict(
             "usage": f"{bot_prefix}deafen @user [reason]",
         },
         "undeafen": {
-                "desc": "Server undeafens a member (Mod only)",
+            "desc": "Server undeafens a member (Mod only)",
             "usage": f"{bot_prefix}undeafen @user [reason]",
         },
         "kick": {
@@ -306,7 +326,7 @@ def fetch_help_dict(
         },
         "unban": {
             "desc": "Unbans a user from the server (Admin only)",
-            "usage": f"{bot_prefix}unban [user_id]",
+            "usage": f"{bot_prefix}unban [user_id] [reason]",
         },
     }
 
@@ -318,7 +338,6 @@ def fetch_help_embed(
     bot_prefix: str,
     footer_text: str,
     footer_icon: str,
-
 ) -> disnake.Embed:
     """
     Create and return a help embed for the bot.
@@ -330,11 +349,16 @@ def fetch_help_embed(
     )
     help_embed.set_footer(text=footer_text, icon_url=footer_icon)
 
-    commands = fetch_help_dict(color_manager, bot_name, bot_version, bot_prefix, footer_text, footer_icon)
-    
+    commands = fetch_help_dict(
+        color_manager, bot_name, bot_version, bot_prefix, footer_text, footer_icon
+    )
+
     for cmd, info in commands.items():
-        help_embed.description = help_embed.description + f"\n **{bot_prefix}{cmd}** \n{info['desc']}\nUsage: `{info['usage']}`\n"
-    
+        help_embed.description = (
+            help_embed.description
+            + f"\n **{bot_prefix}{cmd}** \n{info['desc']}\nUsage: `{info['usage']}`\n"
+        )
+
     return help_embed
 
 
@@ -352,7 +376,7 @@ def fetch_info_embed(
     info_embed = disnake.Embed(
         color=color_manager.get_color("Blue"),
         title=f"{bot_name} v{bot_version} Info",
-        description=f"Here is some general information about the bot, please keep in mind that the bot is in development.",
+        description="Here is some general information about the bot, please keep in mind that the bot is in development.",
     )
 
     info_embed.add_field(name="Command Information", value=f"Prefix: `{bot_prefix}`")
@@ -476,7 +500,7 @@ def format_uptime(uptime: datetime.timedelta) -> str:
     total_seconds = int(uptime.total_seconds())
     hours, remainder = divmod(total_seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
-    
+
     uptime_str = []
     if hours > 0:
         uptime_str.append(f"{hours} hour{'s' if hours != 1 else ''}")
@@ -484,5 +508,31 @@ def format_uptime(uptime: datetime.timedelta) -> str:
         uptime_str.append(f"{minutes} minute{'s' if minutes != 1 else ''}")
     if seconds > 0 or (hours == 0 and minutes == 0):
         uptime_str.append(f"{seconds} second{'s' if seconds != 1 else ''}")
-    
-    return ' '.join(uptime_str)
+
+    return " ".join(uptime_str)
+
+
+def run_python_code(code: str, dir: str) -> tuple[str, str]:
+    """
+    Execute the provided Python code in a temporary file and return the standard output and error.
+
+    ## Parameters:
+    code (str): The Python code to be executed.
+
+    dir (str): The directory where the temporary file will be created.
+
+    ## Returns:
+    tuple[str, str]: A tuple containing the standard output and error of the executed Python code.
+    """
+    file_name = f"{dir}{''.join(random.choices(string.digits, k=12))}.tsm"
+
+    with open(file_name, "w") as temp_file:
+        temp_file.write(code)
+
+    result = subprocess.run(
+        ["python", file_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+    )
+
+    os.remove(file_name)
+
+    return (result.stdout, result.stderr)

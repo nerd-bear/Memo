@@ -78,22 +78,3 @@ class ChatBot:
         """
         response = self.get_response(user_input)
         return response
-
-# Example usage
-if __name__ == "__main__":
-    bot = ChatBot(system_prompt="You are a helpful assistant.")
-
-    # Initial question
-    initial_question = "Explain the importance of fast language models"
-    response = bot.send_msg(initial_question)
-    print(response)
-
-    # Follow-up question
-    followup_question = "How does the speed of a language model affect its usability?"
-    response = bot.send_msg(followup_question)
-    print(response)
-
-    # Another follow-up question
-    another_followup_question = "What was the first question I asked you?"
-    response = bot.send_msg(another_followup_question)
-    print(response)

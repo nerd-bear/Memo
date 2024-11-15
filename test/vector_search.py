@@ -1,28 +1,30 @@
 import math
 from rich import print
 
+
 def euclidean_distance(vec1: list, vec2: list) -> float:
     if len(vec1) != len(vec2):
         raise ValueError("Vectors must have the same dimension")
-    
+
     sum_squares = sum((x - y) ** 2 for x, y in zip(vec1, vec2))
     return math.sqrt(sum_squares)
 
+
 def nearest_neighbor_search(query_vector: list, dataset: list[list]) -> tuple:
     if not dataset:
-        raise ValueError("Dataset cannot be empty")    
+        raise ValueError("Dataset cannot be empty")
     best_match = None
-    best_distance = float('inf')
-    
+    best_distance = float("inf")
+
     for vector in dataset:
         if len(vector) != len(query_vector):
             raise ValueError("All vectors must have the same dimension")
-        
+
         distance = euclidean_distance(query_vector, vector)
         if distance < best_distance:
             best_distance = distance
             best_match = vector
-    
+
     return best_match, best_distance
 
 

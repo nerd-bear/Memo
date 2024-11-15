@@ -2,7 +2,7 @@
 
 <div align="center">
   <img src="assets/logo/png/padded_bear.png" alt="Memo Bot Logo" width="200">
-  
+
   [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
   [![Version](https://img.shields.io/badge/version-0.4.7-brightgreen.svg)](https://github.com/your-username/Memo-bot/releases)
   [![Python](https://img.shields.io/badge/python-3.12.5+-blue.svg)](https://www.python.org/downloads/)
