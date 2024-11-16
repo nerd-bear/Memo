@@ -202,8 +202,7 @@ async def on_ready() -> None:
     Memo.loop.create_task(auto_restart())
     Memo.loop.create_task(auto_latency_check())
 
-    Memo.load_extension("src.cogs.member_join")
-    Memo.load_extension("src.cogs.member_remove")
+    Memo.load_extension("src.cogs.member_events")
     Memo.load_extension("src.cogs.new_guild")
 
     log_info(f"Successfully started {BOT_NAME} {BOT_VERSION}v", startup=True)
@@ -379,9 +378,12 @@ async def on_message(message: disnake.Message) -> None:
     }
 
     if command not in commands_dict:
+        closest_cmd = max(commands_dict, key=lambda cmd: Levenshtein.ratio(command, cmd) * 100)
+
+
         embed = disnake.Embed(
             title="Invalid Command",
-            description=f"The command you are running is not valid. Please run `{guild_prefix}help` for a list of commands and their usages!",
+            description=f"The command you are running is not valid. Were you trying to run `{guild_prefix}{closest_cmd}`? Please run `{guild_prefix}help` for a list of commands and their usages!",
             color=color_manager.get_color("Red"),
         )
         embed.set_footer(
@@ -2257,11 +2259,16 @@ async def set_prefix_command(message: disnake.Message, prefix: str = "?") -> Non
         return
 
 
-async def setup_command(message: disnake.Message, prefix: str = "?") -> None:
+async def   setup_command(message: disnake.Message, prefix: str = "?") -> None:
     embed = disnake.Embed(
         title="Setup Instructions",
         description="Here are some useful commands to get you started setting up your bot!.",
         color=color_manager.get_color("Blue"),
+    )
+    embed.add_field(
+        name="Basic Commands",
+        value="`ping`, `help`, `8ball`, `setprefix`, `chat`",
+        inline=False,
     )
     embed.add_field(
         name="Set command prefix",

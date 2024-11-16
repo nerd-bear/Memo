@@ -111,12 +111,3 @@ def write_tcn(_path: str, _tcm_file: TCM_FILE):
     except:
         return False
     return True
-
-
-file = TCM_FILE()
-load_tcm("./test/test.tcm", file)
-
-print(f"Decoding format: {file.decoding}")
-print(f"Decoded file body/content: {file.chars}")
-print(f"Cache state: {file.cache_state}")
-print(f"Raw data: {file.raw}")
